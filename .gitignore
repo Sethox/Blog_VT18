@@ -85,10 +85,10 @@ ipch/
 *.VC.VC.opendb
 
 # Visual Studio profiler
-*.psess
-*.vsp
-*.vspx
-*.sap
+#*.psess
+#*.vsp
+#*.vspx
+#*.sap
 
 # TFS 2012 Local Workspace
 $tf/
