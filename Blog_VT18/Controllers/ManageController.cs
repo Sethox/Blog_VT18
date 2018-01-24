@@ -14,8 +14,7 @@ namespace Blog_VT18.Controllers {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public ManageController() {
-        }
+        public ManageController() {}
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager) {
             UserManager = userManager;
@@ -64,6 +63,33 @@ namespace Blog_VT18.Controllers {
         }
 
         //
+        // GET: /Manage/EditProfile
+        public ActionResult EditProfile() {
+            // Fix to repository model
+            using(var db = new ApplicationDbContext()) {
+                var userID = User.Identity.GetUserId();
+                var currentUser = db.Users.Where(x => x.Id == userID).FirstOrDefault();
+                return View(currentUser);
+            }
+        }
+
+        //
+        // POST: /Manage/EditProfile
+        public ActionResult EditProfile(ApplicationUser model) {
+            if(!ModelState.IsValid) { return View(model); }
+            // Fix to repository model
+            using(var db = new ApplicationDbContext()) {
+                var userID = User.Identity.GetUserId();
+                var currentUser = db.Users.Where(x => x.Id == userID).FirstOrDefault();
+                currentUser.Name = model.Name;
+                currentUser.UserName = model.UserName;
+                currentUser.Email = model.Email;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+        }
+
+        //
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -72,13 +98,9 @@ namespace Blog_VT18.Controllers {
             var result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
             if(result.Succeeded) {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if(user != null) {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
+                if(user != null) { await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false); }
                 message = ManageMessageId.RemoveLoginSuccess;
-            } else {
-                message = ManageMessageId.Error;
-            }
+            } else { message = ManageMessageId.Error; }
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
@@ -128,9 +150,7 @@ namespace Blog_VT18.Controllers {
         public async Task<ActionResult> DisableTwoFactorAuthentication() {
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if(user != null) {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
+            if(user != null) { await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false); }
             return RedirectToAction("Index", "Manage");
         }
 
