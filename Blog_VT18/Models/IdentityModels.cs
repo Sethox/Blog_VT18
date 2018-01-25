@@ -65,6 +65,5 @@ namespace Blog_VT18.Models {
         public string Content { get; set; }
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
-
     }
 }
