@@ -8,6 +8,7 @@ namespace Blog_VT18.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using System.Data.Entity;
+    using Microsoft.AspNet.Identity;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Blog_VT18.Models.ApplicationDbContext>
     {
@@ -24,16 +25,32 @@ namespace Blog_VT18.Migrations
             //  to avoid creating duplicate seed data.
 
             var storeUser = new UserStore<ApplicationUser>(context);
-            var userManagerApp = new ApplicationUserManager(storeUser);
+            var userManager = new ApplicationUserManager(storeUser);
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+
+            if(!roleManager.RoleExists("Administrator"))
+            {
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Administrator";
+                roleManager.Create(role);
+            }
 
             var user = new ApplicationUser
             {
-                Name = "FirstUser",
-                UserName = "first@user.com",
-                Email = "first@user.com"
+                Name = "Admin",
+                UserName = "admin@user.com",
+                Email = "admin@user.com"
 
             };
-            userManagerApp.CreateAsync(user, "User1!").Wait();
+
+            var adminUser = userManager.Create(user, "User1!");
+            //userManager.CreateAsync(user, "User1!").Wait();
+
+            if (adminUser.Succeeded)
+            {
+                var result1 = userManager.AddToRole(user.Id, "Administrator");
+            }
+            
 
             base.Seed(context);
         }
