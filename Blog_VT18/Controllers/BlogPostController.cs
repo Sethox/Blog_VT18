@@ -17,12 +17,12 @@ namespace Blog_VT18.Controllers
             return View();
         }
 
-        public ActionResult Create(string content, string Category)
+        public ActionResult Create(string Create)
         {
-            Categories category = db.Categories.Single(x => x.Name == Category);
+            //Categories category = db.Categories.Single(x => x.Name == Category);
+            //newPost.Category = category;
             BlogPost newPost = new BlogPost();
-            newPost.Category = category;
-            newPost.Content = content;
+            newPost.Content = Create;
                 return View(newPost);
         }
     }
