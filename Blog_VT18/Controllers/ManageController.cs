@@ -76,6 +76,33 @@ namespace Blog_VT18.Controllers
         }
 
         //
+        // GET: /Manage/EditProfile
+        public ActionResult EditProfile() {
+            // Fix to repository model
+            using(var db = new ApplicationDbContext()) {
+                var userID = User.Identity.GetUserId();
+                var currentUser = db.Users.Where(x => x.Id == userID).FirstOrDefault();
+                return View(currentUser);
+            }
+        }
+
+        //
+        // POST: /Manage/EditProfile
+        public ActionResult EditProfile(ApplicationUser model) {
+            if(!ModelState.IsValid) { return View(model); }
+            // Fix to repository model
+            using(var db = new ApplicationDbContext()) {
+                var userID = User.Identity.GetUserId();
+                var currentUser = db.Users.Where(x => x.Id == userID).FirstOrDefault();
+                currentUser.Name = model.Name;
+                currentUser.UserName = model.UserName;
+                currentUser.Email = model.Email;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+        }
+
+        //
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]

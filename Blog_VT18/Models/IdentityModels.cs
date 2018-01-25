@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -25,5 +27,44 @@ namespace Blog_VT18.Models {
         public static ApplicationDbContext Create() {
             return new ApplicationDbContext();
         }
+
+        public DbSet<BlogPost> BlogPosts { get; set; }
+        public DbSet<Meeting> Meetings { get; set; }
+        public DbSet<Invitation> Invitations { get; set; }
+        public DbSet<Categories> Categories { get; set; }
+    }
+
+    public class Categories {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public int? Category { get; set; }
+        public virtual List<BlogPost> BlogPosts { get; set; }
+    }
+
+    public class Invitation {
+        public int ID { get; set; }
+        public bool? Accepted { get; set; }
+        public DateTime Dates { get; set; }
+        public virtual ApplicationUser Booker { get; set; }
+        public virtual ApplicationUser Invited { get; set; }
+
+    }
+
+    public class Meeting {
+        public int ID { get; set; }
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
+        public string Info { get; set; }
+        public virtual ApplicationUser Booker { get; set; }
+        public virtual ApplicationUser Invited { get; set; }
+    }
+
+    public class BlogPost {
+        public int ID { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public bool Hidden { get; set; } = false;
+        public virtual Categories Category { get; set; }
+
     }
 }
