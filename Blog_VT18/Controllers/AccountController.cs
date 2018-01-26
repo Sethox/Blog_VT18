@@ -17,8 +17,7 @@ namespace Blog_VT18.Controllers {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController() {
-        }
+        public AccountController() { }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager) {
             UserManager = userManager;
@@ -130,28 +129,18 @@ namespace Blog_VT18.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model) {
             if(ModelState.IsValid) {
-
-
-                using (var db = new ApplicationDbContext()) {
-
+                using(var db = new ApplicationDbContext()) {
                     var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
                     var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
-
-                    if (!roleManager.RoleExists("User"))
-                    {
+                    if(!roleManager.RoleExists("User")) {
                         var role = new IdentityRole();
                         role.Name = "User";
                         roleManager.Create(role);
                     }
-
-                    
                     var user = new ApplicationUser { Name = model.Name, UserName = model.Email, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     user = UserManager.FindByName(user.UserName);
-                    
                     var result1 = await UserManager.AddToRoleAsync(user.Id, "User");
-
-                    
                     if(result.Succeeded) {
                         //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
@@ -160,10 +149,8 @@ namespace Blog_VT18.Controllers {
                         // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                         // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                         // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
                         return RedirectToAction("Index", "Home");
                     }
-                    
                     AddErrors(result);
                 }
             }
@@ -175,9 +162,7 @@ namespace Blog_VT18.Controllers {
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code) {
-            if(userId == null || code == null) {
-                return View("Error");
-            }
+            if(userId == null || code == null) { return View("Error"); }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }

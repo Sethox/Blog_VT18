@@ -41,6 +41,21 @@ namespace Blog_VT18.Controllers {
             }
         }
 
+        public void newBlog(BlogPost Create) {
+            //Kom ihåg att lägga in kategorier
+            //Categories category = db.Categories.Single(x => x.Name == Category);
+            //newPost.Category = category;
+
+            // Creates new blog, updates database
+            BlogPost newPost = new BlogPost(Create);
+
+            //En blogpost läggs till i vår context
+            db.BlogPosts.Add(newPost);
+
+            //Sparar ändringar i databasen
+            db.SaveChanges();
+        }
+
         /// <summary>
         /// Disposing the classes properties.
         /// </summary>
