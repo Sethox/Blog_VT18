@@ -17,9 +17,12 @@ namespace Blog_VT18.Controllers {
                 return currentUser;
             } }
 
-
         public RepositoryManager() { this.db = new ApplicationDbContext(); }
 
+        /// <summary>
+        /// Updates the user currently logged in.
+        /// </summary>
+        /// <param name="modifyUsr">The model to update in database.</param>
         public void setCurrentUser(ApplicationUser modifyUsr) {
             this.usr.Name = modifyUsr.Name;
             this.usr.UserName = modifyUsr.UserName;
