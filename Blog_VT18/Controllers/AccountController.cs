@@ -130,14 +130,30 @@ namespace Blog_VT18.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model) {
             if(ModelState.IsValid) {
-                using(var db = new ApplicationDbContext()) {
+
+
+                using (var db = new ApplicationDbContext()) {
+
                     var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
                     var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
-                    var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Name = model.Name };
+
+                    if (!roleManager.RoleExists("User"))
+                    {
+                        var role = new IdentityRole();
+                        role.Name = "User";
+                        roleManager.Create(role);
+                    }
+
+                    
+                    var user = new ApplicationUser { Name = model.Name, UserName = model.Email, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
+                    user = UserManager.FindByName(user.UserName);
+                    
                     var result1 = await UserManager.AddToRoleAsync(user.Id, "User");
+
+                    
                     if(result.Succeeded) {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                         // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                         // Send an email with this link
@@ -147,6 +163,7 @@ namespace Blog_VT18.Controllers {
 
                         return RedirectToAction("Index", "Home");
                     }
+                    
                     AddErrors(result);
                 }
             }
