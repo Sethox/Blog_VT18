@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@using (Html.BeginForm("Create", "BlogPost"))
+{
+
+    <h2>Index</h2>
+    <input type="text" id="Create" name="Create" style="width: 325px" />
+
+    <input type="submit" id="Create" value="Create" />
+
+}
+
+@*@Html.ActionLink("SKAPA", "Create", new { @class = Html.TextArea("blogPost").ToString() })*@
