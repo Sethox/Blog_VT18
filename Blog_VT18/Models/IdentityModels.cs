@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace Blog_VT18.Models {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser {
-
         public string Name { set; get; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager) {
@@ -66,5 +65,6 @@ namespace Blog_VT18.Models {
         public string Content { get; set; }
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
+        public ApplicationUser From { get; set; }
     }
 }
