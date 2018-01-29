@@ -67,7 +67,6 @@ namespace Blog_VT18.Models {
             this.Title = CP.Title;
             this.From = CP.From;
             this.Hidden = CP.Hidden;
-            this.To = CP.To;
             this.Category = CP.Category;
             this.Content = CP.Content;
         }
@@ -77,6 +76,5 @@ namespace Blog_VT18.Models {
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
         public virtual ApplicationUser From { get; set; }
-        public virtual ApplicationUser To { get; set; }
     }
 }
