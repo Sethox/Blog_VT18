@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 
 namespace Blog_VT18.Models {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -59,26 +60,31 @@ namespace Blog_VT18.Models {
         public virtual ApplicationUser Booker { get; set; }
         public virtual ApplicationUser Invited { get; set; }
     }
-
+    
     public class BlogPost {
-        // Copy Constructor
-        public BlogPost(BlogPost CP) {
+
+        public BlogPost()
+        { }
+            // Copy Constructor
+            public BlogPost(BlogPost CP) {
             this.ID = CP.ID;
             this.Title = CP.Title;
             this.From = CP.From;
             this.Hidden = CP.Hidden;
-            this.To = CP.To;
+            
             this.Category = CP.Category;
             this.Content = CP.Content;
         }
         public int ID { get; set; }
+//        [Required(ErrorMessage = "This field is required")]
+  //      [StringLength(1500, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 1500 characters")]
         public string Title { get; set; }
+        [Required (ErrorMessage = "This field is required")]
+        [StringLength(1500, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 1500 characters")]
         public string Content { get; set; }
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
-        [ForeignKey("FromUsr")]
-        public ApplicationUser From { get; set; }
-        [ForeignKey("ToUsr")]
-        public ApplicationUser To { get; set; }
+        public virtual ApplicationUser From { get; set; }
+    
     }
 }

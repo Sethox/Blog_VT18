@@ -14,7 +14,11 @@ namespace Blog_VT18.Controllers {
 
         public BlogPostController() { repositoryManager = new RepositoryManager(); }
         // Index sidan läser in en lista av befintliga blogposts
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
+
+
+
             //Kom ihåg att inkludera kategorier
             List<BlogPost> posts = db.BlogPosts.OrderByDescending(x => x.ID).Include(Z => Z.From).ToList();
 
@@ -26,13 +30,30 @@ namespace Blog_VT18.Controllers {
             //db.SaveChanges();
 
             //Skickar oss till index och skickar med alla posts
+
+
             return View(posts);
         }
 
         //Här skapar vi en blogpost 
-        public ActionResult Create(BlogPost Create) {
-            this.repositoryManager.newBlog(Create);
-            return RedirectToAction("Index");
+        public ActionResult Create(string Create) {
+
+            BlogPost hej = new BlogPost { Title = "Standard", Content = Create, Hidden = false, From =  repositoryManager.usr };
+            
+            hej.Content = Create;
+
+            try
+            {
+                this.repositoryManager.newBlog(hej);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Index");
+            }
+
+            
+                return RedirectToAction("Index");
         }
     }
 }
