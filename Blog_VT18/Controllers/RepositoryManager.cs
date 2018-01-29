@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Blog_VT18.Models;
+using System.Collections.Generic;
 
 namespace Blog_VT18.Controllers {
     public class RepositoryManager {
@@ -35,7 +36,7 @@ namespace Blog_VT18.Controllers {
         /// </summary>
         /// <param name="post">This is the model to update the database.</param>
         public void newCatagory(BlogPost post) {
-            if(post != null) {
+            if (post != null) {
                 this.db.BlogPosts.Add(post);
                 this.db.SaveChanges();
             }
@@ -60,10 +61,16 @@ namespace Blog_VT18.Controllers {
         /// Disposing the classes properties.
         /// </summary>
         protected void Dispose(bool disposing) {
-            if(disposing && this.db != null ) {
+            if (disposing && this.db != null) {
                 this.db.Dispose();
                 this.db = null;
             }
+        }
+        public List<Meeting> GetMeetings()
+        {
+            var meetings = db.Meetings.ToList();
+
+            return meetings;
         }
     }
 }
