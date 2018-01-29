@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -60,11 +61,24 @@ namespace Blog_VT18.Models {
     }
 
     public class BlogPost {
+        // Copy Constructor
+        public BlogPost(BlogPost CP) {
+            this.ID = CP.ID;
+            this.Title = CP.Title;
+            this.From = CP.From;
+            this.Hidden = CP.Hidden;
+            this.To = CP.To;
+            this.Category = CP.Category;
+            this.Content = CP.Content;
+        }
         public int ID { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
-
+        [ForeignKey("FromUsr")]
+        public ApplicationUser From { get; set; }
+        [ForeignKey("ToUsr")]
+        public ApplicationUser To { get; set; }
     }
 }

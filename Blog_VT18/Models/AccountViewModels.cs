@@ -1,30 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Blog_VT18.Models
-{
-    public class ExternalLoginConfirmationViewModel
-    {
+namespace Blog_VT18.Models {
+    public class ExternalLoginConfirmationViewModel {
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
-    public class ExternalLoginListViewModel
-    {
+    public class ExternalLoginListViewModel {
         public string ReturnUrl { get; set; }
     }
 
-    public class SendCodeViewModel
-    {
+    public class SendCodeViewModel {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
         public string ReturnUrl { get; set; }
         public bool RememberMe { get; set; }
     }
 
-    public class VerifyCodeViewModel
-    {
+    public class VerifyCodeViewModel {
         [Required]
         public string Provider { get; set; }
 
@@ -39,15 +34,13 @@ namespace Blog_VT18.Models
         public bool RememberMe { get; set; }
     }
 
-    public class ForgotViewModel
-    {
+    public class ForgotViewModel {
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
-    public class LoginViewModel
-    {
+    public class LoginViewModel {
         [Required]
         [Display(Name = "Email")]
         [EmailAddress]
@@ -62,8 +55,12 @@ namespace Blog_VT18.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel
-    {
+    public class RegisterViewModel {
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -81,8 +78,7 @@ namespace Blog_VT18.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ResetPasswordViewModel
-    {
+    public class ResetPasswordViewModel {
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -102,8 +98,7 @@ namespace Blog_VT18.Models
         public string Code { get; set; }
     }
 
-    public class ForgotPasswordViewModel
-    {
+    public class ForgotPasswordViewModel {
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
