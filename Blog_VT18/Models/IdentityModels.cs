@@ -76,9 +76,7 @@ namespace Blog_VT18.Models {
         public string Content { get; set; }
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
-        [ForeignKey("FromUsr")]
-        public ApplicationUser From { get; set; }
-        [ForeignKey("ToUsr")]
-        public ApplicationUser To { get; set; }
+        public virtual ApplicationUser From { get; set; }
+        public virtual ApplicationUser To { get; set; }
     }
 }
