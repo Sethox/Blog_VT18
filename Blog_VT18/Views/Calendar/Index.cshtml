@@ -1,10 +1,15 @@
-﻿
-@{
-    ViewBag.Title = "DHTMLX Scheduler .NET";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    Layout = null;
 }
 
-<h2>Appointment calendar</h2>
-<div class="scheduler_container">
-    @Html.Raw(Model.Render())
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DHXScheduler initialization sample</title>
+</head>
+<body>
+    <div style="height:700px;width:900px;margin:0 auto">
+        @Html.Raw(Model.Render())
+    </div>
+</body>
+</html>

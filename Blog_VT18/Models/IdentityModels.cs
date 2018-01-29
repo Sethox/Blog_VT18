@@ -71,13 +71,12 @@ namespace Blog_VT18.Models {
             this.Title = CP.Title;
             this.From = CP.From;
             this.Hidden = CP.Hidden;
-            
             this.Category = CP.Category;
             this.Content = CP.Content;
         }
         public int ID { get; set; }
-//        [Required(ErrorMessage = "This field is required")]
-  //      [StringLength(1500, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 1500 characters")]
+        [Required(ErrorMessage = "This field is required")]
+        [StringLength(1500, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 1500 characters")]
         public string Title { get; set; }
         [Required (ErrorMessage = "This field is required")]
         [StringLength(1500, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 1500 characters")]
@@ -85,6 +84,5 @@ namespace Blog_VT18.Models {
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
         public virtual ApplicationUser From { get; set; }
-    
     }
 }
