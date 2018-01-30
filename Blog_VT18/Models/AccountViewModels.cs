@@ -41,7 +41,6 @@ namespace Blog_VT18.Models {
     }
 
     public class LoginViewModel {
-        [Required]
         [Display(Name = "Username")]
         public string UserName { get; set; } = "";
 

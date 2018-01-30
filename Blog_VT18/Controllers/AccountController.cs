@@ -57,7 +57,7 @@ namespace Blog_VT18.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl) {
             if(!ModelState.IsValid) { return View(model); }
-
+            /*
             // Can login with both email or username
             var userName = model.UserName;
             using(var db = new ApplicationDbContext()) {
@@ -65,7 +65,7 @@ namespace Blog_VT18.Controllers {
                 if(user != null) {
                     userName = user.UserName;
                 }
-            }
+            }*/
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
