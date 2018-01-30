@@ -76,7 +76,7 @@ namespace Blog_VT18.Models {
         }
         public int ID { get; set; }
         [Required(ErrorMessage = "This field is required")]
-        [StringLength(1500, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 1500 characters")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 100 characters")]
         public string Title { get; set; }
         [Required (ErrorMessage = "This field is required")]
         [StringLength(1500, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 1500 characters")]

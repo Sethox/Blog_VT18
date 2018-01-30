@@ -1,0 +1,51 @@
+﻿@model Blog_VT18.Models.BlogPost
+
+@{
+    ViewBag.Title = "AddOrChangeBlogPost";
+}
+
+
+@using (Html.BeginForm())
+{
+    @*@Html.ValidationSummary("The following errors were found: ", new { @class = "alert alert-danger" })*@
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Title, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Title)
+            </div>
+
+
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Content, new { @class = "control-label" })
+                @Html.TextAreaFor(m => m.Content, 12, 24, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Content)
+            </div>
+
+        </div>
+
+        @*<div class="col-md-12">*@
+        <div class="pad-top">
+            <button type="submit" class="btn btn-success btn-lg margin-right">
+                <span class="glyphicon glyphicon-save"></span> Save
+            </button>
+            <a href="@Url.Action("Index")" class="btn btn-warning btn-lg">
+                <span class="glyphicon glyphicon-remove"></span> Cancel
+            </a>
+        </div>
+        @*</div>*@
+
+    </div>
+
+}
+
