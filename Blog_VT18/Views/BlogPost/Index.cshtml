@@ -1,4 +1,3 @@
-﻿
 @model IEnumerable<Blog_VT18.Models.BlogPost>
 
 @{
@@ -6,14 +5,7 @@
 }
 
 <h2>ListPost</h2>
-@using (Html.BeginForm("Create", "BlogPost"))
-{
-    <h2>Index</h2>
-    <input type="text" id="Create" name="Create" style="width: 325px" />
-
-    <input type="submit" id="Create" value="Create" />
-
-}
+@Html.ActionLink("ADD BLOGPOST", "Add")
 
 <table class="table">
     <tr>
@@ -29,8 +21,12 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
+    @foreach (var item in Model){
+@*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
+        @Html.DisplayNameFor(m => m.Title)
+
+        <form typeof="textarea">@item.Content</form>
+ </div>*@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -43,7 +39,7 @@
                
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Edit", "Edit" ) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
