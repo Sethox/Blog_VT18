@@ -58,6 +58,39 @@ namespace Blog_VT18.Controllers {
             db.SaveChanges();
         }
 
+        public  BlogPost getBlogPost(int? Id) {
+            BlogPost blogPost = db.BlogPosts.Single(x => x.ID == Id);
+
+            return blogPost;
+
+        }
+
+        public void changeBlogPost(BlogPost blogPost)
+        {
+           var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
+
+            var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
+
+            ny = blogPost;
+
+            db.BlogPosts.Remove(bp);
+
+            db.BlogPosts.Add(ny);
+
+            db.SaveChanges();
+
+        }
+
+        public void deleteBlogPost(int? Id) {
+
+            var bp = db.BlogPosts.Single(x => x.ID == Id);
+            db.BlogPosts.Remove(bp);
+            db.SaveChanges();
+
+        }
+
+
+
         /// <summary>
         /// Disposing the classes properties.
         /// </summary>
