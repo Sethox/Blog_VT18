@@ -71,20 +71,22 @@ namespace Blog_VT18.Controllers {
         public ContentResult Data()
         {
             List<Meeting> calendar = manager.GetMeetings();
-
+            List<CalendarEvent> List = new List<CalendarEvent>();
             foreach (var item in calendar)
             {
-                new CalendarEvent
+               var aEvent = new CalendarEvent
                 {
                     id = item.ID,
-                    text = "Sample Eventhejhejhjehejhjehej",
-                    start_date = item.DateFrom.ToString("yyyyMMdd"),
+                    text = item.Info+" Booked by: "+ item.Booker + " Invited: " + item.Invited,
+                    start_date = item.DateFrom,
                     end_date = item.DateTo
+
                 };
+                List.Add(aEvent);
 
             }
             var data = new SchedulerAjaxData(
-                calendar                
+                List                
                 );
             return (ContentResult)data;
         }
