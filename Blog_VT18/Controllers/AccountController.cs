@@ -56,8 +56,15 @@ namespace Blog_VT18.Controllers {
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl) {
-            if(!ModelState.IsValid) {
-                return View(model);
+            if(!ModelState.IsValid) { return View(model); }
+
+            // Can login with both email or username
+            var userName = model.UserName;
+            using(var db = new ApplicationDbContext()) {
+                var user = db.Users.FirstOrDefault(x => x.Email == model.UserName);
+                if(user != null) {
+                    userName = user.UserName;
+                }
             }
 
             // This doesn't count login failures towards account lockout
@@ -137,11 +144,11 @@ namespace Blog_VT18.Controllers {
                         role.Name = "User";
                         roleManager.Create(role);
                     }
-                    var user = new ApplicationUser { Name = model.Name, UserName = model.Email, Email = model.Email };
+                    var user = new ApplicationUser { Name = model.Name, UserName = model.UserName, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     user = UserManager.FindByName(user.UserName);
-                    var result1 = await UserManager.AddToRoleAsync(user.Id, "User");
                     if(result.Succeeded) {
+                        await UserManager.AddToRoleAsync(user.Id, "User");
                         //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                         // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
