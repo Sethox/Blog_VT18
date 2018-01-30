@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq;
 using System.Data.Entity;
 using Blog_VT18.Models;
 using Microsoft.AspNet.Identity;
@@ -15,13 +14,9 @@ namespace Blog_VT18.Controllers {
 
         public BlogPostController() { repositoryManager = new RepositoryManager(); }
         // Index sidan läser in en lista av befintliga blogposts
-        public ActionResult Index()
-        {
-
-
-
+        public ActionResult Index() {
             //Kom ihåg att inkludera kategorier
-            List<BlogPost> posts = db.BlogPosts.OrderByDescending(x => x.ID).Include(Z => Z.From).ToList();
+            var posts = db.BlogPosts.OrderByDescending(x => x.ID).Include(Z => Z.From).ToList();
 
             //Categories minKategori = new Categories();
             //minKategori.Category = null;
@@ -31,42 +26,26 @@ namespace Blog_VT18.Controllers {
             //db.SaveChanges();
 
             //Skickar oss till index och skickar med alla posts
-
-
             return View(posts);
         }
 
-        public ActionResult Add()
-        {
-            var blogPost = new BlogPost()
-            {
-                
+        public ActionResult Add() {
+            var blogPost = new BlogPost() {
                 Hidden = false,
                 From = repositoryManager.usr
-                
-
             };
-           
+
             return View(blogPost);
         }
 
         [HttpPost]
-        public ActionResult Add(BlogPost blogPost)
-        {
+        public ActionResult Add(BlogPost blogPost) {
             //ModelState.AddModelError("", "This is a global Message.");
-
-
             //ValidateEntry(entry);
-
-            if (ModelState.IsValid)
-            {
+            if(ModelState.IsValid) {
                 repositoryManager.newBlog(blogPost);
-                
-
-
                 return RedirectToAction("Index");
             }
-
             return View(blogPost);
         }
 
@@ -85,7 +64,7 @@ namespace Blog_VT18.Controllers {
         //    {
         //        return HttpNotFound();
         //    }
-            
+
         //    return View(blogPost);
         //}
 
@@ -110,7 +89,7 @@ namespace Blog_VT18.Controllers {
         //public ActionResult Create(string Create) {
 
         //    BlogPost hej = new BlogPost { Title = "Standard", Content = Create, Hidden = false, From =  repositoryManager.usr };
-            
+
         //    hej.Content = Create;
 
         //    try
@@ -123,7 +102,7 @@ namespace Blog_VT18.Controllers {
         //        return RedirectToAction("Index");
         //    }
 
-            
+
         //        return RedirectToAction("Index");
         //}
     }
