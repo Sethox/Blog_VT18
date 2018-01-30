@@ -61,9 +61,9 @@ namespace Blog_VT18.Controllers {
             // Can login with both email or username
             var userName = model.UserName;
             using(var db = new ApplicationDbContext()) {
-                var user = db.Users.FirstOrDefault(x => x.Email == model.UserName);
+                var user = db.Users.FirstOrDefault(x => x.UserName == model.Email);
                 if(user != null) {
-                    userName = user.UserName;
+                    userName = user.Email;
                 }
             }*/
 
