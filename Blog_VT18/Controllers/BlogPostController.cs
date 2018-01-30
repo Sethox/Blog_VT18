@@ -39,14 +39,9 @@ namespace Blog_VT18.Controllers {
         public ActionResult Add()
         {
             var blogPost = new BlogPost()
-            {
-                
-                Hidden = false,
-                From = repositoryManager.usr
-                
-
-            };
-           
+            {             
+                Hidden = false  
+            };      
             return View(blogPost);
         }
 
@@ -61,12 +56,8 @@ namespace Blog_VT18.Controllers {
             if (ModelState.IsValid)
             {
                 repositoryManager.newBlog(blogPost);
-                
-
-
                 return RedirectToAction("Index");
             }
-
             return View(blogPost);
         }
 
