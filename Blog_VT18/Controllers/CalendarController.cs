@@ -13,6 +13,11 @@ using DHTMLX.Scheduler.Controls;
 using Blog_VT18.Models;
 namespace Blog_VT18.Controllers {
     public class CalendarController : BaseController {
+
+        public RepositoryManager manager { get; set; }
+
+        public CalendarController() { manager = new RepositoryManager(); }
+
         public ActionResult Index() {
             //Being initialized in that way, scheduler will use CalendarController.Data as a the datasource and CalendarController.Save to process changes
             var scheduler = new DHXScheduler(this);
@@ -38,28 +43,50 @@ namespace Blog_VT18.Controllers {
             return View(scheduler);
         }
 
-        public ContentResult Data() {
+        //public ContentResult Data2() {
+        //    var data = new SchedulerAjaxData(
+        //            new List<CalendarEvent>{
+        //                new CalendarEvent{
+        //                    id = 1,
+        //                    text = "Sample Event",
+        //                    start_date = new DateTime(2018, 01, 27, 6, 00, 00),
+        //                    end_date = new DateTime(2018, 01, 27, 8, 00, 00)
+        //                },
+        //                new CalendarEvent{
+        //                    id = 2,
+        //                    text = "New Event",
+        //                    start_date = new DateTime(2018, 01, 26, 9, 00, 00),
+        //                    end_date = new DateTime(2018, 01, 26, 12, 00, 00)
+        //                },
+        //                new CalendarEvent{
+        //                    id = 3,
+        //                    text = "Multiday Event",
+        //                    start_date = new DateTime(2018, 01, 25, 10, 00, 00),
+        //                    end_date = new DateTime(2018, 01, 30, 12, 00, 00)
+        //                }
+        //            }
+        //        );
+        //    return (ContentResult)data;
+        //}
+        public ContentResult Data()
+        {
+            List<Meeting> calendar = manager.GetMeetings();
+            List<CalendarEvent> List = new List<CalendarEvent>();
+            foreach (var item in calendar)
+            {
+               var aEvent = new CalendarEvent
+                {
+                    id = item.ID,
+                    text = item.Info+" Booked by: "+ item.Booker + " Invited: " + item.Invited,
+                    start_date = item.DateFrom,
+                    end_date = item.DateTo
+
+                };
+                List.Add(aEvent);
+
+            }
             var data = new SchedulerAjaxData(
-                    new List<CalendarEvent>{
-                        new CalendarEvent{
-                            id = 1,
-                            text = "Sample Event",
-                            start_date = new DateTime(2018, 01, 27, 6, 00, 00),
-                            end_date = new DateTime(2018, 01, 27, 8, 00, 00)
-                        },
-                        new CalendarEvent{
-                            id = 2,
-                            text = "New Event",
-                            start_date = new DateTime(2018, 01, 26, 9, 00, 00),
-                            end_date = new DateTime(2018, 01, 26, 12, 00, 00)
-                        },
-                        new CalendarEvent{
-                            id = 3,
-                            text = "Multiday Event",
-                            start_date = new DateTime(2018, 01, 25, 10, 00, 00),
-                            end_date = new DateTime(2018, 01, 30, 12, 00, 00)
-                        }
-                    }
+                List                
                 );
             return (ContentResult)data;
         }
