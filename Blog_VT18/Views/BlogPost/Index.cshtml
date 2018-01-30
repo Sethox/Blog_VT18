@@ -1,4 +1,5 @@
 @model IEnumerable<Blog_VT18.Models.BlogPost>
+    
 
 @{
     ViewBag.Title = "ListPost";
@@ -38,11 +39,14 @@
                 @Html.DisplayFor(modelItem => item.From.Name)
                
             </td>
+@if (User.IsInRole("Administrator"))
+{
             <td>
-                @Html.ActionLink("Edit", "Edit" ) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
+}
         </tr>
     }
 
