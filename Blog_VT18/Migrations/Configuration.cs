@@ -39,7 +39,22 @@ namespace Blog_VT18.Migrations {
                 UserName = "admin@user.com",
                 Email = "admin@user.com"
             };
-
+            //If there is 0 blogPosts, we will create a new blogPost
+            if (context.BlogPosts.Where(x=> x.ID == 0).Count() == 0)
+            {
+                var blogPost = new BlogPost
+                {
+                    ID = 0,
+                    Content = "Hello",
+                    Title = "Mitt meddelande",
+                    Hidden = false,
+                    From = null
+                };
+                context.BlogPosts.Add(blogPost);
+                context.SaveChanges();
+            }
+            
+          
             var adminUser = userManager.Create(user, "User1!");
             //userManager.CreateAsync(user, "User1!").Wait();
 
