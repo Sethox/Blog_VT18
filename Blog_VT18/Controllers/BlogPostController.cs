@@ -7,6 +7,7 @@ using System.Linq;
 using System.Data.Entity;
 using Blog_VT18.Models;
 using Microsoft.AspNet.Identity;
+using System.Net;
 
 namespace Blog_VT18.Controllers {
     public class BlogPostController : BaseController {
@@ -35,25 +36,95 @@ namespace Blog_VT18.Controllers {
             return View(posts);
         }
 
-        //Här skapar vi en blogpost 
-        public ActionResult Create(string Create) {
-
-            BlogPost hej = new BlogPost { Title = "Standard", Content = Create, Hidden = false, From =  repositoryManager.usr };
-            
-            hej.Content = Create;
-
-            try
+        public ActionResult Add()
+        {
+            var blogPost = new BlogPost()
             {
-                this.repositoryManager.newBlog(hej);
-            }
-            catch (Exception)
-            {
+                
+                Hidden = false,
+                From = repositoryManager.usr
+                
 
-                return RedirectToAction("Index");
-            }
-
-            
-                return RedirectToAction("Index");
+            };
+           
+            return View(blogPost);
         }
+
+        [HttpPost]
+        public ActionResult Add(BlogPost blogPost)
+        {
+            //ModelState.AddModelError("", "This is a global Message.");
+
+
+            //ValidateEntry(entry);
+
+            if (ModelState.IsValid)
+            {
+                repositoryManager.newBlog(blogPost);
+                
+
+
+                return RedirectToAction("Index");
+            }
+
+            return View(blogPost);
+        }
+
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+
+        //    // TODO - Add a getBlogPost method
+        //    //BlogPost blogPost = repositoryManager.getBlogPost((int)id);
+
+
+        //    if (blogPost == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+            
+        //    return View(blogPost);
+        //}
+
+        //[HttpPost]
+        //public ActionResult Edit(BlogPost blogPost)
+        //{
+
+        //    //TODO - create a changeBlog method in repository
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        //repositoryManager.changeBlog(blogPost);
+
+        //        return RedirectToAction("Index");
+        //    }
+
+
+        //    return View(blogPost);
+        //}
+
+        //Här skapar vi en blogpost 
+        //public ActionResult Create(string Create) {
+
+        //    BlogPost hej = new BlogPost { Title = "Standard", Content = Create, Hidden = false, From =  repositoryManager.usr };
+            
+        //    hej.Content = Create;
+
+        //    try
+        //    {
+        //        this.repositoryManager.newBlog(hej);
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        return RedirectToAction("Index");
+        //    }
+
+            
+        //        return RedirectToAction("Index");
+        //}
     }
 }

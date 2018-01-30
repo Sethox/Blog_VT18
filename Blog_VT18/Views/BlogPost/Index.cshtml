@@ -4,15 +4,17 @@
     ViewBag.Title = "ListPost";
 }
 
-<h2>ListPost</h2>
-@using (Html.BeginForm("Create", "BlogPost"))
-{
-    <h2>Index</h2>
-    <input type="text" id="Create" name="Create" style="width: 325px" />
+<h2>ListPost</h2>       @Html.ActionLink("ADD BLOGPOST", "Add")
+@*@using (Html.BeginForm("Create", "BlogPost"))
+    {
+        <h2>Index</h2>
+        <input type="text" id="Create" name="Create" style="width: 325px" />
 
-    <input type="submit" id="Create" value="Create" />
+        <input type="submit" id="Create" value="Create" class="alert-danger"/>
+        }
+*@
 
-}
+
 
 <table class="table">
     <tr>
@@ -42,7 +44,7 @@
                
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Edit", "Edit" ) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </td>
