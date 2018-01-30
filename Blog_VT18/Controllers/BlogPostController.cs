@@ -29,12 +29,10 @@ namespace Blog_VT18.Controllers {
             return View(posts);
         }
 
-        public ActionResult Add() {
-            var blogPost = new BlogPost() {
-                Hidden = false,
-                From = repositoryManager.usr
+        public ActionResult Add(){
+            var blogPost = new BlogPost(){             
+                Hidden = false  
             };
-
             return View(blogPost);
         }
 
