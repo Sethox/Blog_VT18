@@ -11,6 +11,8 @@ using DHTMLX.Scheduler.Data;
 using DHTMLX.Scheduler.Controls;
 
 using Blog_VT18.Models;
+using Microsoft.AspNet.Identity;
+
 namespace Blog_VT18.Controllers {
     public class CalendarController : BaseController {
 
@@ -113,6 +115,19 @@ namespace Blog_VT18.Controllers {
             }
             return (ContentResult)new AjaxSaveResponse(action);
         }
+
+        public ActionResult SendTimeSuggestion(TimeSuggestion suggestion) {
+            var senderId = User.Identity.GetUserId();
+            var sender = db.Users.Find(senderId);
+
+            suggestion.Sender = sender;
+
+
+            return View();
+        }
+
+
+
     }
 }
 

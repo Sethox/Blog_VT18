@@ -51,6 +51,13 @@ namespace Blog_VT18.Models {
         public virtual ApplicationUser Invited { get; set; }
 
     }
+    public class TimeSuggestion {
+        public int ID { get; set; }
+        public  ICollection<DateTime> Dates{ get; set; }
+        public virtual ApplicationUser Sender { get; set; }
+        public virtual ICollection<ApplicationUser> Invited { get; set; }
+
+    }
 
     public class Meeting {
         public int ID { get; set; }
