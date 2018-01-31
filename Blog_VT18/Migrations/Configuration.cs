@@ -60,6 +60,38 @@ namespace Blog_VT18.Migrations {
 
             if(adminUser.Succeeded) { var result1 = userManager.AddToRole(user.Id, "Administrator"); }
             base.Seed(context);
+
+            if(context.Categories.Where(x=> x.ID == 0).Count() == 0)
+            {
+                var cat1 = new Categories
+                {
+                    ID = 0,
+                    Name = "Education",
+                    Category = null
+                };
+
+                context.Categories.Add(cat1);
+
+                var cat2 = new Categories
+                {
+                    ID = 1,
+                    Name = "Research",
+                    Category = null
+                };
+                context.Categories.Add(cat2);
+
+                var cat3 = new Categories
+                {
+                    ID = 2,
+                    Name = "Informal",
+                    Category = null
+                };
+
+                context.Categories.Add(cat3);
+
+                context.SaveChanges();
+            }
+
         }
     }
 }

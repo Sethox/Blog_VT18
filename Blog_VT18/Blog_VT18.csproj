@@ -499,6 +499,7 @@
     <Content Include="Views\BlogPost\Add.cshtml" />
     <Content Include="Views\BlogPost\_AddOrChangeBlogPost.cshtml" />
     <Content Include="Views\BlogPost\Edit.cshtml" />
+    <Content Include="Views\BlogPost\Category.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
