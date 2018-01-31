@@ -104,6 +104,12 @@ namespace Blog_VT18.Controllers {
             return RedirectToAction("Index");
         }
 
+        public ActionResult Category(string catName)
+        {
+            var catName1 = db.Categories.Single(x => x.Name == catName);
+            return View("Category", catName1);
+        }
+
         //Här skapar vi en blogpost 
         //public ActionResult Create(string Create) {
 
@@ -124,5 +130,7 @@ namespace Blog_VT18.Controllers {
 
         //        return RedirectToAction("Index");
         //}
+
+
     }
 }
