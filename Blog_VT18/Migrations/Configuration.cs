@@ -28,22 +28,23 @@ namespace Blog_VT18.Migrations {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
-            if(!roleManager.RoleExists("Administrator")) {
-                var role = new IdentityRole();
-                role.Name = "Administrator";
-                roleManager.Create(role);
+            if(userManager.FindByName("Admin") == null) {
+                if(!roleManager.RoleExists("Administrator")) {
+                    var role = new IdentityRole();
+                    role.Name = "Administrator";
+                    roleManager.Create(role);
+                }
+                var user = new ApplicationUser {
+                    Name = "Admin",
+                    UserName = "admin@user.com",
+                    Email = "admin@user.com"
+                };
+                var adminUser = userManager.Create(user, "User1!");
+                if(adminUser.Succeeded) { userManager.AddToRole(user.Id, "Administrator"); }
             }
-
-            var user = new ApplicationUser {
-                Name = "Admin",
-                UserName = "admin@user.com",
-                Email = "admin@user.com"
-            };
             //If there is 0 blogPosts, we will create a new blogPost
-            if (context.BlogPosts.Where(x=> x.ID == 0).Count() == 0)
-            {
-                var blogPost = new BlogPost
-                {
+            if(context.BlogPosts.Where(x => x.ID == 0).Count() == 0) {
+                var blogPost = new BlogPost {
                     ID = 0,
                     Content = "Hello",
                     Title = "Mitt meddelande",
@@ -53,12 +54,8 @@ namespace Blog_VT18.Migrations {
                 context.BlogPosts.Add(blogPost);
                 context.SaveChanges();
             }
-            
-          
-            var adminUser = userManager.Create(user, "User1!");
-            //userManager.CreateAsync(user, "User1!").Wait();
 
-            if(adminUser.Succeeded) { var result1 = userManager.AddToRole(user.Id, "Administrator"); }
+            //userManager.CreateAsync(user, "User1!").Wait();
             base.Seed(context);
         }
     }

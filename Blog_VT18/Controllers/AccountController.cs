@@ -46,6 +46,8 @@ namespace Blog_VT18.Controllers {
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl) {
+            if(TempData["UserName"] != null)
+                ViewBag.ErrorMessage = TempData["UserName"];
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -57,15 +59,6 @@ namespace Blog_VT18.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl) {
             if(!ModelState.IsValid) { return View(model); }
-            /*
-            // Can login with both email or username
-            var userName = model.UserName;
-            using(var db = new ApplicationDbContext()) {
-                var user = db.Users.FirstOrDefault(x => x.UserName == model.Email);
-                if(user != null) {
-                    userName = user.Email;
-                }
-            }*/
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -144,7 +137,7 @@ namespace Blog_VT18.Controllers {
                         role.Name = "User";
                         roleManager.Create(role);
                     }
-                    var user = new ApplicationUser { Name = model.Name, UserName = model.UserName, Email = model.Email };
+                    var user = new ApplicationUser { Name = model.Name, UserName = model.Email, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     user = UserManager.FindByName(user.UserName);
                     if(result.Succeeded) {
