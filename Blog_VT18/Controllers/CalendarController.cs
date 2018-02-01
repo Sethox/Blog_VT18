@@ -70,18 +70,11 @@ namespace Blog_VT18.Controllers {
         //        );
         //    return (ContentResult)data;
         //}
-        public ContentResult Data()
-        {
+        public ContentResult Data() {
             List<Meeting> calendar = manager.GetMeetings();
             List<CalendarEvent> List = new List<CalendarEvent>();
             List<InvitedToMeetings> UserList = new List<InvitedToMeetings>();
-
-            //UserList = manager.getInvited();
-            
-
-            foreach (var item in calendar)
-            {
-
+            foreach (var item in calendar){
                 var listan = manager.getthem(item.ID);
 
                 var aEvent = new CalendarEvent
@@ -93,21 +86,24 @@ namespace Blog_VT18.Controllers {
                 };
                 List.Add(aEvent);
 
-            }
             var data = new SchedulerAjaxData(
-                List                
+                List
                 );
             return (ContentResult)data;
         }
 
         public ContentResult Save(int? id, FormCollection actionValues) {
-            var action = new DataAction(actionValues);
+            string action_type = actionValues["!nativeeditor_status"];
+            Int64 source_id = Int64.Parse(actionValues["id"]);
+            Int64 target_id = source_id;
 
+            var action = new DataAction(actionValues);
             try {
                 var changedEvent = (CalendarEvent)DHXEventsHelper.Bind(typeof(CalendarEvent), actionValues);
                 switch(action.Type) {
                     case DataActionTypes.Insert:
                         //do insert
+                        manager.setEventTime(changedEvent);
                         //action.TargetId = changedEvent.id;//assign postoperational id
                         break;
                     case DataActionTypes.Delete:

@@ -12,11 +12,13 @@ using System.Collections.Generic;
 namespace Blog_VT18.Controllers {
     public class RepositoryManager {
         ApplicationDbContext db;
-        public ApplicationUser usr { get {
+        public ApplicationUser usr {
+            get {
                 var userID = HttpContext.Current.User.Identity.GetUserId();
                 var currentUser = db.Users.Where(x => x.Id == userID).FirstOrDefault();
                 return currentUser;
-            } }
+            }
+        }
 
         public RepositoryManager() { this.db = new ApplicationDbContext(); }
 
@@ -36,76 +38,65 @@ namespace Blog_VT18.Controllers {
         /// </summary>
         /// <param name="post">This is the model to update the database.</param>
         public void newCatagory(BlogPost post) {
-            if (post != null) {
+            if(post != null) {
                 this.db.BlogPosts.Add(post);
                 this.db.SaveChanges();
             }
         }
-
-
+      
         public void newBlog(BlogPost Create) {
             //Kom ihåg att lägga in kategorier
             //Categories category = db.Categories.Single(x => x.Name == Category);
             //newPost.Category = category;
-        
-
             // Creates new blog, updates database
             BlogPost newPost = new BlogPost(Create);
-
             //En blogpost läggs till i vår context
             db.BlogPosts.Add(newPost);
-
             //Sparar ändringar i databasen
             db.SaveChanges();
         }
-
-        public  BlogPost getBlogPost(int? Id) {
+        public BlogPost getBlogPost(int? Id) {
             BlogPost blogPost = db.BlogPosts.Single(x => x.ID == Id);
-
             return blogPost;
-
         }
-
-        public void changeBlogPost(BlogPost blogPost)
-        {
-           var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
-
+        public void changeBlogPost(BlogPost blogPost) {
+            var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
             var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
-
             ny = blogPost;
-
             db.BlogPosts.Remove(bp);
-
             db.BlogPosts.Add(ny);
-
             db.SaveChanges();
-
         }
-
         public void deleteBlogPost(int? Id) {
-
             var bp = db.BlogPosts.Single(x => x.ID == Id);
             db.BlogPosts.Remove(bp);
             db.SaveChanges();
-
         }
-
-
-
         /// <summary>
         /// Disposing the classes properties.
         /// </summary>
         protected void Dispose(bool disposing) {
-            if (disposing && this.db != null) {
+            if(disposing && this.db != null) {
                 this.db.Dispose();
                 this.db = null;
             }
         }
-        public List<Meeting> GetMeetings()
-        {
+        public List<Meeting> GetMeetings() {
             var meetings = db.Meetings.ToList();
-
-            return meetings;
+            return meetings; 
+        }
+        // Getting EVERY calender event
+        public List<Calender> getEventTimes() {
+            if(db.CalenderEvents.ToList().Count() > 0) {
+                var test = db.CalenderEvents.ToList();
+                return test;
+            }
+            return new List<Calender>();
+        }
+        // Saves Specific calender event
+        public void setEventTime(CalendarEvent Event_Date) {
+            db.CalenderEvents.Add(new Calender(Event_Date));
+            db.SaveChanges();
         }
 
         public string getthem(int Id)
