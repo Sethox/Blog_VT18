@@ -71,23 +71,14 @@ namespace Blog_VT18.Controllers {
         //    return (ContentResult)data;
         //}
         public ContentResult Data() {
-            var calendar = manager.GetMeetings();
-            var List = new List<Calender>();
+            var List = new List<Meeting>();
             var UserList = new List<InvitedToMeetings>();
-            foreach(var item in calendar) {
-                var listan = manager.getthem(item.ID);
-
-                var aEvent = new Calender {
-                    ID = item.ID,
-                    text = item.Info + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan,
-                    start_date = item.DateFrom,
-                    end_date = item.DateTo
-                };
-                List.Add(aEvent);
+            var events = manager.getEventTimes(); if(manager.getEventTimes().Count > 0) {
+                foreach(var i in events) {
+                    List.Add(i);
+                }
             }
-            var data = new SchedulerAjaxData(
-                List
-                );
+            var data = new SchedulerAjaxData(List);
             return (ContentResult)data;
         }
 
@@ -95,13 +86,27 @@ namespace Blog_VT18.Controllers {
             string action_type = actionValues["!nativeeditor_status"];
             Int64 source_id = Int64.Parse(actionValues["id"]);
             Int64 target_id = source_id;
-
+            var List = new List<Meeting>();
+            var calendar = manager.getEventTimes();
             var action = new DataAction(actionValues);
             try {
-                var changedEvent = (Calender)DHXEventsHelper.Bind(typeof(Calender), actionValues);
+                var changedEvent = (Meeting)DHXEventsHelper.Bind(typeof(Meeting), actionValues);
                 switch(action.Type) {
                     case DataActionTypes.Insert:
                         //do insert
+
+
+                        foreach(var item in calendar) {
+                            var listan = manager.getthem(item.ID);
+                            var aEvent = new Meeting {
+                                ID = item.ID,
+                                text = item.Info + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan,
+                                start_date = item.DateFrom,
+                                end_date = item.DateTo
+                            };
+                            List.Add(aEvent);
+
+                        }
                         manager.setEventTime(changedEvent);
                         //action.TargetId = changedEvent.id;//assign postoperational id
                         break;

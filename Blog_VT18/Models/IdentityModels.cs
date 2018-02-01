@@ -35,7 +35,7 @@ namespace Blog_VT18.Models {
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<Categories> Categories { get; set; }
-        public DbSet<Calender> CalendarEvents { get; set; }
+        //public DbSet<Meeting> CalendarEvents { get; set; }
         public DbSet<InvitedToMeetings> InvitedToMeetings { get; set; }
     }
 
@@ -56,15 +56,18 @@ namespace Blog_VT18.Models {
     }
 
     public class Meeting {
+        public Meeting() { }
         public int ID { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
         public string Info { get; set; }
+        public string text { set; get; }
+        public DateTime start_date { set; get; }
+        public DateTime end_date { set; get; }
         public virtual ApplicationUser Booker { get; set; }
     }
 
     public class InvitedToMeetings {
-
         public int Id { get; set; }
         public virtual int MeetingID { get; set; }
         public virtual ApplicationUser Invited { get; set; }
@@ -81,6 +84,7 @@ namespace Blog_VT18.Models {
             this.Category = CP.Category;
             this.Content = CP.Content;
         }
+
         public int ID { get; set; }
         [Required(ErrorMessage = "This field is required")]
         [StringLength(100, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 100 characters")]
@@ -92,11 +96,12 @@ namespace Blog_VT18.Models {
         public virtual Categories Category { get; set; }
         public virtual ApplicationUser From { get; set; }
     }
-    public class Calender {
+
+ /*   public class Calender {
         public Calender() { }
         public int ID { set; get; }
         public string text { set; get; }
         public DateTime start_date { set; get; }
         public DateTime end_date { set; get; }
-    }
+    }*/
 }

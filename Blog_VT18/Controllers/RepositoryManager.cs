@@ -43,7 +43,7 @@ namespace Blog_VT18.Controllers {
                 this.db.SaveChanges();
             }
         }
-      
+
         public void newBlog(BlogPost Create) {
             //Kom ihåg att lägga in kategorier
             //Categories category = db.Categories.Single(x => x.Name == Category);
@@ -81,38 +81,30 @@ namespace Blog_VT18.Controllers {
                 this.db = null;
             }
         }
-        public List<Meeting> GetMeetings() {
+        /*public List<Meeting> GetMeetings() {
             var meetings = db.Meetings.ToList();
-            return meetings; 
-        }
-        
+            return meetings;
+        }*/
+
         // Getting EVERY calender event
-        public List<Calender> getEventTimes() {
-            if(db.CalendarEvents.ToList().Count() > 0) {
-                var test = db.CalendarEvents.ToList();
-                return test;
-            }
-            return new List<Calender>();
+        public List<Meeting> getEventTimes() {
+            if(db.Meetings.ToList().Count() > 0)
+                return db.Meetings.ToList();
+            return new List<Meeting>();
         }
         // Saves Specific calender event
-        public void setEventTime(Calender Event_Date) {
-            db.CalendarEvents.Add(Event_Date);
+        public void setEventTime(Meeting Event_Date) {
+            db.Meetings.Add(Event_Date);
             db.SaveChanges();
         }
 
-        public string getthem(int Id)
-        {
-            var hej = db.InvitedToMeetings.Where(x => x.MeetingID ==Id).Select(x => x.Invited).ToList();
+        public string getthem(int Id) {
+            var hej = db.InvitedToMeetings.Where(x => x.MeetingID == Id).Select(x => x.Invited).ToList();
             string z = "";
-            foreach(var item in hej)
-            {
-                z = z + "\n"+ item.Name;
+            foreach(var item in hej) {
+                z = z + "\n" + item.Name;
             }
-
-
             return z;
-
-
         }
 
         //public List<InvitedToMeetings> getInvited()
@@ -121,7 +113,5 @@ namespace Blog_VT18.Controllers {
         //    aa = db.InvitedToMeetings.ToList();
         //    return aa;
         //}
-
-
     }
 }
