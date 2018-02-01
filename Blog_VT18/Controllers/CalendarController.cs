@@ -76,20 +76,18 @@ namespace Blog_VT18.Controllers {
             List<CalendarEvent> List = new List<CalendarEvent>();
             List<InvitedToMeetings> UserList = new List<InvitedToMeetings>();
 
-            UserList = manager.getInvited();
+            //UserList = manager.getInvited();
             
 
             foreach (var item in calendar)
             {
 
                 var listan = manager.getthem(item.ID);
-                var p = listan.SelectMany(x => x.Name);
+
                 var aEvent = new CalendarEvent
                 {
                     id = item.ID,
-                    text = item.Info + " Booked by: " + item.Booker.Name + " Invited: " + p, 
-                   // + UserList.Where(x => x.MeetingID == item.ID)
-                   //.SelectMany(x => x.Invited.Name).ToList(),
+                    text = item.Info + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan, 
                     start_date = item.DateFrom,
                    end_date = item.DateTo
                 };

@@ -108,21 +108,27 @@ namespace Blog_VT18.Controllers {
             return meetings;
         }
 
-        public List<ApplicationUser> getthem(int Id)
+        public string getthem(int Id)
         {
             var hej = db.InvitedToMeetings.Where(x => x.MeetingID ==Id).Select(x => x.Invited).ToList();
+            string z = "";
+            foreach(var item in hej)
+            {
+                z = z + "\n"+ item.Name;
+            }
 
-            return hej;
+
+            return z;
 
 
         }
 
-        public List<InvitedToMeetings> getInvited()
-        {
-            var aa = new List<InvitedToMeetings>();
-            aa = db.InvitedToMeetings.ToList();
-            return aa;
-        }
+        //public List<InvitedToMeetings> getInvited()
+        //{
+        //    var aa = new List<InvitedToMeetings>();
+        //    aa = db.InvitedToMeetings.ToList();
+        //    return aa;
+        //}
 
 
     }
