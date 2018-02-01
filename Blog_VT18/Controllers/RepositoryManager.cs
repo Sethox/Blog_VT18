@@ -86,7 +86,11 @@ namespace Blog_VT18.Controllers {
         }
         // Getting EVERY calender event
         public List<Calender> getEventTimes() {
-            return db.CalenderEvents.ToList();
+            if(db.CalenderEvents.ToList().Count() > 0) {
+                var test = db.CalenderEvents.ToList();
+                return test;
+            }
+            return new List<Calender>();
         }
         // Saves Specific calender event
         public void setEventTime(CalendarEvent Event_Date) {

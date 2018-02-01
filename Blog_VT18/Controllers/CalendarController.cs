@@ -71,23 +71,30 @@ namespace Blog_VT18.Controllers {
         public ContentResult Data() {
             List<Meeting> calendar = manager.GetMeetings();
             List<CalendarEvent> List = new List<CalendarEvent>();
-            try {
-            foreach(var i in manager.getEventTimes()) {
+            var test = manager.getEventTimes();
+            foreach(var i in test) {
                 List.Add(new CalendarEvent(i));
             }
+            /*try {
+                var test = manager.getEventTimes();
+                foreach(var i in test) {
+                    List.Add(new CalendarEvent(i));
+                }
+            } catch(Exception ex) {
+                throw ex;
+            }*/
+
             foreach(var item in calendar) {
-                var aEvent = new CalendarEvent {
-                    id = item.ID,
-                    text = item.Info + " Booked by: " + item.Booker + " Invited: " + item.Invited,
-                    start_date = item.DateFrom,
-                    end_date = item.DateTo
-                };
-                List.Add(aEvent);
+                    var aEvent = new CalendarEvent {
+                        id = item.ID,
+                        text = item.Info + " Booked by: " + item.Booker + " Invited: " + item.Invited,
+                        start_date = item.DateFrom,
+                        end_date = item.DateTo
+                    };
+                    List.Add(aEvent);
 
                 }
-            } catch (Exception) {
-                throw new Exception();
-            }
+
             var data = new SchedulerAjaxData(
                 List
                 );

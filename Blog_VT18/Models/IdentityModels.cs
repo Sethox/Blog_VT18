@@ -86,7 +86,7 @@ namespace Blog_VT18.Models {
         public virtual ApplicationUser From { get; set; }
     }
     public class Calender {
-        public class calender { }
+        public Calender() { }
         public Calender(CalendarEvent CP) {
             this.ID = CP.id;
             this.text = CP.text;
