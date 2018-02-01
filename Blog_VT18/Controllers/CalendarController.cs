@@ -77,7 +77,7 @@ namespace Blog_VT18.Controllers {
                var aEvent = new CalendarEvent
                 {
                     id = item.ID,
-                    text = item.Info+" Booked by: "+ item.Booker + " Invited: " + item.Invited,
+                    text = item.Info+" Booked by: "+ item.Booker.Name + " Invited: " + item.Invited.Name,
                     start_date = item.DateFrom,
                     end_date = item.DateTo
 
