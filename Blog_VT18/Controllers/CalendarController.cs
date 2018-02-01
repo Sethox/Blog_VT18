@@ -83,10 +83,9 @@ namespace Blog_VT18.Controllers {
         }
 
         public ContentResult Save(int? id, FormCollection actionValues) {
-            string action_type = actionValues["!nativeeditor_status"];
+            /*string action_type = actionValues["!nativeeditor_status"];
             Int64 source_id = Int64.Parse(actionValues["id"]);
-            Int64 target_id = source_id;
-            var List = new List<Meeting>();
+            Int64 target_id = source_id;*/
             var calendar = manager.getEventTimes();
             var action = new DataAction(actionValues);
             try {
@@ -94,19 +93,14 @@ namespace Blog_VT18.Controllers {
                 switch(action.Type) {
                     case DataActionTypes.Insert:
                         //do insert
+                        var item = calendar.FirstOrDefault(x => x.ID == id);
+                        var listan = manager.getthem(item.ID);
+                        var aEvent = new Meeting {
+                            text = item.Info + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan,
+                            start_date = item.DateFrom,
+                            end_date = item.DateTo
+                        };
 
-
-                        foreach(var item in calendar) {
-                            var listan = manager.getthem(item.ID);
-                            var aEvent = new Meeting {
-                                ID = item.ID,
-                                text = item.Info + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan,
-                                start_date = item.DateFrom,
-                                end_date = item.DateTo
-                            };
-                            List.Add(aEvent);
-
-                        }
                         manager.setEventTime(changedEvent);
                         //action.TargetId = changedEvent.id;//assign postoperational id
                         break;
