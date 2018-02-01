@@ -94,12 +94,6 @@ namespace Blog_VT18.Models {
     }
     public class Calender {
         public Calender() { }
-        public Calender(CalendarEvent CP) {
-            this.ID = CP.id;
-            this.text = CP.text;
-            this.start_date = CP.start_date;
-            this.end_date = CP.end_date;
-        }
         public int ID { set; get; }
         public string text { set; get; }
         public DateTime start_date { set; get; }

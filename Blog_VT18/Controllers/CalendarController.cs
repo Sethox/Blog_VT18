@@ -77,8 +77,8 @@ namespace Blog_VT18.Controllers {
             foreach(var item in calendar) {
                 var listan = manager.getthem(item.ID);
 
-                var aEvent = new CalendarEvent {
-                    id = item.ID,
+                var aEvent = new Calender {
+                    ID = item.ID,
                     text = item.Info + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan,
                     start_date = item.DateFrom,
                     end_date = item.DateTo
@@ -98,7 +98,7 @@ namespace Blog_VT18.Controllers {
 
             var action = new DataAction(actionValues);
             try {
-                var changedEvent = (CalendarEvent)DHXEventsHelper.Bind(typeof(CalendarEvent), actionValues);
+                var changedEvent = (Calender)DHXEventsHelper.Bind(typeof(Calender), actionValues);
                 switch(action.Type) {
                     case DataActionTypes.Insert:
                         //do insert
