@@ -68,16 +68,13 @@ namespace Blog_VT18.Controllers {
         //        );
         //    return (ContentResult)data;
         //}
-        public ContentResult Data()
-        {
+        public ContentResult Data() {
             List<Meeting> calendar = manager.GetMeetings();
             List<CalendarEvent> List = new List<CalendarEvent>();
-            foreach (var item in calendar)
-            {
-               var aEvent = new CalendarEvent
-                {
+            foreach(var item in calendar) {
+                var aEvent = new CalendarEvent {
                     id = item.ID,
-                    text = item.Info+" Booked by: "+ item.Booker + " Invited: " + item.Invited,
+                    text = item.Info + " Booked by: " + item.Booker + " Invited: " + item.Invited,
                     start_date = item.DateFrom,
                     end_date = item.DateTo
 
@@ -86,7 +83,7 @@ namespace Blog_VT18.Controllers {
 
             }
             var data = new SchedulerAjaxData(
-                List                
+                List
                 );
             return (ContentResult)data;
         }
@@ -97,7 +94,6 @@ namespace Blog_VT18.Controllers {
             Int64 target_id = source_id;
 
             var action = new DataAction(actionValues);
-
             try {
                 var changedEvent = (CalendarEvent)DHXEventsHelper.Bind(typeof(CalendarEvent), actionValues);
                 switch(action.Type) {
