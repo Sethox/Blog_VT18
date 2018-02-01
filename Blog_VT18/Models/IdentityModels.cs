@@ -13,6 +13,8 @@ namespace Blog_VT18.Models {
     public class ApplicationUser : IdentityUser {
         public string Name { set; get; }
 
+        public virtual ICollection<TimeSuggestion> TimeSuggestions { get; set; } 
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager) {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
@@ -34,6 +36,9 @@ namespace Blog_VT18.Models {
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<Categories> Categories { get; set; }
+        public DbSet<TimeSuggestion> TimeSuggestions { get; set; }
+        public DbSet<Date> Dates { get; set; }
+
     }
 
     public class Categories {
@@ -53,11 +58,16 @@ namespace Blog_VT18.Models {
     }
     public class TimeSuggestion {
         public int ID { get; set; }
-        public  ICollection<DateTime> Dates{ get; set; }
+        public virtual ICollection<Date> Dates{ get; set; }
         public virtual ApplicationUser Sender { get; set; }
         public virtual ICollection<ApplicationUser> Invited { get; set; }
-
     }
+
+    public class Date {
+        public int Id { get; set; }
+        public DateTime TheDate { get; set; }
+    }
+
 
     public class Meeting {
         public int ID { get; set; }

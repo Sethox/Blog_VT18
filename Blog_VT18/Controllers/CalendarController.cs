@@ -116,18 +116,49 @@ namespace Blog_VT18.Controllers {
             return (ContentResult)new AjaxSaveResponse(action);
         }
 
-        public ActionResult SendTimeSuggestion(TimeSuggestion suggestion) {
-            var senderId = User.Identity.GetUserId();
-            var sender = db.Users.Find(senderId);
-
-            suggestion.Sender = sender;
-
-
-            return View();
+        public ActionResult SendTimeSuggestion()
+        {
+            var model = new TimeSuggestionViewModel { AllUsers = db.Users.ToList() };
+            return View(model);
         }
 
 
+        [HttpPost]
+        public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model) {
+          
+           
+            //foreach (var i in list)
+            //{
+            //    var dates = i.Dates;
+            //    foreach (var date in dates)
+            //    {
+            //        model.Suggestions.Single(t => t.Dates.Single(d => d.TheDate));
+            //    }
+            //}
 
-    }
+         
+                var timeSuggestion = new TimeSuggestion();
+           
+                var senderId = User.Identity.GetUserId();
+                var sender = db.Users.Find(senderId);
+
+                timeSuggestion.Sender = sender;
+                timeSuggestion.Invited = model.SelectedUsers;
+                timeSuggestion.Dates = model.DateList;
+
+                db.TimeSuggestions.Add(timeSuggestion);
+                db.SaveChanges();
+
+               return View();  
+            }
+
+            
+            
+        }
+        
+   
 }
+
+
+
 
