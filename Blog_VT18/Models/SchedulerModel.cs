@@ -4,6 +4,7 @@ namespace Blog_VT18.Models
 {
     public class CalendarEvent
     {
+        public CalendarEvent() { }
         public CalendarEvent(Calender CP)
         {
             this.id = CP.ID;

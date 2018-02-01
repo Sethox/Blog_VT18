@@ -43,53 +43,34 @@ namespace Blog_VT18.Controllers {
                 this.db.SaveChanges();
             }
         }
-
         public void newBlog(BlogPost Create) {
             //Kom ihåg att lägga in kategorier
             //Categories category = db.Categories.Single(x => x.Name == Category);
             //newPost.Category = category;
-
-
             // Creates new blog, updates database
             BlogPost newPost = new BlogPost(Create);
-
             //En blogpost läggs till i vår context
             db.BlogPosts.Add(newPost);
-
             //Sparar ändringar i databasen
             db.SaveChanges();
         }
-
         public BlogPost getBlogPost(int? Id) {
             BlogPost blogPost = db.BlogPosts.Single(x => x.ID == Id);
-
             return blogPost;
-
         }
-
         public void changeBlogPost(BlogPost blogPost) {
             var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
-
             var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
-
             ny = blogPost;
-
             db.BlogPosts.Remove(bp);
-
             db.BlogPosts.Add(ny);
-
             db.SaveChanges();
-
         }
-
         public void deleteBlogPost(int? Id) {
-
             var bp = db.BlogPosts.Single(x => x.ID == Id);
             db.BlogPosts.Remove(bp);
             db.SaveChanges();
-
         }
-
         /// <summary>
         /// Disposing the classes properties.
         /// </summary>
@@ -101,15 +82,12 @@ namespace Blog_VT18.Controllers {
         }
         public List<Meeting> GetMeetings() {
             var meetings = db.Meetings.ToList();
-
-            return meetings;
+            return meetings; 
         }
-
         // Getting EVERY calender event
         public List<Calender> getEventTimes() {
             return db.CalenderEvents.ToList();
         }
-
         // Saves Specific calender event
         public void setEventTime(CalendarEvent Event_Date) {
             db.CalenderEvents.Add(new Calender(Event_Date));
