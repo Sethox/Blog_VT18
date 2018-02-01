@@ -34,6 +34,7 @@ namespace Blog_VT18.Models {
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<Categories> Categories { get; set; }
+        public DbSet<Calender> CalenderEvents { get; set; }
     }
 
     public class Categories {
@@ -60,13 +61,12 @@ namespace Blog_VT18.Models {
         public virtual ApplicationUser Booker { get; set; }
         public virtual ApplicationUser Invited { get; set; }
     }
-    
+
     public class BlogPost {
 
-        public BlogPost()
-        { }
-            // Copy Constructor
-            public BlogPost(BlogPost CP) {
+        public BlogPost() { }
+        // Copy Constructor
+        public BlogPost(BlogPost CP) {
             this.ID = CP.ID;
             this.Title = CP.Title;
             this.From = CP.From;
@@ -78,11 +78,23 @@ namespace Blog_VT18.Models {
         [Required(ErrorMessage = "This field is required")]
         [StringLength(100, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 100 characters")]
         public string Title { get; set; }
-        [Required (ErrorMessage = "This field is required")]
+        [Required(ErrorMessage = "This field is required")]
         [StringLength(1500, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 1500 characters")]
         public string Content { get; set; }
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
         public virtual ApplicationUser From { get; set; }
+    }
+    public class Calender {
+        public Calender(CalendarEvent CP) {
+            this.ID = CP.id;
+            this.text = CP.text;
+            this.start_date = CP.start_date;
+            this.end_date = CP.end_date;
+        }
+        public int ID { set; get; }
+        public string text { set; get; }
+        public DateTime start_date { set; get; }
+        public DateTime end_date { set; get; }
     }
 }

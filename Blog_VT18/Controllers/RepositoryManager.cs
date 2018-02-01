@@ -12,11 +12,13 @@ using System.Collections.Generic;
 namespace Blog_VT18.Controllers {
     public class RepositoryManager {
         ApplicationDbContext db;
-        public ApplicationUser usr { get {
+        public ApplicationUser usr {
+            get {
                 var userID = HttpContext.Current.User.Identity.GetUserId();
                 var currentUser = db.Users.Where(x => x.Id == userID).FirstOrDefault();
                 return currentUser;
-            } }
+            }
+        }
 
         public RepositoryManager() { this.db = new ApplicationDbContext(); }
 
@@ -36,7 +38,7 @@ namespace Blog_VT18.Controllers {
         /// </summary>
         /// <param name="post">This is the model to update the database.</param>
         public void newCatagory(BlogPost post) {
-            if (post != null) {
+            if(post != null) {
                 this.db.BlogPosts.Add(post);
                 this.db.SaveChanges();
             }
@@ -46,7 +48,7 @@ namespace Blog_VT18.Controllers {
             //Kom ihåg att lägga in kategorier
             //Categories category = db.Categories.Single(x => x.Name == Category);
             //newPost.Category = category;
-        
+
 
             // Creates new blog, updates database
             BlogPost newPost = new BlogPost(Create);
@@ -58,16 +60,15 @@ namespace Blog_VT18.Controllers {
             db.SaveChanges();
         }
 
-        public  BlogPost getBlogPost(int? Id) {
+        public BlogPost getBlogPost(int? Id) {
             BlogPost blogPost = db.BlogPosts.Single(x => x.ID == Id);
 
             return blogPost;
 
         }
 
-        public void changeBlogPost(BlogPost blogPost)
-        {
-           var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
+        public void changeBlogPost(BlogPost blogPost) {
+            var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
 
             var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
 
@@ -89,22 +90,29 @@ namespace Blog_VT18.Controllers {
 
         }
 
-
-
         /// <summary>
         /// Disposing the classes properties.
         /// </summary>
         protected void Dispose(bool disposing) {
-            if (disposing && this.db != null) {
+            if(disposing && this.db != null) {
                 this.db.Dispose();
                 this.db = null;
             }
         }
-        public List<Meeting> GetMeetings()
-        {
+        public List<Meeting> GetMeetings() {
             var meetings = db.Meetings.ToList();
 
             return meetings;
+        }
+
+        // Getting EVERY calender event
+        public List<Calender> getEventTimes() {
+            return db.CalenderEvents.ToList();
+        }
+
+        // Saves Specific calender event
+        public void setEveventTime(CalendarEvent Event_Date) {
+            db.CalenderEvents.Add(new Calender(Event_Date));
         }
     }
 }

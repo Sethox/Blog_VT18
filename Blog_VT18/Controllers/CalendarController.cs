@@ -77,7 +77,6 @@ namespace Blog_VT18.Controllers {
                     text = item.Info + " Booked by: " + item.Booker + " Invited: " + item.Invited,
                     start_date = item.DateFrom,
                     end_date = item.DateTo
-
                 };
                 List.Add(aEvent);
 
