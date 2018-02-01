@@ -42,6 +42,7 @@ namespace Blog_VT18.Controllers {
             }
         }
 
+
         public void newBlog(BlogPost Create) {
             //Kom ihåg att lägga in kategorier
             //Categories category = db.Categories.Single(x => x.Name == Category);
@@ -106,5 +107,23 @@ namespace Blog_VT18.Controllers {
 
             return meetings;
         }
+
+        public List<ApplicationUser> getthem(int Id)
+        {
+            var hej = db.InvitedToMeetings.Where(x => x.MeetingID ==Id).Select(x => x.Invited).ToList();
+
+            return hej;
+
+
+        }
+
+        public List<InvitedToMeetings> getInvited()
+        {
+            var aa = new List<InvitedToMeetings>();
+            aa = db.InvitedToMeetings.ToList();
+            return aa;
+        }
+
+
     }
 }

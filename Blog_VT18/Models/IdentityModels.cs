@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
+using System.Collections;
 
 namespace Blog_VT18.Models {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -34,6 +35,8 @@ namespace Blog_VT18.Models {
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<Categories> Categories { get; set; }
+        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+        public DbSet<InvitedToMeetings> InvitedToMeetings { get; set; }
     }
 
     public class Categories {
@@ -58,8 +61,15 @@ namespace Blog_VT18.Models {
         public DateTime DateTo { get; set; }
         public string Info { get; set; }
         public virtual ApplicationUser Booker { get; set; }
+    }
+
+    public class InvitedToMeetings {
+
+        public int Id { get; set; }
+        public virtual int MeetingID { get; set; }
         public virtual ApplicationUser Invited { get; set; }
     }
+
     
     public class BlogPost {
 

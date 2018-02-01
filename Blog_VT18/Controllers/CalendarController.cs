@@ -11,6 +11,8 @@ using DHTMLX.Scheduler.Data;
 using DHTMLX.Scheduler.Controls;
 
 using Blog_VT18.Models;
+using System.Collections;
+
 namespace Blog_VT18.Controllers {
     public class CalendarController : BaseController {
 
@@ -72,15 +74,24 @@ namespace Blog_VT18.Controllers {
         {
             List<Meeting> calendar = manager.GetMeetings();
             List<CalendarEvent> List = new List<CalendarEvent>();
+            List<InvitedToMeetings> UserList = new List<InvitedToMeetings>();
+
+            UserList = manager.getInvited();
+            
+
             foreach (var item in calendar)
             {
-               var aEvent = new CalendarEvent
+
+                var listan = manager.getthem(item.ID);
+                var p = listan.SelectMany(x => x.Name);
+                var aEvent = new CalendarEvent
                 {
                     id = item.ID,
-                    text = item.Info+" Booked by: "+ item.Booker.Name + " Invited: " + item.Invited.Name,
+                    text = item.Info + " Booked by: " + item.Booker.Name + " Invited: " + p, 
+                   // + UserList.Where(x => x.MeetingID == item.ID)
+                   //.SelectMany(x => x.Invited.Name).ToList(),
                     start_date = item.DateFrom,
-                    end_date = item.DateTo
-
+                   end_date = item.DateTo
                 };
                 List.Add(aEvent);
 
