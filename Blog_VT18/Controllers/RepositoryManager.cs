@@ -20,10 +20,15 @@ namespace Blog_VT18.Controllers {
 
         public RepositoryManager() { this.db = new ApplicationDbContext(); }
 
-        public List<Categories> CatList() {
-            var cat = db.Categories.ToList();
+        public List<Categories> CatList(string id) {
+            var cat = db.Categories.Where(x => x.Category.ToString() == id).ToList();
             return cat;
             }
+
+        public List<Categories> MainList() {
+            var cat = db.Categories.Where(x => x.Category == null).ToList();
+            return cat;
+        }
 
         /// <summary>
         /// Updates the user currently logged in.
@@ -43,6 +48,15 @@ namespace Blog_VT18.Controllers {
         public void newCatagory(BlogPost post) {
             if (post != null) {
                 this.db.BlogPosts.Add(post);
+                this.db.SaveChanges();
+            }
+        }
+
+        public void newCategory(Categories category, string id)
+        {
+            if (category != null) {
+                category.Category = Int32.Parse(id);
+                this.db.Categories.Add(category);
                 this.db.SaveChanges();
             }
         }

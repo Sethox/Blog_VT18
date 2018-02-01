@@ -18,7 +18,7 @@ namespace Blog_VT18.Controllers {
             //Kom ihåg att inkludera kategorier
             //var posts = db.BlogPosts.OrderByDescending(x => x.ID).Include(Z => Z.From).ToList();
 
-            var cat = repositoryManager.CatList();
+            var cat = repositoryManager.MainList();
              
             
             ViewBag.MyViewBag = User.Identity.GetUserId();
@@ -110,11 +110,34 @@ namespace Blog_VT18.Controllers {
 
         public ActionResult Category(string id)
         {
-            var catName1 = db.Categories.Single(x => x.ID.ToString().Equals(id));
-            return View("Category", catName1);
+            //var catName1 = db.Categories.Single(x => x.ID.ToString().Equals(id));
+
+            var subCats = repositoryManager.CatList(id);
+
+            return View("Category", subCats);
         }
 
-  
+        public List<Categories>subCategories(string id)
+        {
+            var subCats = repositoryManager.CatList(id);
+            return subCats;
+
+        }
+
+        public ActionResult CreateCategory(string id)
+        {
+            var cat = db.Categories.Single(x => x.ID.ToString().Equals(id));
+            return View(cat);
+        }
+
+        public ActionResult CreateNewCat(Categories category, string id)
+        {
+            if (ModelState.IsValid) {
+                repositoryManager.newCategory(category, id);
+               
+            }
+            return RedirectToAction("Index");
+        }
 
         //Här skapar vi en blogpost 
         //public ActionResult Create(string Create) {
