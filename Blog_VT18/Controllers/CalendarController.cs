@@ -98,8 +98,7 @@ namespace Blog_VT18.Controllers {
                 switch(action.Type) {
                     case DataActionTypes.Insert:
                         //do insert
-
-
+                        manager.setEventTime(changedEvent);
                         //action.TargetId = changedEvent.id;//assign postoperational id
                         break;
                     case DataActionTypes.Delete:
@@ -107,7 +106,7 @@ namespace Blog_VT18.Controllers {
                         break;
                     default:// "update"                          
                         //do update
-
+                        manager.getEventTimes();
                         break;
                 }
             } catch {
