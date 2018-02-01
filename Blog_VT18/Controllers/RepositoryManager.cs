@@ -20,6 +20,11 @@ namespace Blog_VT18.Controllers {
 
         public RepositoryManager() { this.db = new ApplicationDbContext(); }
 
+        public List<Categories> CatList() {
+            var cat = db.Categories.ToList();
+            return cat;
+            }
+
         /// <summary>
         /// Updates the user currently logged in.
         /// </summary>
@@ -42,11 +47,11 @@ namespace Blog_VT18.Controllers {
             }
         }
 
-        public void newBlog(BlogPost Create) {
+        public void newBlog(BlogPost Create, string id) {
             //Kom ihåg att lägga in kategorier
-            //Categories category = db.Categories.Single(x => x.Name == Category);
-            //newPost.Category = category;
-        
+            Categories category = db.Categories.Single(x => x.ID.ToString().Equals(id));
+            Create.Category = category;
+
 
             // Creates new blog, updates database
             BlogPost newPost = new BlogPost(Create);

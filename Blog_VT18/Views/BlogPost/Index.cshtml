@@ -1,4 +1,4 @@
-@model IEnumerable<Blog_VT18.Models.BlogPost>
+@model IEnumerable<Blog_VT18.Models.Categories>
 
 
 @{
@@ -6,13 +6,16 @@
 }
 
 <h2>ListPost</h2>
-@Html.ActionLink("ADD BLOGPOST", "Add")
-@Html.ActionLink("Education", "Category", "BlogPost")
-@Html.ActionLink("Research", "Add")
-@Html.ActionLink("Informal", "Add")
 
+@foreach (var item in Model)
+{
 
-<table class="table">
+    @Html.ActionLink(item.Name+ " ", "Category", "BlogPost", new { id = item.ID }, new { })
+    @*@Html.ActionLink("Research", "Category", "BlogPost", new { id = "Research" })
+        @Html.ActionLink("Informal", "Add")*@
+}
+
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -24,16 +27,16 @@
             @Html.DisplayNameFor(model => model.From)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
-    @foreach (var item in Model)
-    {
+    @*@foreach (var item in Model)
+    {*@
         @*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
                    @Html.DisplayNameFor(m => m.Title)
 
                    <form typeof="textarea">@item.Content</form>
             </div>*@
-        <tr>
+        @*<tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -43,8 +46,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.From.Name)
 
-            </td>
-            @if (User.IsInRole("Administrator"))
+            </td>*@
+            @*@if (User.IsInRole("Administrator"))
             {
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
@@ -55,4 +58,4 @@
         </tr>
     }
 
-</table>
+</table>*@

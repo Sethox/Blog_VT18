@@ -16,9 +16,13 @@ namespace Blog_VT18.Controllers {
         // Index sidan läser in en lista av befintliga blogposts
         public ActionResult Index() {
             //Kom ihåg att inkludera kategorier
-            var posts = db.BlogPosts.OrderByDescending(x => x.ID).Include(Z => Z.From).ToList();
+            //var posts = db.BlogPosts.OrderByDescending(x => x.ID).Include(Z => Z.From).ToList();
 
+            var cat = repositoryManager.CatList();
+             
+            
             ViewBag.MyViewBag = User.Identity.GetUserId();
+
 
             //Categories minKategori = new Categories();
             //minKategori.Category = null;
@@ -28,7 +32,7 @@ namespace Blog_VT18.Controllers {
             //db.SaveChanges();
 
             //Skickar oss till index och skickar med alla posts
-            return View(posts);
+            return View(cat);
         }
 
         // Creates a new blogpost and puts it through to the view
@@ -42,7 +46,7 @@ namespace Blog_VT18.Controllers {
 
         // Accepts the blogpost whos have its values set in the View and sends it to the repositorie
         [HttpPost]
-        public ActionResult Add(BlogPost blogPost) {
+        public ActionResult Add(BlogPost blogPost, string id) {
             //ModelState.AddModelError("", "This is a global Message.");
             //ValidateEntry(entry);
 
@@ -50,7 +54,7 @@ namespace Blog_VT18.Controllers {
 
 
             if(ModelState.IsValid) {
-                repositoryManager.newBlog(blogPost);
+                repositoryManager.newBlog(blogPost, id);
                 return RedirectToAction("Index");
             }
             return View(blogPost);
@@ -104,11 +108,13 @@ namespace Blog_VT18.Controllers {
             return RedirectToAction("Index");
         }
 
-        public ActionResult Category(string catName)
+        public ActionResult Category(string id)
         {
-            var catName1 = db.Categories.Single(x => x.Name == catName);
+            var catName1 = db.Categories.Single(x => x.ID.ToString().Equals(id));
             return View("Category", catName1);
         }
+
+  
 
         //Här skapar vi en blogpost 
         //public ActionResult Create(string Create) {
