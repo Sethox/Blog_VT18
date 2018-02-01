@@ -71,21 +71,20 @@ namespace Blog_VT18.Controllers {
         //    return (ContentResult)data;
         //}
         public ContentResult Data() {
-            List<Meeting> calendar = manager.GetMeetings();
-            List<CalendarEvent> List = new List<CalendarEvent>();
-            List<InvitedToMeetings> UserList = new List<InvitedToMeetings>();
-            foreach (var item in calendar){
+            var calendar = manager.GetMeetings();
+            var List = new List<Calender>();
+            var UserList = new List<InvitedToMeetings>();
+            foreach(var item in calendar) {
                 var listan = manager.getthem(item.ID);
 
-                var aEvent = new CalendarEvent
-                {
+                var aEvent = new CalendarEvent {
                     id = item.ID,
-                    text = item.Info + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan, 
+                    text = item.Info + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan,
                     start_date = item.DateFrom,
-                   end_date = item.DateTo
+                    end_date = item.DateTo
                 };
                 List.Add(aEvent);
-
+            }
             var data = new SchedulerAjaxData(
                 List
                 );
@@ -110,7 +109,7 @@ namespace Blog_VT18.Controllers {
                         //do delete
                         break;
                     default:// "update"                          
-                        //do update
+                            //do update
                         break;
                 }
             } catch {
@@ -120,4 +119,5 @@ namespace Blog_VT18.Controllers {
         }
     }
 }
+
 

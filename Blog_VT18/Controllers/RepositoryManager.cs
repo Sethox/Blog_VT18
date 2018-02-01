@@ -85,17 +85,18 @@ namespace Blog_VT18.Controllers {
             var meetings = db.Meetings.ToList();
             return meetings; 
         }
+        
         // Getting EVERY calender event
         public List<Calender> getEventTimes() {
-            if(db.CalenderEvents.ToList().Count() > 0) {
-                var test = db.CalenderEvents.ToList();
+            if(db.CalendarEvents.ToList().Count() > 0) {
+                var test = db.CalendarEvents.ToList();
                 return test;
             }
             return new List<Calender>();
         }
         // Saves Specific calender event
-        public void setEventTime(CalendarEvent Event_Date) {
-            db.CalenderEvents.Add(new Calender(Event_Date));
+        public void setEventTime(Calender Event_Date) {
+            db.CalendarEvents.Add(Event_Date);
             db.SaveChanges();
         }
 

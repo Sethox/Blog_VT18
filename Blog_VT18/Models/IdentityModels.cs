@@ -35,7 +35,7 @@ namespace Blog_VT18.Models {
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<Categories> Categories { get; set; }
-        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+        public DbSet<Calender> CalendarEvents { get; set; }
         public DbSet<InvitedToMeetings> InvitedToMeetings { get; set; }
     }
 
