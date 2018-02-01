@@ -111,7 +111,7 @@ namespace Blog_VT18.Controllers {
         }
 
         // Saves Specific calender event
-        public void setEveventTime(CalendarEvent Event_Date) {
+        public void setEventTime(CalendarEvent Event_Date) {
             db.CalenderEvents.Add(new Calender(Event_Date));
         }
     }
