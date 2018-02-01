@@ -11,6 +11,8 @@ using DHTMLX.Scheduler.Data;
 using DHTMLX.Scheduler.Controls;
 
 using Blog_VT18.Models;
+using System.Collections;
+
 namespace Blog_VT18.Controllers {
     public class CalendarController : BaseController {
 
@@ -71,29 +73,18 @@ namespace Blog_VT18.Controllers {
         public ContentResult Data() {
             List<Meeting> calendar = manager.GetMeetings();
             List<CalendarEvent> List = new List<CalendarEvent>();
-            var test = manager.getEventTimes();
-            foreach(var i in test) {
-                List.Add(new CalendarEvent(i));
-            }
-            /*try {
-                var test = manager.getEventTimes();
-                foreach(var i in test) {
-                    List.Add(new CalendarEvent(i));
-                }
-            } catch(Exception ex) {
-                throw ex;
-            }*/
+            List<InvitedToMeetings> UserList = new List<InvitedToMeetings>();
+            foreach (var item in calendar){
+                var listan = manager.getthem(item.ID);
 
-            foreach(var item in calendar) {
-                    var aEvent = new CalendarEvent {
-                        id = item.ID,
-                        text = item.Info + " Booked by: " + item.Booker + " Invited: " + item.Invited,
-                        start_date = item.DateFrom,
-                        end_date = item.DateTo
-                    };
-                    List.Add(aEvent);
-
-                }
+                var aEvent = new CalendarEvent
+                {
+                    id = item.ID,
+                    text = item.Info + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan, 
+                    start_date = item.DateFrom,
+                   end_date = item.DateTo
+                };
+                List.Add(aEvent);
 
             var data = new SchedulerAjaxData(
                 List

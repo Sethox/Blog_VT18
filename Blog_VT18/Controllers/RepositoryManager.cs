@@ -43,6 +43,7 @@ namespace Blog_VT18.Controllers {
                 this.db.SaveChanges();
             }
         }
+      
         public void newBlog(BlogPost Create) {
             //Kom ihåg att lägga in kategorier
             //Categories category = db.Categories.Single(x => x.Name == Category);
@@ -97,5 +98,29 @@ namespace Blog_VT18.Controllers {
             db.CalenderEvents.Add(new Calender(Event_Date));
             db.SaveChanges();
         }
+
+        public string getthem(int Id)
+        {
+            var hej = db.InvitedToMeetings.Where(x => x.MeetingID ==Id).Select(x => x.Invited).ToList();
+            string z = "";
+            foreach(var item in hej)
+            {
+                z = z + "\n"+ item.Name;
+            }
+
+
+            return z;
+
+
+        }
+
+        //public List<InvitedToMeetings> getInvited()
+        //{
+        //    var aa = new List<InvitedToMeetings>();
+        //    aa = db.InvitedToMeetings.ToList();
+        //    return aa;
+        //}
+
+
     }
 }
