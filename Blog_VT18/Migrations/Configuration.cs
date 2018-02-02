@@ -65,7 +65,7 @@ namespace Blog_VT18.Migrations {
             {
                 var cat1 = new Categories
                 {
-                    ID = 0,
+                    ID = 1,
                     Name = "Education",
                     Category = null
                 };
@@ -74,7 +74,7 @@ namespace Blog_VT18.Migrations {
 
                 var cat2 = new Categories
                 {
-                    ID = 1,
+                    ID = 2,
                     Name = "Research",
                     Category = null
                 };
@@ -82,12 +82,23 @@ namespace Blog_VT18.Migrations {
 
                 var cat3 = new Categories
                 {
-                    ID = 2,
+                    ID = 3,
                     Name = "Informal",
                     Category = null
                 };
 
                 context.Categories.Add(cat3);
+                context.SaveChanges();
+
+                for (int i = 1; i < 4; i++)
+                {
+                    var subCat = new Categories
+                    {
+                        Name = "Miscellaneous",
+                        Category = i
+                    };
+                    context.Categories.Add(subCat);
+                }
 
                 context.SaveChanges();
             }

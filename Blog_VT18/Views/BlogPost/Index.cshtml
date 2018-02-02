@@ -9,10 +9,7 @@
 
 @foreach (var item in Model)
 {
-
     @Html.ActionLink(item.Name+ " ", "Category", "BlogPost", new { id = item.ID }, new { })
-    @*@Html.ActionLink("Research", "Category", "BlogPost", new { id = "Research" })
-        @Html.ActionLink("Informal", "Add")*@
 }
 
 

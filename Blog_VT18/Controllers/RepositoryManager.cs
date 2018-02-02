@@ -30,6 +30,19 @@ namespace Blog_VT18.Controllers {
             return cat;
         }
 
+        public Categories GetCategory(string id)
+        {
+            var catID = Int32.Parse(id);
+            var cat = db.Categories.Single(x => x.ID == catID);
+            return cat;
+        }
+
+        //public List<BlogPost> ListPosts(Categories category)
+        //{
+        //    var postList = db.BlogPosts.Where(x => x.Category.Equals(category.ID)).ToList();
+        //    return postList;
+        //}
+
         /// <summary>
         /// Updates the user currently logged in.
         /// </summary>

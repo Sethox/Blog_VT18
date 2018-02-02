@@ -17,55 +17,58 @@
 
 @foreach (var item in Model.Where(m => m.Category == m.Category))
 {
-   
-    @Html.ActionLink(" Create new category", "CreateCategory", "BlogPost", new { id = item.Category }, new { })
+    <input type="button" value="Create new category" onclick="location.href='@Url.Action("CreateCategory", "BlogPost", new { id=item.Category })' "/>
     break;
 
 }
 
+@*@Html.ActionLink("Add post", "Add", "BlogPost")*@
+@*@{Html.RenderAction("ListPost", Model); }*@
+@*@Html.Partial("ListPost")*@
 
-@*<table class="table">*@
+@*<table class="table">
 
-@*<tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BlogPostTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.From)
-        </th>
-        <th></th>
-    </tr>*@
+        *
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BlogPostTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.From)
+            </th>
+            <th></th>
+        </tr>
 
-@*@foreach (var item in Model)
-    {
+        @foreach (var item in Model)
+        {
 
-        @Html.ActionLink(item.Name + " ", "Add Blogpost", "Add", new { id = item.ID }, new { })
+            @Html.ActionLink(item.Name + " ", "Add Blogpost", "Add", new { id = item.ID }, new { })
 
-    }*@
+        }
 
 
-@*@foreach (var item in Model.BlogPosts)
-    {
-        @*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
-                   @Html.DisplayNameFor(m => m.Title)
+        @foreach (var item in Model.BlogPosts)
+        {
+            <div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
+                @Html.DisplayNameFor(m => m.Title)
 
-                   <form typeof="textarea">@item.Content</form>
-            </div>*@
-@*<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Content)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.From.Name)
+                <form typeof="textarea">@item.Content</form>
+            </div>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.From.Name)
 
-    </td>*@
-@*@if (User.IsInRole("Administrator"))
+                </td>
+                @if (User.IsInRole("Administrator"))
                 {
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |

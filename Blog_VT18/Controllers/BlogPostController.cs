@@ -145,7 +145,28 @@ namespace Blog_VT18.Controllers {
 
         }
 
+        public ActionResult ListPost(IEnumerable<Categories> categories)
+        {
+            //var catID = Int32.Parse(id);
+            //var cat = repositoryManager.GetCategory(id);
+            //var postList = db.BlogPosts.Where(x => x. == cat).ToList();
+            //.Include(z => z.From).ToList();    
 
+            var postList = new List<BlogPost>();
+            for (int i = 0; i < categories.Count(); i++)
+            {
+                var post = db.BlogPosts.Where(x => x.Category == categories);
+                foreach(BlogPost item in post)
+                {
+                    postList.Add(item);
+                }
+                    
+            }
+
+            //var cat = repositoryManager.GetCategory(id);
+            //var list = repositoryManager.ListPosts(cat);
+            return View(postList);
+        }
 
         //Här skapar vi en blogpost 
         //public ActionResult Create(string Create) {
