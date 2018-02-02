@@ -124,20 +124,28 @@ namespace Blog_VT18.Controllers {
 
         }
 
-        public ActionResult CreateCategory(string id)
+        public ActionResult CreateCategory()
         {
-            var cat = db.Categories.Single(x => x.ID.ToString().Equals(id));
-            return View(cat);
+            var category = new Categories()
+            {
+                
+            };
+            return View(category);
         }
 
-        public ActionResult CreateNewCat(Categories category, string id)
+        [HttpPost]
+        public ActionResult CreateCategory(Categories category, string id)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 repositoryManager.newCategory(category, id);
-               
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View("Index");
+
         }
+
+
 
         //Här skapar vi en blogpost 
         //public ActionResult Create(string Create) {
