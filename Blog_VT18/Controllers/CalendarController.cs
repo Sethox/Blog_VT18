@@ -116,17 +116,54 @@ namespace Blog_VT18.Controllers {
             return (ContentResult)new AjaxSaveResponse(action);
         }
 
-        public ActionResult SendTimeSuggestion()
-        {
-            var model = new TimeSuggestionViewModel { AllUsers = db.Users.ToList() };
+        public ActionResult SendTimeSuggestion() {
+            TimeSuggestion Suggestion = new TimeSuggestion();
+
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            var list = new List<ApplicationUser> { user };
+            Suggestion.Invited = list;
+            var invitedList = Suggestion.Invited.ToList();
+
+            //   Date ettDatum = new Date();
+            //    ettDatum.TheDate = System.DateTime.Now;
+            //    ettDatum.Id = 1;
+
+            var model = new TimeSuggestionViewModel { AllUsers = db.Users.ToList(), SelectedUsers = invitedList,  };
+
+           
+
+          //  model.DateList.Add(ettDatum);
+
+
             return View(model);
         }
 
 
         [HttpPost]
         public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model) {
-          
-           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             //foreach (var i in list)
             //{
             //    var dates = i.Dates;
@@ -137,17 +174,17 @@ namespace Blog_VT18.Controllers {
             //}
 
          
-                var timeSuggestion = new TimeSuggestion();
+                //var timeSuggestion = new TimeSuggestion();
            
-                var senderId = User.Identity.GetUserId();
-                var sender = db.Users.Find(senderId);
+                //var senderId = User.Identity.GetUserId();
+                //var sender = db.Users.Find(senderId);
 
-                timeSuggestion.Sender = sender;
-                timeSuggestion.Invited = model.SelectedUsers;
-                timeSuggestion.Dates = model.DateList;
+                //timeSuggestion.Sender = sender;
+                //timeSuggestion.Invited = model.SelectedUsers;
+                //timeSuggestion.Dates = model.DateList;
 
-                db.TimeSuggestions.Add(timeSuggestion);
-                db.SaveChanges();
+                //db.TimeSuggestions.Add(timeSuggestion);
+                //db.SaveChanges();
 
                return View();  
             }
