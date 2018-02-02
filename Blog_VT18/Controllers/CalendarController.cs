@@ -83,32 +83,25 @@ namespace Blog_VT18.Controllers {
         }
 
         public ContentResult Save(int? id, FormCollection actionValues) {
-            /*string action_type = actionValues["!nativeeditor_status"];
-            Int64 source_id = Int64.Parse(actionValues["id"]);
-            Int64 target_id = source_id;*/
             var calendar = manager.getEventTimes();
             var action = new DataAction(actionValues);
+
             try {
                 var changedEvent = (Meeting)DHXEventsHelper.Bind(typeof(Meeting), actionValues);
                 switch(action.Type) {
                     case DataActionTypes.Insert:
                         //do insert
-                        var item = calendar.FirstOrDefault(x => x.ID == id);
-                        var listan = manager.getthem(item.ID);
-                        var aEvent = new Meeting {
-                            text = item.Info + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan,
-                            start_date = item.DateFrom,
-                            end_date = item.DateTo
-                        };
-
+                        //action.TargetId = changedEvent.id;
+                        //assign postoperational id
+                        // Todo: Get invited list/people to add a meeting
+                        /*changedEvent.Text += changedEvent.Text + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan;*/
                         manager.setEventTime(changedEvent);
-                        //action.TargetId = changedEvent.id;//assign postoperational id
                         break;
                     case DataActionTypes.Delete:
                         //do delete
                         break;
                     default:// "update"                          
-                            //do update
+                        //do update
                         break;
                 }
             } catch {

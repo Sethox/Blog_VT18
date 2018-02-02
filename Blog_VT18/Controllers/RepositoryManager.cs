@@ -94,6 +94,7 @@ namespace Blog_VT18.Controllers {
         }
         // Saves Specific calender event
         public void setEventTime(Meeting Event_Date) {
+            Event_Date.Booker = usr;
             db.Meetings.Add(Event_Date);
             db.SaveChanges();
         }
