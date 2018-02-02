@@ -585,6 +585,7 @@
     <Content Include="Views\BlogPost\_AddOrChangeBlogPost.cshtml" />
     <Content Include="Views\BlogPost\Edit.cshtml" />
     <Content Include="Views\Calendar\SendTimeSuggestion.cshtml" />
+    <Content Include="Views\Calendar\AllTimeSuggestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

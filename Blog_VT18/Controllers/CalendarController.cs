@@ -12,6 +12,7 @@ using DHTMLX.Scheduler.Controls;
 
 using Blog_VT18.Models;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity;
 
 namespace Blog_VT18.Controllers {
     public class CalendarController : BaseController {
@@ -128,7 +129,7 @@ namespace Blog_VT18.Controllers {
             //    ettDatum.TheDate = System.DateTime.Now;
             //    ettDatum.Id = 1;
 
-            var model = new TimeSuggestionViewModel { AllUsers = db.Users.ToList(), SelectedUsers = invitedList,  };
+            var model = new TimeSuggestionViewModel { AllUsers = db.Users.ToList(), SelectedUsers = invitedList  };
 
            
 
@@ -141,21 +142,19 @@ namespace Blog_VT18.Controllers {
 
         [HttpPost]
         public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model) {
+            ApplicationUser Anv = db.Users.Find(User.Identity.GetUserId());
+           List<ApplicationUser> aa = new List<ApplicationUser>();
+            aa.Add(Anv);
+           // var aaa = aa.ToList();
+            model.SelectedUsers = aa;
 
+            
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+            var user = db.Users.Find(User.Identity.GetUserId());
+            var timeSuggestion = new TimeSuggestion() { Invited = model.SelectedUsers, Sender = user };
+            db.TimeSuggestions.Add(timeSuggestion);
+            db.SaveChanges();
+            
 
 
 
@@ -189,6 +188,15 @@ namespace Blog_VT18.Controllers {
                return View();  
             }
 
+
+        public ActionResult AllTimeSuggestion() {
+
+            var suggestionList = db.TimeSuggestions.Include(x => x.Sender).ToList();
+
+
+
+            return View(suggestionList);
+        }
             
             
         }

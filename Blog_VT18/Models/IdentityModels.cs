@@ -36,7 +36,7 @@ namespace Blog_VT18.Models {
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<Categories> Categories { get; set; }
-        public DbSet<TimeSuggestion> TimeSuggestions { get; set; }
+        public DbSet<TimeSuggestion> TimeSuggestions { get; set; } 
        // public DbSet<Date> Dates { get; set; }
 
     }
@@ -60,8 +60,6 @@ namespace Blog_VT18.Models {
         public int ID { get; set; }
   //      public virtual ICollection<Date> Dates{ get; set; }
         public virtual ApplicationUser Sender { get; set; }
-      
-       // public ApplicationUser invited { get; set; }
           public virtual ICollection<ApplicationUser> Invited { get; set; }
     }
 
