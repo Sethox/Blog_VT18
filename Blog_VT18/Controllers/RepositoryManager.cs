@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Blog_VT18.Controllers {
     public class RepositoryManager {
-        ApplicationDbContext db;
+        public ApplicationDbContext db { private set; get; }
         public ApplicationUser usr {
             get {
                 var userID = HttpContext.Current.User.Identity.GetUserId();
@@ -134,6 +134,10 @@ namespace Blog_VT18.Controllers {
             string z = "";
             foreach(var item in hej) z = z + "\n" + item.Name;
             return z;
+        }
+
+            public List<ApplicationUser> usrList() {
+            return db.Users.ToList();
         }
     }
 }
