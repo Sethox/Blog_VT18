@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "SendTimeSuggestion";
 }
-
+<h4>Skicka mötesförfrågningar</h4>
 
 
 @using (Html.BeginForm()) 
@@ -13,12 +13,56 @@
     @Html.ListBoxFor(modelItem => item, new { type = "time" })}*@
 
 
+List<SelectListItem> listItems = new List<SelectListItem>();
 
+    foreach (var item in Model.AllUsers)
+    {
+
+        listItems.Add(new SelectListItem
+        {
+            Text = item.Name,
+            Value = item.Id
+        });
+
+
+    }
+
+    @Html.DropDownListFor(model => model.SelectedUsers, listItems, "-- Select Status --")
+
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(x => Model.DateList, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => Model.DateList, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(x => Model.DateList, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(x => Model.DateList, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => Model.DateList, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(x => Model.DateList, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(x => Model.DateList, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(x => Model.DateList, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(x => Model.DateList, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
 
 
     <div class="form-horizontal">
-        <h4>Skicka mötesförfrågningar</h4>
+        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

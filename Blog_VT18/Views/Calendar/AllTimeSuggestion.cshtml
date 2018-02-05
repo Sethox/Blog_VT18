@@ -14,7 +14,23 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+
+
+
+
+
+
+
+
+
+
+@foreach (var item in Model)
+{
+
+
+
+
+
     <tr>
         <td>
             
@@ -23,8 +39,9 @@
             @Html.DisplayFor(x => item.Sender.Name)
 
             @Html.LabelFor(modelItem => item.Invited)
-          @*  @Html.DisplayFor(modelItem => item.Invited.Any(x=>x.Id == x.Id))
-        *@
+    @*foreach (var i in item.Invited) { Html.DisplayFor(modelItem => item.Invited.Any(x => )); }
+
+    *@ 
             
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
