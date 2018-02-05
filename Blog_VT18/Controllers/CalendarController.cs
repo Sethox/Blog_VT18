@@ -75,5 +75,3 @@ namespace Blog_VT18.Controllers {
         }
     }
 }
-
-
