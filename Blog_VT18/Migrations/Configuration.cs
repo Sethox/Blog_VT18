@@ -57,6 +57,49 @@ namespace Blog_VT18.Migrations {
 
             //userManager.CreateAsync(user, "User1!").Wait();
             base.Seed(context);
+
+            if(context.Categories.Where(x=> x.ID == 0).Count() == 0)
+            {
+                var cat1 = new Categories
+                {
+                    ID = 1,
+                    Name = "Education",
+                    Category = null
+                };
+
+                context.Categories.Add(cat1);
+
+                var cat2 = new Categories
+                {
+                    ID = 2,
+                    Name = "Research",
+                    Category = null
+                };
+                context.Categories.Add(cat2);
+
+                var cat3 = new Categories
+                {
+                    ID = 3,
+                    Name = "Informal",
+                    Category = null
+                };
+
+                context.Categories.Add(cat3);
+                context.SaveChanges();
+
+                for (int i = 1; i < 4; i++)
+                {
+                    var subCat = new Categories
+                    {
+                        Name = "Miscellaneous",
+                        Category = i
+                    };
+                    context.Categories.Add(subCat);
+                }
+
+                context.SaveChanges();
+            }
+
         }
     }
 }

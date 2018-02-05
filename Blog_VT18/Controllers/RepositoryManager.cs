@@ -21,6 +21,29 @@ namespace Blog_VT18.Controllers {
         }
 
         public RepositoryManager() { this.db = new ApplicationDbContext(); }
+
+        public List<Categories> CatList(string id) {
+            var cat = db.Categories.Where(x => x.Category.ToString() == id).ToList();
+            return cat;
+            }
+
+        public List<Categories> MainList() {
+            var cat = db.Categories.Where(x => x.Category == null).ToList();
+            return cat;
+        }
+
+        public Categories GetCategory(string id)
+        {
+            var catID = Int32.Parse(id);
+            var cat = db.Categories.Single(x => x.ID == catID);
+            return cat;
+        }
+
+        //public List<BlogPost> ListPosts(Categories category)
+        //{
+        //    var postList = db.BlogPosts.Where(x => x.Category.Equals(category.ID)).ToList();
+        //    return postList;
+        //}
         /// <summary>
         /// Updates the user currently logged in.
         /// </summary>
@@ -42,10 +65,19 @@ namespace Blog_VT18.Controllers {
             }
         }
 
-            public void newBlog(BlogPost Create) {
+        public void newCategory(Categories category, string id)
+        {
+            if (category != null) {
+                category.Category = Int32.Parse(id);
+                this.db.Categories.Add(category);
+                this.db.SaveChanges();
+            }
+        }
+
+        public void newBlog(BlogPost Create, string id) {
             //Kom ihåg att lägga in kategorier
-            //Categories category = db.Categories.Single(x => x.Name == Category);
-            //newPost.Category = category;
+            Categories category = db.Categories.Single(x => x.ID.ToString().Equals(id));
+            Create.Category = category;
             // Creates new blog, updates database
             BlogPost newPost = new BlogPost(Create);
             //En blogpost läggs till i vår context

@@ -1,14 +1,19 @@
-@model IEnumerable<Blog_VT18.Models.BlogPost>
-    
+@model IEnumerable<Blog_VT18.Models.Categories>
+
 
 @{
     ViewBag.Title = "ListPost";
 }
 
 <h2>ListPost</h2>
-@Html.ActionLink("ADD BLOGPOST", "Add")
 
-<table class="table">
+@foreach (var item in Model)
+{
+    @Html.ActionLink(item.Name+ " ", "Category", "BlogPost", new { id = item.ID }, new { })
+}
+
+
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -20,15 +25,16 @@
             @Html.DisplayNameFor(model => model.From)
         </th>
         <th></th>
-    </tr>
+    </tr>*@
 
-    @foreach (var item in Model){
-@*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
-        @Html.DisplayNameFor(m => m.Title)
+    @*@foreach (var item in Model)
+    {*@
+        @*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
+                   @Html.DisplayNameFor(m => m.Title)
 
-        <form typeof="textarea">@item.Content</form>
- </div>*@
-        <tr>
+                   <form typeof="textarea">@item.Content</form>
+            </div>*@
+        @*<tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -37,17 +43,17 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.From.Name)
-               
-            </td>
-@if (User.IsInRole("Administrator"))
-{
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-            </td>
-}
+
+            </td>*@
+            @*@if (User.IsInRole("Administrator"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            }
         </tr>
     }
 
-</table>
+</table>*@
