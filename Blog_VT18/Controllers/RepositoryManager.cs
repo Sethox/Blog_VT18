@@ -12,11 +12,13 @@ using System.Collections.Generic;
 namespace Blog_VT18.Controllers {
     public class RepositoryManager {
         ApplicationDbContext db;
-        public ApplicationUser usr { get {
+        public ApplicationUser usr {
+            get {
                 var userID = HttpContext.Current.User.Identity.GetUserId();
                 var currentUser = db.Users.Where(x => x.Id == userID).FirstOrDefault();
                 return currentUser;
-            } }
+            }
+        }
 
         public RepositoryManager() { this.db = new ApplicationDbContext(); }
 
@@ -42,7 +44,6 @@ namespace Blog_VT18.Controllers {
         //    var postList = db.BlogPosts.Where(x => x.Category.Equals(category.ID)).ToList();
         //    return postList;
         //}
-
         /// <summary>
         /// Updates the user currently logged in.
         /// </summary>
@@ -53,13 +54,12 @@ namespace Blog_VT18.Controllers {
             this.usr.Email = modifyUsr.Email;
             this.db.SaveChanges();
         }
-
         /// <summary>
         /// This creates a new catagory.
         /// </summary>
         /// <param name="post">This is the model to update the database.</param>
-        public void newCatagory(BlogPost post) {
-            if (post != null) {
+            public void newCatagory(BlogPost post) {
+            if(post != null) {
                 this.db.BlogPosts.Add(post);
                 this.db.SaveChanges();
             }
@@ -78,65 +78,62 @@ namespace Blog_VT18.Controllers {
             //Kom ihåg att lägga in kategorier
             Categories category = db.Categories.Single(x => x.ID.ToString().Equals(id));
             Create.Category = category;
-
-
             // Creates new blog, updates database
             BlogPost newPost = new BlogPost(Create);
-
             //En blogpost läggs till i vår context
             db.BlogPosts.Add(newPost);
-
             //Sparar ändringar i databasen
             db.SaveChanges();
         }
-
-        public  BlogPost getBlogPost(int? Id) {
+            public BlogPost getBlogPost(int? Id) {
             BlogPost blogPost = db.BlogPosts.Single(x => x.ID == Id);
-
             return blogPost;
-
         }
-
-        public void changeBlogPost(BlogPost blogPost)
-        {
-           var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
-
+            public void changeBlogPost(BlogPost blogPost) {
+            var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
             var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
-
             ny = blogPost;
-
             db.BlogPosts.Remove(bp);
-
             db.BlogPosts.Add(ny);
-
             db.SaveChanges();
-
         }
-
-        public void deleteBlogPost(int? Id) {
-
+            public void deleteBlogPost(int? Id) {
             var bp = db.BlogPosts.Single(x => x.ID == Id);
             db.BlogPosts.Remove(bp);
             db.SaveChanges();
-
         }
-
-
-
-        /// <summary>
-        /// Disposing the classes properties.
-        /// </summary>
-        protected void Dispose(bool disposing) {
-            if (disposing && this.db != null) {
+            /// <summary>
+            /// Disposing the classes properties.
+            /// </summary>
+            protected void Dispose(bool disposing) {
+            if(disposing && this.db != null) {
                 this.db.Dispose();
                 this.db = null;
             }
         }
-        public List<Meeting> GetMeetings()
-        {
+            /*public List<Meeting> GetMeetings() {
             var meetings = db.Meetings.ToList();
-
             return meetings;
+        }*/
+
+        // Getting EVERY calender event
+            public List<Meeting> getEventTimes() {
+            if(db.Meetings.ToList().Count() > 0)
+                return db.Meetings.ToList();
+                return new List<Meeting>();
+        }
+        // Saves Specific calender event
+            public void setEventTime(Meeting Event_Date) {
+            Event_Date.Booker = usr;
+            db.Meetings.Add(Event_Date);
+            db.SaveChanges();
+        }
+
+            public string getthem(int Id) {
+            var hej = db.InvitedToMeetings.Where(x => x.MeetingID == Id).Select(x => x.Invited).ToList();
+            string z = "";
+            foreach(var item in hej) z = z + "\n" + item.Name;
+            return z;
         }
     }
 }

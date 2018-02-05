@@ -16,13 +16,11 @@ namespace Blog_VT18.Controllers {
         private RepositoryManager repositoryManager;
 
         public ManageController() { repositoryManager = new RepositoryManager(); }
-
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager) {
             UserManager = userManager;
             SignInManager = signInManager;
             repositoryManager = new RepositoryManager();
         }
-
         public ApplicationSignInManager SignInManager {
             get {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
@@ -31,7 +29,6 @@ namespace Blog_VT18.Controllers {
                 _signInManager = value;
             }
         }
-
         public ApplicationUserManager UserManager {
             get {
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -40,8 +37,6 @@ namespace Blog_VT18.Controllers {
                 _userManager = value;
             }
         }
-
-        //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message) {
             ViewBag.StatusMessage =
@@ -52,7 +47,6 @@ namespace Blog_VT18.Controllers {
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
-
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel {
                 HasPassword = HasPassword(),
@@ -63,22 +57,16 @@ namespace Blog_VT18.Controllers {
             };
             return View(model);
         }
-
-        //
         // GET: /Manage/EditProfile
         public ActionResult EditProfile() {
             return View(repositoryManager.usr);
         }
-
-        //
         // POST: /Manage/EditProfile
         public ActionResult EditProfile(ApplicationUser model) {
             if(!ModelState.IsValid) { return View(model); }
             this.repositoryManager.setCurrentUser(model);
             return RedirectToAction("Index");
         }
-
-        //
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -96,14 +84,10 @@ namespace Blog_VT18.Controllers {
             }
             return RedirectToAction("ManageLogins", new { Message = message });
         }
-
-        //
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber() {
             return View();
         }
-
-        //
         // POST: /Manage/AddPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -122,8 +106,6 @@ namespace Blog_VT18.Controllers {
             }
             return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
-
-        //
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -135,8 +117,6 @@ namespace Blog_VT18.Controllers {
             }
             return RedirectToAction("Index", "Manage");
         }
-
-        //
         // POST: /Manage/DisableTwoFactorAuthentication
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -148,16 +128,12 @@ namespace Blog_VT18.Controllers {
             }
             return RedirectToAction("Index", "Manage");
         }
-
-        //
         // GET: /Manage/VerifyPhoneNumber
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber) {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
             // Send an SMS through the SMS provider to verify the phone number
             return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
-
-        //
         // POST: /Manage/VerifyPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -177,8 +153,6 @@ namespace Blog_VT18.Controllers {
             ModelState.AddModelError("", "Failed to verify phone");
             return View(model);
         }
-
-        //
         // POST: /Manage/RemovePhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -193,14 +167,10 @@ namespace Blog_VT18.Controllers {
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
-
-        //
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword() {
             return View();
         }
-
-        //
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -219,14 +189,10 @@ namespace Blog_VT18.Controllers {
             AddErrors(result);
             return View(model);
         }
-
-        //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword() {
             return View();
         }
-
-        //
         // POST: /Manage/SetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -242,12 +208,9 @@ namespace Blog_VT18.Controllers {
                 }
                 AddErrors(result);
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-        //
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message) {
             ViewBag.StatusMessage =
@@ -266,8 +229,6 @@ namespace Blog_VT18.Controllers {
                 OtherLogins = otherLogins
             });
         }
-
-        //
         // POST: /Manage/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -275,8 +236,6 @@ namespace Blog_VT18.Controllers {
             // Request a redirect to the external login provider to link a login for the current user
             return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
         }
-
-        //
         // GET: /Manage/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback() {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
@@ -286,7 +245,6 @@ namespace Blog_VT18.Controllers {
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
-
         protected override void Dispose(bool disposing) {
             if(disposing && _userManager != null && repositoryManager != null) {
                 _userManager.Dispose();
@@ -295,7 +253,6 @@ namespace Blog_VT18.Controllers {
             }
             base.Dispose(disposing);
         }
-
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
