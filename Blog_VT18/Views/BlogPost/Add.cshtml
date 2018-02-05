@@ -7,3 +7,52 @@
 
 
 @Html.Partial("_AddOrChangeBlogPost")
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.From)
+        </th>
+        <th></th>
+    </tr>
+    @if (ViewBag.PostViewBag.item.From.Name != null)
+    {
+        foreach (var item in ViewBag.PostViewBag)
+        {
+            @*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
+                       @Html.DisplayNameFor(m => m.Title)
+
+                       <form typeof="textarea">@item.content</form>
+                </div>*@
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.Content
+                </td>
+                <td>
+                    @item.From.Name
+
+                </td>
+                @if (User.IsInRole("administrator"))
+                {
+                    <td>
+                        @Html.ActionLink("edit", "edit", new { id = item.id }) |
+                        @Html.ActionLink("details", "details", new { id = item.id }) |
+                        @Html.ActionLink("delete", "delete", new { id = item.id })
+                    </td>
+                }
+            </tr>
+        }
+</table>
+
+    }
+    

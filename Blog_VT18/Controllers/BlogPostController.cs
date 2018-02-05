@@ -38,8 +38,13 @@ namespace Blog_VT18.Controllers {
         // Creates a new blogpost and puts it through to the view
         public ActionResult Add(){
             var blogPost = new BlogPost(){             
-                Hidden = false  
+                Hidden = false,
+                From = repositoryManager.usr
+
             };
+            var posts = db.BlogPosts.OrderByDescending(x => x.ID).Include(Z => Z.From).ToList();
+            
+            ViewBag.PostViewBag = posts;
             return View(blogPost);
         }
         // Accepts the blogpost whos have its values set in the View and sends it to the repositorie
