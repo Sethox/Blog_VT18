@@ -41,31 +41,20 @@ namespace Blog_VT18.Controllers {
                 _userManager = value;
             }
         }
-
-        //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl) {
+            if(TempData["UserName"] != null)
+                ViewBag.ErrorMessage = TempData["UserName"];
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
-        //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl) {
             if(!ModelState.IsValid) { return View(model); }
-
-            // Can login with both email or username
-            var userName = model.UserName;
-            using(var db = new ApplicationDbContext()) {
-                var user = db.Users.FirstOrDefault(x => x.Email == model.UserName);
-                if(user != null) {
-                    userName = user.UserName;
-                }
-            }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -83,8 +72,6 @@ namespace Blog_VT18.Controllers {
                     return View(model);
             }
         }
-
-        //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe) {
@@ -94,8 +81,6 @@ namespace Blog_VT18.Controllers {
             }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
-
-        //
         // POST: /Account/VerifyCode
         [HttpPost]
         [AllowAnonymous]
@@ -121,15 +106,11 @@ namespace Blog_VT18.Controllers {
                     return View(model);
             }
         }
-
-        //
         // GET: /Account/Register
         [Authorize(Roles = "Administrator")]
         public ActionResult Register() {
             return View();
         }
-
-        //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -164,8 +145,6 @@ namespace Blog_VT18.Controllers {
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-        //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code) {
@@ -173,15 +152,11 @@ namespace Blog_VT18.Controllers {
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
-
-        //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword() {
             return View();
         }
-
-        //
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
@@ -193,7 +168,6 @@ namespace Blog_VT18.Controllers {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
-
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
@@ -205,22 +179,16 @@ namespace Blog_VT18.Controllers {
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-        //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation() {
             return View();
         }
-
-        //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code) {
             return code == null ? View("Error") : View();
         }
-
-        //
         // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
@@ -241,15 +209,11 @@ namespace Blog_VT18.Controllers {
             AddErrors(result);
             return View();
         }
-
-        //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation() {
             return View();
         }
-
-        //
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -258,8 +222,6 @@ namespace Blog_VT18.Controllers {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
-
-        //
         // GET: /Account/SendCode
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe) {
@@ -271,8 +233,6 @@ namespace Blog_VT18.Controllers {
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
-
-        //
         // POST: /Account/SendCode
         [HttpPost]
         [AllowAnonymous]
@@ -281,15 +241,12 @@ namespace Blog_VT18.Controllers {
             if(!ModelState.IsValid) {
                 return View();
             }
-
             // Generate the token and send it
             if(!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider)) {
                 return View("Error");
             }
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
-
-        //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl) {
@@ -297,7 +254,6 @@ namespace Blog_VT18.Controllers {
             if(loginInfo == null) {
                 return RedirectToAction("Login");
             }
-
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch(result) {
@@ -315,8 +271,6 @@ namespace Blog_VT18.Controllers {
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
-
-        //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
@@ -347,8 +301,6 @@ namespace Blog_VT18.Controllers {
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
-
-        //
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -356,14 +308,11 @@ namespace Blog_VT18.Controllers {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
-
-        //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure() {
             return View();
         }
-
         protected override void Dispose(bool disposing) {
             if(disposing) {
                 if(_userManager != null) {
@@ -376,7 +325,6 @@ namespace Blog_VT18.Controllers {
                     _signInManager = null;
                 }
             }
-
             base.Dispose(disposing);
         }
 
