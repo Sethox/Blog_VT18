@@ -22,27 +22,27 @@
         </th>
         <th></th>
     </tr>
-    @if (ViewBag.PostViewBag.item.From.Name != null)
-    {
-        foreach (var item in ViewBag.PostViewBag)
-        {
-            @*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
-                       @Html.DisplayNameFor(m => m.Title)
+@foreach (var item in ViewBag.PostViewBag)
+{
+@*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
+           @Html.DisplayNameFor(m => m.Title)
 
-                       <form typeof="textarea">@item.content</form>
-                </div>*@
-            <tr>
-                <td>
-                    @item.Title
-                </td>
-                <td>
-                    @item.Content
-                </td>
-                <td>
-                    @item.From.Name
+           <form typeof="textarea">@item.content</form>
+    </div>*@
+<tr>
+    <td>
+        @item.Title
+    </td>
+    <td>
+         @item.Content
+    </td>
+    <td>
+   
+            @item.From.Name
+      
 
-                </td>
-                @if (User.IsInRole("administrator"))
+    </td>
+@if (User.IsInRole("administrator"))
                 {
                     <td>
                         @Html.ActionLink("edit", "edit", new { id = item.id }) |
@@ -52,7 +52,5 @@
                 }
             </tr>
         }
-</table>
 
-    }
-    
+    </table>

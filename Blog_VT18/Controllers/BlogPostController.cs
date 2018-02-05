@@ -36,14 +36,16 @@ namespace Blog_VT18.Controllers {
             return View(cat);
         }
         // Creates a new blogpost and puts it through to the view
-        public ActionResult Add(){
+        public ActionResult Add(string id){
             var blogPost = new BlogPost(){             
                 Hidden = false,
                 From = repositoryManager.usr
 
             };
-            var posts = db.BlogPosts.OrderByDescending(x => x.ID).Include(Z => Z.From).ToList();
-            
+
+            var idet = id;
+            var posts = db.BlogPosts.OrderByDescending(x => x.ID).Where(x => x.Category.ID.ToString() == id).Include(Z => Z.From).ToList();
+
             ViewBag.PostViewBag = posts;
             return View(blogPost);
         }
