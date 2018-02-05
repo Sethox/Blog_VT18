@@ -8,6 +8,8 @@ using DHTMLX.Common;
 using DHTMLX.Scheduler.Data;
 using DHTMLX.Scheduler.Controls;
 using Blog_VT18.Models;
+using Microsoft.AspNet.Identity;
+using System.Data.Entity;
 using System.Collections;
 
 namespace Blog_VT18.Controllers {
@@ -73,5 +75,62 @@ namespace Blog_VT18.Controllers {
             }
             return (ContentResult)new AjaxSaveResponse(action);
         }
-    }
+        public ActionResult SendTimeSuggestion() {
+            TimeSuggestion Suggestion = new TimeSuggestion();
+
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            var list = new List<ApplicationUser> { user };
+            Suggestion.Invited = list;
+            var invitedList = Suggestion.Invited.ToList();
+
+            //   Date ettDatum = new Date();
+            //    ettDatum.TheDate = System.DateTime.Now;
+            //    ettDatum.Id = 1;
+            var model = new TimeSuggestionViewModel { AllUsers = db.Users.ToList(), SelectedUsers = invitedList  };
+          //  model.DateList.Add(ettDatum);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model) {
+            ApplicationUser Anv = db.Users.Find(User.Identity.GetUserId());
+           List<ApplicationUser> aa = new List<ApplicationUser>();
+            aa.Add(Anv);
+           // var aaa = aa.ToList();
+            model.SelectedUsers = aa;
+            var user = db.Users.Find(User.Identity.GetUserId());
+            var timeSuggestion = new TimeSuggestion() { Invited = model.SelectedUsers, Sender = user };
+            db.TimeSuggestions.Add(timeSuggestion);
+            db.SaveChanges();
+            
+            //foreach (var i in list)
+            //{
+            //    var dates = i.Dates;
+            //    foreach (var date in dates)
+            //    {
+            //        model.Suggestions.Single(t => t.Dates.Single(d => d.TheDate));
+            //    }
+            //}
+
+         
+                //var timeSuggestion = new TimeSuggestion();
+           
+                //var senderId = User.Identity.GetUserId();
+                //var sender = db.Users.Find(senderId);
+
+                //timeSuggestion.Sender = sender;
+                //timeSuggestion.Invited = model.SelectedUsers;
+                //timeSuggestion.Dates = model.DateList;
+
+                //db.TimeSuggestions.Add(timeSuggestion);
+                //db.SaveChanges();
+
+               return View();  
+            }
+
+        public ActionResult AllTimeSuggestion() {
+            var suggestionList = db.TimeSuggestions.Include(x => x.Sender).ToList();
+            return View(suggestionList);
+        }   
+        }  
 }

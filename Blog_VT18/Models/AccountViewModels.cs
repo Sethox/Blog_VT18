@@ -41,6 +41,7 @@ namespace Blog_VT18.Models {
     }
 
     public class LoginViewModel {
+        [Required]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
