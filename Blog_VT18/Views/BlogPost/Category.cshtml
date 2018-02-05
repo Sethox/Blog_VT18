@@ -11,7 +11,7 @@
 @foreach (var item in Model)
 {
 
-    @Html.ActionLink(item.Name + " ", "Add", "BlogPost", new { id = item.Category }, new { })
+    @Html.ActionLink(item.Name + " ", "Add", "BlogPost", new { id = item.ID }, new { })
 
 }
 
