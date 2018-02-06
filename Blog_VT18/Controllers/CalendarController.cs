@@ -188,7 +188,7 @@ namespace Blog_VT18.Controllers {
 
         public ActionResult AllTimeSuggestion() {
 
-
+            ViewBag.Me = User.Identity.GetUserId();
             var suggestionList = db.TimeSuggestions.Include(x => x.Sender).Include(x=> x.Invited).Include(x=> x.Dates).ToList();
 
             return View(suggestionList);

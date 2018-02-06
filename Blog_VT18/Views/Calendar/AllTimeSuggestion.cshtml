@@ -24,7 +24,7 @@
 
 
 
-@foreach (var item in Model)
+@foreach (var item in Model.Where(x=>x.Invited.Id == ViewBag.Me))
 {
     <tr>
         <td>
