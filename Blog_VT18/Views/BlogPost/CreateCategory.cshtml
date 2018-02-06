@@ -1,0 +1,44 @@
+﻿@model Blog_VT18.Models.Categories
+@{
+    ViewBag.Title = "CreateCategory";
+}
+
+<h2>CreateCategory</h2>
+
+@using (Html.BeginForm())
+{
+
+    <div class="col-md-6">
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+
+
+    </div>
+
+
+    <div class="form-group">
+
+        @Html.DisplayFor(m => m.Category)
+        @*@Html.DisplayFor(m => m.Name)*@
+
+    </div>
+
+
+
+
+    <div class="col-md-12">
+    <div class="pad-top">
+        <button type="submit" class="btn btn-success btn-lg margin-right">
+            <span class="glyphicon glyphicon-save"></span> Save
+        </button>
+        <a href="@Url.Action("Index")" class="btn btn-warning btn-lg">
+            <span class="glyphicon glyphicon-remove"></span> Cancel
+        </a>
+    </div>
+    </div>
+}
+

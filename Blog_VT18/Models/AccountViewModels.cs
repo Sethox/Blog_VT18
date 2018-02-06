@@ -41,10 +41,6 @@ namespace Blog_VT18.Models {
     }
 
     public class LoginViewModel {
-  
-        [Display(Name = "Username")]
-        public string UserName { get; set; } = "";
-
         [Required]
         [Display(Name = "Email")]
         [EmailAddress]
@@ -65,7 +61,6 @@ namespace Blog_VT18.Models {
         [Display(Name = "Name")]
         public string Name { get; set; }
 
-       
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

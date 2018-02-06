@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.Collections;
+
 
 namespace Blog_VT18.Models {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -44,7 +46,8 @@ namespace Blog_VT18.Models {
         public DbSet<Categories> Categories { get; set; }
         public DbSet<TimeSuggestion> TimeSuggestions { get; set; } 
        // public DbSet<Date> Dates { get; set; }
-
+        //public DbSet<Meeting> CalendarEvents { get; set; }
+        public DbSet<InvitedToMeetings> InvitedToMeetings { get; set; }
     }
 
     public class Categories {
@@ -79,20 +82,24 @@ namespace Blog_VT18.Models {
 
 
     public class Meeting {
+        public Meeting() { }
         public int ID { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
-        public string Info { get; set; }
+        public string text { set; get; }
+        public DateTime start_date { set; get; }
+        public DateTime end_date { set; get; }
         public virtual ApplicationUser Booker { get; set; }
+    }
+
+    public class InvitedToMeetings {
+        public int Id { get; set; }
+        public virtual int MeetingID { get; set; }
         public virtual ApplicationUser Invited { get; set; }
     }
-    
-    public class BlogPost {
 
-        public BlogPost()
-        { }
-            // Copy Constructor
-            public BlogPost(BlogPost CP) {
+    public class BlogPost {
+        public BlogPost() { }
+        // Copy Constructor
+        public BlogPost(BlogPost CP) {
             this.ID = CP.ID;
             this.Title = CP.Title;
             this.From = CP.From;
@@ -100,11 +107,12 @@ namespace Blog_VT18.Models {
             this.Category = CP.Category;
             this.Content = CP.Content;
         }
+
         public int ID { get; set; }
         [Required(ErrorMessage = "This field is required")]
         [StringLength(100, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 100 characters")]
         public string Title { get; set; }
-        [Required (ErrorMessage = "This field is required")]
+        [Required(ErrorMessage = "This field is required")]
         [StringLength(1500, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 1500 characters")]
         public string Content { get; set; }
         public bool Hidden { get; set; } = false;

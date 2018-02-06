@@ -11,15 +11,39 @@ using System.Collections.Generic;
 
 namespace Blog_VT18.Controllers {
     public class RepositoryManager {
-        ApplicationDbContext db;
-        public ApplicationUser usr { get {
+        public ApplicationDbContext db { private set; get; }
+        public ApplicationUser usr {
+            get {
                 var userID = HttpContext.Current.User.Identity.GetUserId();
                 var currentUser = db.Users.Where(x => x.Id == userID).FirstOrDefault();
                 return currentUser;
-            } }
+            }
+        }
 
         public RepositoryManager() { this.db = new ApplicationDbContext(); }
 
+        public List<Categories> CatList(string id) {
+            var cat = db.Categories.Where(x => x.Category.ToString() == id).ToList();
+            return cat;
+            }
+
+        public List<Categories> MainList() {
+            var cat = db.Categories.Where(x => x.Category == null).ToList();
+            return cat;
+        }
+
+        public Categories GetCategory(string id)
+        {
+            var catID = Int32.Parse(id);
+            var cat = db.Categories.Single(x => x.ID == catID);
+            return cat;
+        }
+
+        //public List<BlogPost> ListPosts(Categories category)
+        //{
+        //    var postList = db.BlogPosts.Where(x => x.Category.Equals(category.ID)).ToList();
+        //    return postList;
+        //}
         /// <summary>
         /// Updates the user currently logged in.
         /// </summary>
@@ -30,39 +54,59 @@ namespace Blog_VT18.Controllers {
             this.usr.Email = modifyUsr.Email;
             this.db.SaveChanges();
         }
-
         /// <summary>
         /// This creates a new catagory.
         /// </summary>
         /// <param name="post">This is the model to update the database.</param>
-        public void newCatagory(BlogPost post) {
-            if (post != null) {
+            public void newCatagory(BlogPost post) {
+            if(post != null) {
                 this.db.BlogPosts.Add(post);
                 this.db.SaveChanges();
             }
         }
 
-        public void newBlog(BlogPost Create) {
-            //Kom ihåg att lägga in kategorier
-            //Categories category = db.Categories.Single(x => x.Name == Category);
-            //newPost.Category = category;
-        
+        public void newCategory(Categories category, string id)
+        {
+            if (category != null) {
+                category.Category = Int32.Parse(id);
+                this.db.Categories.Add(category);
+                this.db.SaveChanges();
+            }
+        }
 
+        public void newBlog(BlogPost Create, string id) {
+            //Kom ihåg att lägga in kategorier
+            Categories category = db.Categories.Single(x => x.ID.ToString().Equals(id));
+            Create.Category = category;
             // Creates new blog, updates database
             BlogPost newPost = new BlogPost(Create);
-
             //En blogpost läggs till i vår context
             db.BlogPosts.Add(newPost);
-
             //Sparar ändringar i databasen
             db.SaveChanges();
         }
-
-        /// <summary>
-        /// Disposing the classes properties.
-        /// </summary>
-        protected void Dispose(bool disposing) {
-            if (disposing && this.db != null) {
+            public BlogPost getBlogPost(int? Id) {
+            BlogPost blogPost = db.BlogPosts.Single(x => x.ID == Id);
+            return blogPost;
+        }
+            public void changeBlogPost(BlogPost blogPost) {
+            var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
+            var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
+            ny = blogPost;
+            db.BlogPosts.Remove(bp);
+            db.BlogPosts.Add(ny);
+            db.SaveChanges();
+        }
+            public void deleteBlogPost(int? Id) {
+            var bp = db.BlogPosts.Single(x => x.ID == Id);
+            db.BlogPosts.Remove(bp);
+            db.SaveChanges();
+        }
+            /// <summary>
+            /// Disposing the classes properties.
+            /// </summary>
+            protected void Dispose(bool disposing) {
+            if(disposing && this.db != null) {
                 this.db.Dispose();
                 this.db = null;
             }
@@ -70,8 +114,31 @@ namespace Blog_VT18.Controllers {
         public List<Meeting> GetMeetings()
         {
             var meetings = db.Meetings.ToList();
-
             return meetings;
+        }
+
+        // Getting EVERY calender event
+        public List<Meeting> getEventTimes() {
+            if(db.Meetings.ToList().Count() > 0)
+                return db.Meetings.ToList();
+                return new List<Meeting>();
+        }
+        // Saves Specific calender event
+            public void setEventTime(Meeting Event_Date) {
+            Event_Date.Booker = usr;
+            db.Meetings.Add(Event_Date);
+            db.SaveChanges();
+        }
+
+            public string getInvited(int Id) {
+            var invited = db.InvitedToMeetings.Where(x => x.MeetingID == Id).Select(x => x.Invited).ToList();
+            string z = "";
+            foreach(var item in invited) z = z + "\n" + item.Name;
+            return z;
+        }
+
+            public List<ApplicationUser> usrList() {
+            return db.Users.ToList();
         }
     }
 }
