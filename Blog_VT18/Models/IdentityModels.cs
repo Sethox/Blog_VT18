@@ -109,12 +109,4 @@ namespace Blog_VT18.Models {
         public virtual Categories Category { get; set; }
         public virtual ApplicationUser From { get; set; }
     }
-
- /*   public class Calender {
-        public Calender() { }
-        public int ID { set; get; }
-        public string text { set; get; }
-        public DateTime start_date { set; get; }
-        public DateTime end_date { set; get; }
-    }*/
 }
