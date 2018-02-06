@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Collections;
+
 
 namespace Blog_VT18.Models {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -21,6 +23,11 @@ namespace Blog_VT18.Models {
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
+        }
+
+        internal ApplicationUser ToList()
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -60,15 +67,18 @@ namespace Blog_VT18.Models {
     }
     public class TimeSuggestion {
         public int ID { get; set; }
-  //      public virtual ICollection<Date> Dates{ get; set; }
+        public virtual ICollection<Date> Dates{ get; set; }
         public virtual ApplicationUser Sender { get; set; }
-          public virtual ICollection<ApplicationUser> Invited { get; set; }
+          public virtual ApplicationUser Invited { get; set; }
+        public virtual Meeting Meeting { get; set; }
     }
 
-    //public class Date {
-    //    public int Id { get; set; }
-    //    public DateTime TheDate { get; set; }
-    //}
+    public class Date {
+       public int Id { get; set; }
+        [DisplayName("Date")]
+        [DataType(DataType.Date)]
+        public DateTime TheDate { get; set; }
+   }
 
 
     public class Meeting {
