@@ -128,9 +128,35 @@ namespace Blog_VT18.Controllers {
                return View();  
             }
 
+        public ActionResult InvitationList()
+        {
+            var users = db.Users.ToList();
+            bool Check = false;
+            var list = new List<InvitationViewModel>();
+
+            foreach (var item in users)
+            {
+                var listobj = new InvitationViewModel { Name = item.Name, User = item, Checked = Check };
+
+                list.Add(listobj);
+            }
+            return View(list);
+
+        }
+
+
         public ActionResult AllTimeSuggestion() {
             var suggestionList = db.TimeSuggestions.Include(x => x.Sender).ToList();
             return View(suggestionList);
         }   
         }  
+
+    public class InvitationViewModel
+    {
+        public string Name { get; set; }
+        public bool Checked { get; set; }
+        public ApplicationUser User { get; set; } 
+    }
+
+
 }
