@@ -58,7 +58,7 @@ namespace Blog_VT18.Migrations {
             //userManager.CreateAsync(user, "User1!").Wait();
             base.Seed(context);
 
-            if(context.Categories.Where(x=> x.ID == 0).Count() == 0)
+            if(context.Categories.Count() < 1)
             {
                 var cat1 = new Categories
                 {

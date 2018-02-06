@@ -30,8 +30,8 @@ namespace Blog_VT18.Controllers {
             //minKategori.ID = db.Categories.Count();
             //db.Categories.Add(minKategori);
             //db.SaveChanges();
-            var posts = db.BlogPosts.OrderByDescending(x => x.ID).Include(Z => Z.From).ToList();
-            ViewBag.MyViewBag = User.Identity.GetUserId();
+           // var posts = db.BlogPosts.OrderByDescending(x => x.ID).Include(Z => Z.From).ToList();
+           // ViewBag.MyViewBag = User.Identity.GetUserId();
             //Skickar oss till index och skickar med alla posts
             return View(cat);
         }
