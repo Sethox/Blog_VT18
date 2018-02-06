@@ -184,7 +184,7 @@ namespace Blog_VT18.Controllers {
 
 
            // return View();
-        }
+        
 
         public ActionResult AllTimeSuggestion() {
 
