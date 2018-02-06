@@ -22,6 +22,11 @@ namespace Blog_VT18.Models {
             // Add custom user claims here
             return userIdentity;
         }
+
+        internal ApplicationUser ToList()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {

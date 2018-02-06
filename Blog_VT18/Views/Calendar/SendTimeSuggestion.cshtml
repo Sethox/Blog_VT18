@@ -13,7 +13,7 @@
     @Html.ListBoxFor(modelItem => item, new { type = "time" })}*@
 
 
-List<SelectListItem> listItems = new List<SelectListItem>();
+    List<SelectListItem> listItems = new List<SelectListItem>();
 
     foreach (var item in Model.AllUsers)
     {
@@ -21,11 +21,11 @@ List<SelectListItem> listItems = new List<SelectListItem>();
         listItems.Add(new SelectListItem
         {
             Text = item.Name,
-            Value = item.Id
-        });
+            Value = item.Id.ToString()
+    });
 
 
-    }
+}
 
     @Html.DropDownListFor(model => model.SelectedUsers, listItems, "-- Select Status --")
 

@@ -142,7 +142,7 @@ namespace Blog_VT18.Controllers {
 
 
 
-            var model = new TimeSuggestionViewModel { AllUsers = db.Users.ToList(), SelectedUsers = invitedList };
+            var model = new TimeSuggestionViewModel { AllUsers = db.Users.ToList(), SelectedUsers = null };
             
           
 
@@ -157,34 +157,43 @@ namespace Blog_VT18.Controllers {
         [HttpPost]
         public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model) {
             ApplicationUser Anv = db.Users.Find(User.Identity.GetUserId());
-           List<ApplicationUser> aa = new List<ApplicationUser>();
-            aa.Add(Anv);
+           //List<ApplicationUser> aa = new List<ApplicationUser>();
+           // aa.Add(Anv);
          
-            model.SelectedUsers = aa;
+            //model.SelectedUsers = aa;
 
             
 
             var user = db.Users.Find(User.Identity.GetUserId());
-            var timeSuggestion = new TimeSuggestion() { Invited = model.SelectedUsers, Sender = user };
+            var timeSuggestion = new TimeSuggestion() { Sender = user };
+
+            timeSuggestion.Sender = user;
+            List<ApplicationUser> invi = new List<ApplicationUser>() { };
+            foreach (var item in model.SelectedUsers)
+            {
+                invi.Add(db.Users.Single(x=> x.Id == item));
+            }
+            
+
+            timeSuggestion.Invited = invi;
 
             foreach (var item in model.DateList.Where(x=> x.Date != null))
             {           Date ettDatum = new Date();
                         ettDatum.TheDate = item.Date;
                         var list = new List<Date>() { ettDatum };
                         timeSuggestion.Dates = list;
-                        db.TimeSuggestions.Add(timeSuggestion);
+                 
             }
 
-  
             
-            
-           
+            db.TimeSuggestions.Add(timeSuggestion);
             db.SaveChanges();
-            
 
-            
 
-               return View();  
+
+
+
+            return RedirectToAction("Index");  
             }
 
 

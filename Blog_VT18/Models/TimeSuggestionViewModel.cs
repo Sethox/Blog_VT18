@@ -11,7 +11,7 @@ namespace Blog_VT18.Models
     {
         public int Id { get; set; }
         public List<ApplicationUser> AllUsers { get; set; }
-        public List<ApplicationUser> SelectedUsers { get; set; }
+        public List<string> SelectedUsers { get; set; }
         [DisplayName("Date")]
         [DataType(DataType.Date)]
         public List<DateTime> DateList { get; set;}

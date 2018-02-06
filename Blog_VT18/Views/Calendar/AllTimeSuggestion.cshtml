@@ -29,25 +29,39 @@
 
 
 
+   
 
 
     <tr>
         <td>
+
+
+
+
             
             @Html.LabelFor(modelItem => item.Sender)
             :
             @Html.DisplayFor(x => item.Sender.Name)
 
             @Html.LabelFor(modelItem => item.Invited)
-    @*foreach (var i in item.Invited) { Html.DisplayFor(modelItem => item.Invited.Any(x => )); }
+           
+            :
 
-    *@ 
+            @foreach (var i in item.Invited)
+            {
+                @Html.DisplayFor(x => i.UserName);
+            }
+
+     
             
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
-}
+
+
+    }
+
 
 </table>
