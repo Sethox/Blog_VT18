@@ -43,14 +43,13 @@ namespace Blog_VT18.Controllers {
             List<Meeting> List = new List<Meeting>();
             List<InvitedToMeetings> UserList = new List<InvitedToMeetings>();
 
-            //UserList = manager.getInvited();
-
-
             foreach (var item in calendar)
             {
 
                 var listan = manager.getInvited(item.ID);
-
+                if (listan=="") {
+                    listan = "None invited";
+                }
                 var aEvent = new Meeting
                 {
                     ID = item.ID,
