@@ -66,7 +66,7 @@ namespace Blog_VT18.Models {
         public int ID { get; set; }
         public virtual ICollection<Date> Dates{ get; set; }
         public virtual ApplicationUser Sender { get; set; }
-          public virtual ICollection<ApplicationUser> Invited { get; set; }
+          public virtual ApplicationUser Invited { get; set; }
         public virtual Meeting Meeting { get; set; }
     }
 

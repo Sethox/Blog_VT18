@@ -9,9 +9,6 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    @*@foreach(var item in Model.DateList){
-    @Html.ListBoxFor(modelItem => item, new { type = "time" })}*@
-
 
     List<SelectListItem> listItems = new List<SelectListItem>();
 
@@ -31,24 +28,6 @@
 
 
 
-
-
-    <div class="form-group">
-        @Html.LabelFor(x => Model.DateList, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(x => Model.DateList, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(x => Model.DateList, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(x => Model.DateList, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(x => Model.DateList, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(x => Model.DateList, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
 
     <div class="form-group">

@@ -122,8 +122,8 @@ namespace Blog_VT18.Controllers {
 
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
             var list = new List<ApplicationUser> { user };
-            Suggestion.Invited = list;
-            var invitedList = Suggestion.Invited.ToList();
+            Suggestion.Invited = user;
+            var invitedList = user;
 
             //   Date ettDatum = new Date();
             //    ettDatum.TheDate = System.DateTime.Now;
@@ -169,13 +169,13 @@ namespace Blog_VT18.Controllers {
 
             timeSuggestion.Sender = user;
             List<ApplicationUser> invi = new List<ApplicationUser>() { };
-            foreach (var item in model.SelectedUsers)
-            {
-                invi.Add(db.Users.Single(x=> x.Id == item));
-            }
+            //foreach (var item in model.SelectedUsers)
+            //{
+            //    invi.Add(db.Users.Single(x=> x.Id == item));
+            //}
             
 
-            timeSuggestion.Invited = invi;
+            timeSuggestion.Invited = db.Users.Single(x => x.Id == model.SelectedUsers);
 
             foreach (var item in model.DateList.Where(x=> x.Date != null))
             {           Date ettDatum = new Date();
@@ -193,7 +193,7 @@ namespace Blog_VT18.Controllers {
 
 
 
-            return RedirectToAction("Index");  
+            return RedirectToAction("AllTimeSuggestion");  
             }
 
 
