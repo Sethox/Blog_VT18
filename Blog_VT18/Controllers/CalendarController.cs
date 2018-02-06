@@ -39,14 +39,31 @@ namespace Blog_VT18.Controllers {
             return View(scheduler);
         }
         public ContentResult Data() {
-            var List = new List<Meeting>();
-            var UserList = new List<InvitedToMeetings>();
-            var events = manager.getEventTimes(); if(manager.getEventTimes().Count > 0) {
-                foreach(var i in events) {
-                    List.Add(i);
-                }
+            List<Meeting> calendar = manager.GetMeetings();
+            List<Meeting> List = new List<Meeting>();
+            List<InvitedToMeetings> UserList = new List<InvitedToMeetings>();
+
+            //UserList = manager.getInvited();
+
+
+            foreach (var item in calendar)
+            {
+
+                var listan = manager.getInvited(item.ID);
+
+                var aEvent = new Meeting
+                {
+                    ID = item.ID,
+                    text = item.text + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan,
+                    start_date = item.start_date,
+                    end_date = item.end_date
+                };
+                List.Add(aEvent);
+
             }
-            var data = new SchedulerAjaxData(List);
+            var data = new SchedulerAjaxData(
+                List
+                );
             return (ContentResult)data;
         }
         public ContentResult Save(int? id, FormCollection actionValues) {

@@ -111,13 +111,14 @@ namespace Blog_VT18.Controllers {
                 this.db = null;
             }
         }
-            /*public List<Meeting> GetMeetings() {
+        public List<Meeting> GetMeetings()
+        {
             var meetings = db.Meetings.ToList();
             return meetings;
-        }*/
+        }
 
         // Getting EVERY calender event
-            public List<Meeting> getEventTimes() {
+        public List<Meeting> getEventTimes() {
             if(db.Meetings.ToList().Count() > 0)
                 return db.Meetings.ToList();
                 return new List<Meeting>();
@@ -129,10 +130,10 @@ namespace Blog_VT18.Controllers {
             db.SaveChanges();
         }
 
-            public string getthem(int Id) {
-            var hej = db.InvitedToMeetings.Where(x => x.MeetingID == Id).Select(x => x.Invited).ToList();
+            public string getInvited(int Id) {
+            var invited = db.InvitedToMeetings.Where(x => x.MeetingID == Id).Select(x => x.Invited).ToList();
             string z = "";
-            foreach(var item in hej) z = z + "\n" + item.Name;
+            foreach(var item in invited) z = z + "\n" + item.Name;
             return z;
         }
 
