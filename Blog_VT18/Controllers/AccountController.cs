@@ -130,7 +130,7 @@ namespace Blog_VT18.Controllers {
                         role.Name = "User";
                         roleManager.Create(role);
                     }
-                    var user = new ApplicationUser { Name = model.Name, UserName = model.Email, Email = model.Email };
+                    var user = new ApplicationUser { Name = model.Name, Title = model.Title, UserName = model.Email, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     user = UserManager.FindByName(user.UserName);
                     if(result.Succeeded) {

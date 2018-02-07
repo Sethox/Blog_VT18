@@ -43,7 +43,7 @@ namespace Blog_VT18.Controllers {
             //ModelState.AddModelError("", "This is a global Message.");
             //ValidateEntry(entry);
             blogPost.From = repositoryManager.usr;
-            if(ModelState.IsValid) {
+            if (ModelState.IsValid) {
                 repositoryManager.newBlog(blogPost, id);
                 return RedirectToAction("Index");
             }
@@ -51,12 +51,12 @@ namespace Blog_VT18.Controllers {
         }
 
         public ActionResult Edit(int? id) {
-            if(id == null) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             // TODO - Add a getBlogPost method
             BlogPost blogPost = repositoryManager.getBlogPost((int)id);
-            if(blogPost == null) {
+            if (blogPost == null) {
                 return HttpNotFound();
             }
 
@@ -66,16 +66,17 @@ namespace Blog_VT18.Controllers {
         [HttpPost]
         public ActionResult Edit(BlogPost blogPost) {
             //TODO - create a changeBlog method in repository
-            if(ModelState.IsValid) {
+            if (ModelState.IsValid) {
                 repositoryManager.changeBlogPost(blogPost);
                 return RedirectToAction("Index");
             }
             return View(blogPost);
         }
 
-        
+ 
         public ActionResult HidePost(int? Id) {
-            repositoryManager.hidePost(Id);
+            BlogPost blogPost = repositoryManager.getBlogPost((int)Id);
+            repositoryManager.hidePost(blogPost);
             return RedirectToAction("Index");
         }
 
