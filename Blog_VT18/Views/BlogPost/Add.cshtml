@@ -37,10 +37,10 @@
          @item.Content
     </td>
     <td>
-   
             @item.From.Name
-      
-
+    </td>
+    <td>
+        @Html.ActionLink("Open post in new window", "ViewBlogPost",  new { id = item.ID })
     </td>
 @if (User.IsInRole("administrator"))
                 {
