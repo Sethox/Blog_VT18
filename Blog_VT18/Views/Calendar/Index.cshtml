@@ -2,10 +2,29 @@
 <html>
 <head>
     <title>DHXScheduler initialization sample</title>
+    <script src="Scripts/jquery-3.1.0.js" type="text/javascript"></script>
+    <script src="Scripts/jquery.signalR-2.2.1.min.js" type="text/javascript"></script>
+    @*Â*@
 </head>
 <body>
     <div style="height:700px;width:900px;margin:0 auto">
         @Html.Raw(Model.Render())
-    </div>
-</body>
-</html>
+
+        <script>
+            (function () {
+
+                var hub = $.connection.schedulerHub;                
+                scheduler.dataProcessor.attachEvent("onLocalUpdate", function (data) {
+                    hub.server.send(JSON.stringify(data));
+                });
+                hub.client.addMessage = function (message) {
+                    scheduler.dataProcessor.applyChanges(JSON.parse(message));
+                };
+
+                Â
+                $.connection.hub.start();
+            })()
+        </script>
+            </div >
+</body >
+</html >

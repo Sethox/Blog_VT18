@@ -11,6 +11,20 @@ using Blog_VT18.Models;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.Collections;
+using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR;
+
+
+namespace Scheduler.SignalR.Sample {
+    [HubName("schedulerHub")]
+
+    public class SchedulerHub : Hub {
+        public void Send(string update) {
+            this.Clients.All.addMessage(update);
+        }
+       }
+    }
+
 
 namespace Blog_VT18.Controllers {
     public class CalendarController : BaseController {
@@ -34,6 +48,7 @@ namespace Blog_VT18.Controllers {
              *      scheduler.Codebase = Url.Content("~/customCodebaseFolder");
              */
             scheduler.InitialDate = new DateTime();
+            scheduler.Extensions.Add(SchedulerExtensions.Extension.LiveUpdates);
             scheduler.LoadData = true;
             scheduler.EnableDataprocessor = true;
             return View(scheduler);
