@@ -22,6 +22,10 @@ section,
 summary {
   display: block;
 }
+#BlogPic {
+    height: auto;
+    width: 20%;
+}
 
 audio,
 canvas,

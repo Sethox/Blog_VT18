@@ -5,7 +5,7 @@
 }
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Add", "BlogPost", null , FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
     @*@Html.ValidationSummary("The following errors were found: ", new { @class = "alert alert-danger" })*@
 
@@ -47,10 +47,10 @@
 
     </div>
 
-
+    <input type="file" value="File" name="Upload" />
     <div class="col-md-12">
     <div class="pad-top">
-        <input type="file" name="file" />
+        
         <button type="submit" class="btn btn-success btn-lg margin-right">
             <span class="glyphicon glyphicon-save"></span> Save
         </button>

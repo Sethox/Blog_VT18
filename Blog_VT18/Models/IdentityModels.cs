@@ -118,6 +118,9 @@ namespace Blog_VT18.Models {
         public string Content { get; set; }
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
-        public virtual ApplicationUser From { get; set; }   
+        public virtual ApplicationUser From { get; set; }
+        public string Filename { get; set; }
+        public string ContentType { get; set; }
+        public byte[] File { get; set; }
     }
 }

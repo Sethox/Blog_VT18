@@ -94,9 +94,9 @@ namespace Blog_VT18.Controllers {
             Categories category = db.Categories.Single(x => x.ID.ToString().Equals(id));
             Create.Category = category;
             // Creates new blog, updates database
-            BlogPost newPost = new BlogPost(Create);
+            //BlogPost newPost = new BlogPost(Create);
             //En blogpost läggs till i vår context
-            db.BlogPosts.Add(newPost);
+            db.BlogPosts.Add(Create);
             //Sparar ändringar i databasen
             db.SaveChanges();
         }
