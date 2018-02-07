@@ -36,12 +36,13 @@ namespace Blog_VT18.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var usr = db.Users.Find(id);
-            RoleModel roleModel = new RoleModel { ID = manager.usr.Id, Name = manager.usr.UserName, Role = "Administrator", ByWhom = manager.usr };
-            if (roleModel == null) {
-                return HttpNotFound();
-            }
-            return View(roleModel);
+            var roles = manager.GetAllRoles();
+            //var usr = db.Users.Find(id);
+            //RoleModel roleModel = new RoleModel { ID = manager.usr.Id, Name = manager.usr.UserName, Role = "Administrator", ByWhom = manager.usr };
+            //if (roleModel == null) {
+            //    return HttpNotFound();
+            //}
+            return View(roles);
         }
 
         // POST: RoleModel/Edit/5

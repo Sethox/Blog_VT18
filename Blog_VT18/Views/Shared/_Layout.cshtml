@@ -19,44 +19,31 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Institute Blog", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
 
                     @if (User.IsInRole("Administrator"))
-    {
-                <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
-                <li>@Html.ActionLink("Meeting suggestion", "SendTimeSuggestion", "Calendar")</li>
-                <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                <li>@Html.ActionLink("BlogPosts", "Index", "BlogPost")</li>
-                <li>@Html.ActionLink("Changes", "Index", "RoleModel")</li>
+                    {
+                        <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
+                        <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
+                        <li>@Html.ActionLink("BlogPosts", "Index", "BlogPost")</li>
+                        <li>@Html.ActionLink("Changes", "Index", "RoleModel")</li>
 
-}
-else if (User.IsInRole("User"))
-{
-                <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
-                <li>@Html.ActionLink("Meeting suggestion", "SendTimeSuggestion", "Calendar")</li>
-                <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                <li>@Html.ActionLink("BlogPosts", "Index", "BlogPost")</li>
-
-}
-
-
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
+                        <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
+                        <li>@Html.ActionLink("BlogPosts", "Index", "BlogPost")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
-
-
-               
-                
-            </div>
         </div>
-    
+    </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />

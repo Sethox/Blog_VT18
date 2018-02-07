@@ -10,7 +10,7 @@ namespace Blog_VT18.Models
     {
         public string ID { set; get; }
         public string Name { set; get; }
-        public string Role { set; get; }
+        public List<string> Roles { set; get; }
         public ApplicationUser ByWhom { set; get; }
         [DisplayName("Active")]
         public bool IsEnabled { set; get; }

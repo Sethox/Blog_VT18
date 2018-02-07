@@ -153,5 +153,16 @@ namespace Blog_VT18.Controllers {
         public List<ApplicationUser> usrList() {
             return db.Users.ToList();
         }
+
+        public List<string> GetAllRoles()
+        {
+            var roles = db.Roles.ToList();
+            var roleList = new List<string>();
+            foreach (var item in roles)
+            {
+                roleList.Add(item.Name);
+            }
+            return roleList;
+        }
     }
 }
