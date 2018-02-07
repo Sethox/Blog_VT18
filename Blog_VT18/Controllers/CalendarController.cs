@@ -157,27 +157,6 @@ namespace Blog_VT18.Controllers {
             return RedirectToAction("AllTimeSuggestion");  
             }
 
-  
-  
-  
-  
-  
-  
-            //var timeSuggestion = new TimeSuggestion();
-
-            //var senderId = User.Identity.GetUserId();
-            //var sender = db.Users.Find(senderId);
-
-            //timeSuggestion.Sender = sender;
-            //timeSuggestion.Invited = model.SelectedUsers;
-            //timeSuggestion.Dates = model.DateList;
-
-            //db.TimeSuggestions.Add(timeSuggestion);
-            //db.SaveChanges();
-
-
-           // return View();
-        
 
         public ActionResult AllTimeSuggestion() {
 
@@ -186,5 +165,18 @@ namespace Blog_VT18.Controllers {
 
             return View(suggestionList);
         }
-    }
+        [HttpPost]
+        public ActionResult AllTimeSuggestion(TimeSuggestion model)
+        {
+            db.TimeSuggestions.Single(x=> x.ID == model.ID).Accepted = model.Accepted;
+            db.SaveChanges();
+
+            var suggestionList = db.TimeSuggestions.Include(x => x.Sender).Include(x => x.Invited).Include(x => x.Dates).ToList();
+            return View(suggestionList);
+        }
+
+
+
+
+        }
 }

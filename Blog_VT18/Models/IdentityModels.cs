@@ -71,6 +71,7 @@ namespace Blog_VT18.Models {
         public virtual ApplicationUser Sender { get; set; }
           public virtual ApplicationUser Invited { get; set; }
         public virtual Meeting Meeting { get; set; }
+        public bool Accepted { get; set; }
     }
 
     public class Date {
