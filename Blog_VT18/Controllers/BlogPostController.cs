@@ -72,6 +72,13 @@ namespace Blog_VT18.Controllers {
             }
             return View(blogPost);
         }
+
+        
+        public ActionResult HidePost(int? Id) {
+            repositoryManager.hidePost(Id);
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Delete(int? Id) {
             if(Id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
