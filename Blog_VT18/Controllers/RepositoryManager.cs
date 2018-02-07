@@ -75,6 +75,7 @@ namespace Blog_VT18.Controllers {
         }
 
         public void newBlog(BlogPost Create, string id) {
+            Create.From = usr;           
             //Kom ihåg att lägga in kategorier
             Categories category = db.Categories.Single(x => x.ID.ToString().Equals(id));
             Create.Category = category;
@@ -93,6 +94,8 @@ namespace Blog_VT18.Controllers {
             var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
             var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
             ny = blogPost;
+            ny.Category = bp.Category;
+            ny.From = usr;
             db.BlogPosts.Remove(bp);
             db.BlogPosts.Add(ny);
             db.SaveChanges();

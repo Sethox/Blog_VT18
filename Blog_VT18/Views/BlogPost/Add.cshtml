@@ -22,35 +22,32 @@
         </th>
         <th></th>
     </tr>
-@foreach (var item in ViewBag.PostViewBag)
-{
-@*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
-           @Html.DisplayNameFor(m => m.Title)
+    @foreach (var item in ViewBag.PostViewBag) {
+        @*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
+                   @Html.DisplayNameFor(m => m.Title)
 
-           <form typeof="textarea">@item.content</form>
-    </div>*@
-<tr>
-    <td>
-        @item.Title
-    </td>
-    <td>
-         @item.Content
-    </td>
-    <td>
-   
-            @item.From.Name
-      
+                   <form typeof="textarea">@item.content</form>
+            </div>*@
+        <tr>
+            <td>
+                @item.Title
+            </td>
+            <td>
+                @item.Content
+            </td>
+            <td>
 
-    </td>
-@if (User.IsInRole("administrator"))
-                {
-                    <td>
-                        @Html.ActionLink("edit", "edit", new { id = item.id }) |
-                        @Html.ActionLink("details", "details", new { id = item.id }) |
-                        @Html.ActionLink("delete", "delete", new { id = item.id })
-                    </td>
-                }
-            </tr>
-        }
+                @item.From.Name
 
-    </table>
+
+            </td>
+            @if (User.Identity.Name == item.From.Email) {
+                <td>
+                    @Html.ActionLink("edit", "edit", new { id = item.ID })
+                    @*@Html.ActionLink("details", "details", new { id = item.id }) |
+                        @Html.ActionLink("delete", "delete", new { id = item.id })*@
+                </td>
+            }
+        </tr>
+    }
+</table>
