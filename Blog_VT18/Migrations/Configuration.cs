@@ -43,6 +43,13 @@ namespace Blog_VT18.Migrations {
                 var adminUser = userManager.Create(user, "User1!");
                 if(adminUser.Succeeded) { userManager.AddToRole(user.Id, "Administrator"); }
             }
+
+            if(!roleManager.RoleExists("User")) {
+                var role = new IdentityRole();
+                role.Name = "User";
+                roleManager.Create(role);
+            }
+
             //If there is 0 blogPosts, we will create a new blogPost
             if(context.BlogPosts.Where(x => x.ID == 0).Count() == 0) {
                 var blogPost = new BlogPost {
@@ -59,10 +66,8 @@ namespace Blog_VT18.Migrations {
             //userManager.CreateAsync(user, "User1!").Wait();
             base.Seed(context);
 
-            if(context.Categories.Count() < 1)
-            {
-                var cat1 = new Categories
-                {
+            if(context.Categories.Count() < 1) {
+                var cat1 = new Categories {
                     ID = 1,
                     Name = "Education",
                     Category = null
@@ -70,16 +75,14 @@ namespace Blog_VT18.Migrations {
 
                 context.Categories.Add(cat1);
 
-                var cat2 = new Categories
-                {
+                var cat2 = new Categories {
                     ID = 2,
                     Name = "Research",
                     Category = null
                 };
                 context.Categories.Add(cat2);
 
-                var cat3 = new Categories
-                {
+                var cat3 = new Categories {
                     ID = 3,
                     Name = "Informal",
                     Category = null
@@ -88,10 +91,8 @@ namespace Blog_VT18.Migrations {
                 context.Categories.Add(cat3);
                 context.SaveChanges();
 
-                for (int i = 1; i < 4; i++)
-                {
-                    var subCat = new Categories
-                    {
+                for(int i = 1; i < 4; i++) {
+                    var subCat = new Categories {
                         Name = "Miscellaneous",
                         Category = i
                     };

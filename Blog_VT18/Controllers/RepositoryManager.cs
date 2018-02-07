@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Blog_VT18.Models;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Blog_VT18.Controllers {
     public class RepositoryManager {
@@ -154,15 +156,40 @@ namespace Blog_VT18.Controllers {
             return db.Users.ToList();
         }
 
-        public List<string> GetAllRoles()
-        {
+        public List<string> GetAllRoles() {
             var roles = db.Roles.ToList();
             var roleList = new List<string>();
-            foreach (var item in roles)
-            {
+            foreach(var item in roles) {
                 roleList.Add(item.Name);
             }
             return roleList;
+        }
+
+        /// <summary>
+        /// Update the role for a specific user.
+        /// </summary>
+        /// <param name="id">Get the user from it's Id.</param>
+        /// <param name="_role">The role it's going to change.</param>
+        public void UpdateRole(string id, string _role) {
+            UserManager<ApplicationUser> _userManager = new UserManager<ApplicationUser>(
+        new UserStore<ApplicationUser>(this.db));
+            var user = _userManager.FindById(id);
+            var currentRoles = new List<IdentityUserRole>();
+
+
+            currentRoles.AddRange(user.Roles);
+            foreach(var role in currentRoles) {
+                if(role.UserId == id) {
+                    _userManager.RemoveFromRole(id, role.RoleId);
+                    _userManager.AddToRole(user.Id, _role); 
+                }
+            }
+            this.db.SaveChanges();
+        }
+
+        public string getRole(string id) {
+            var t = System.Web.Security.Roles.GetRolesForUser(id).First();
+            return t;
         }
     }
 }
