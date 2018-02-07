@@ -232,6 +232,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RepositoryManager.cs" />
+    <Compile Include="Controllers\RoleModelController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -239,6 +240,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\TimeSuggestionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -618,6 +620,12 @@
     <Content Include="Views\BlogPost\CreateCategory.cshtml" />
     <Content Include="Views\Calendar\SendTimeSuggestion.cshtml" />
     <Content Include="Views\Calendar\AllTimeSuggestion.cshtml" />
+    <Content Include="Views\RoleModel\Create.cshtml" />
+    <Content Include="Views\RoleModel\Delete.cshtml" />
+    <Content Include="Views\RoleModel\Details.cshtml" />
+    <Content Include="Views\RoleModel\Edit.cshtml" />
+    <Content Include="Views\RoleModel\Index.cshtml" />
+    <Content Include="Views\BlogPost\ViewBlogPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

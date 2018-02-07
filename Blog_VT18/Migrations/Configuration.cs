@@ -37,7 +37,8 @@ namespace Blog_VT18.Migrations {
                 var user = new ApplicationUser {
                     Name = "Admin",
                     UserName = "admin@user.com",
-                    Email = "admin@user.com"
+                    Email = "admin@user.com",
+                    IsEnabled = true
                 };
                 var adminUser = userManager.Create(user, "User1!");
                 if(adminUser.Succeeded) { userManager.AddToRole(user.Id, "Administrator"); }
@@ -58,7 +59,7 @@ namespace Blog_VT18.Migrations {
             //userManager.CreateAsync(user, "User1!").Wait();
             base.Seed(context);
 
-            if(context.Categories.Where(x=> x.ID == 0).Count() == 0)
+            if(context.Categories.Count() < 1)
             {
                 var cat1 = new Categories
                 {

@@ -14,23 +14,48 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+
+
+
+
+
+
+
+
+
+
+@foreach (var item in Model.Where(x=>x.Invited.Id == ViewBag.Me))
+{
     <tr>
         <td>
-            
+        <td>
             @Html.LabelFor(modelItem => item.Sender)
             :
             @Html.DisplayFor(x => item.Sender.Name)
-
-            @Html.LabelFor(modelItem => item.Invited)
-          @*  @Html.DisplayFor(modelItem => item.Invited.Any(x=>x.Id == x.Id))
-        *@
-            
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
+        <td>
+            @Html.LabelFor(modelItem => item.Invited)
+            :
+            @Html.DisplayFor(x => item.Invited.Name)
+        </td>
+
+
+        <td>
+            
+            @Html.LabelFor(modelItem => item.Dates)
+            @foreach (var i in item.Dates)
+            {
+                @Html.DisplayFor(x => i.TheDate.Date)
+            }
+          
+          
+
+     </td>
+
     </tr>
-}
+
+
+    }
+
 
 </table>

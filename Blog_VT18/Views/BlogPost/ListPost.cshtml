@@ -34,6 +34,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Hidden)
         </td>
+        <td>
+            @Html.ActionLink("Open post in new window", "ViewBlogPost", "BlogPost", new { id = item.ID})
+        </td>
     </tr>
 }
 
