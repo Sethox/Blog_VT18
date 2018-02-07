@@ -130,12 +130,12 @@ namespace Blog_VT18.Controllers {
             db.SaveChanges();
         }
 
-            public string getInvited(int Id) {
-            var invited = db.InvitedToMeetings.Where(x => x.MeetingID == Id).Select(x => x.Invited).ToList();
-            string z = "";
-            foreach(var item in invited) z = z + "\n" + item.Name;
-            return z;
-        }
+        //    public string getInvited(int Id) {
+        //    var invited = db.InvitedToMeetings.Where(x => x.MeetingID == Id).Select(x => x.Invited).ToList();
+        //    string z = "";
+        //    foreach(var item in invited) z = z + "\n" + item.Name;
+        //    return z;
+        //}
 
             public List<ApplicationUser> usrList() {
             return db.Users.ToList();

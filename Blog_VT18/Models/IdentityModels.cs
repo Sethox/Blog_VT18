@@ -47,7 +47,7 @@ namespace Blog_VT18.Models {
         public DbSet<TimeSuggestion> TimeSuggestions { get; set; } 
        // public DbSet<Date> Dates { get; set; }
         //public DbSet<Meeting> CalendarEvents { get; set; }
-        public DbSet<InvitedToMeetings> InvitedToMeetings { get; set; }
+       // public DbSet<InvitedToMeetings> InvitedToMeetings { get; set; }
     }
 
     public class Categories {
@@ -91,11 +91,11 @@ namespace Blog_VT18.Models {
         public virtual ApplicationUser Booker { get; set; }
     }
 
-    public class InvitedToMeetings {
-        public int Id { get; set; }
-        public virtual int MeetingID { get; set; }
-        public virtual ApplicationUser Invited { get; set; }
-    }
+    //public class InvitedToMeetings {
+    //    public int Id { get; set; }
+    //    public virtual int MeetingID { get; set; }
+    //    public virtual ApplicationUser Invited { get; set; }
+    //}
 
     public class BlogPost {
         public BlogPost() { }
