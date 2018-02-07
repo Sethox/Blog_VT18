@@ -145,13 +145,6 @@ namespace Blog_VT18.Controllers {
 
             
 
-  // COMMENT - THIS WAS MASTER'S before merge
-       //   List<ApplicationUser> aa = new List<ApplicationUser>();
-       //   aa.Add(Anv);
-            // var aaa = aa.ToList();
-       //   model.SelectedUsers = aa;
-       //   var user = db.Users.Find(User.Identity.GetUserId());
-       //   var timeSuggestion = new TimeSuggestion() { Invited = model.SelectedUsers, Sender = user };
 
             db.TimeSuggestions.Add(timeSuggestion);
             db.SaveChanges();
