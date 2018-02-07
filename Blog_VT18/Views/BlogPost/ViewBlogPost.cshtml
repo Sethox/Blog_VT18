@@ -33,6 +33,17 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (User.Identity.Name == Model.From.Email)
+    {
+        
+            @Html.ActionLink("Edit", "edit", new { id = Model.ID })
+            @*@Html.ActionLink("details", "details", new { id = item.id }) |
+                @Html.ActionLink("delete", "delete", new { id = item.id })*@
+        
+        
+    }
+     
+        @Html.ActionLink("Back to Start", "Index")
+   
+    
 </p>
