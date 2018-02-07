@@ -73,9 +73,9 @@ namespace Blog_VT18.Controllers {
             return View(blogPost);
         }
 
+        
         public ActionResult HidePost(int? Id) {
-            BlogPost blogPost = repositoryManager.getBlogPost((int)Id);
-            repositoryManager.hidePost(blogPost);
+            repositoryManager.hidePost(Id);
             return RedirectToAction("Index");
         }
 

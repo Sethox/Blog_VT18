@@ -22,7 +22,8 @@
         </th>
         <th></th>
     </tr>
-    @foreach (var item in ViewBag.PostViewBag) {
+    @foreach (var item in ViewBag.PostViewBag)
+    {
         @*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
                    @Html.DisplayNameFor(m => m.Title)
 
@@ -43,12 +44,17 @@
             </td>
 
             <td>
-                @*@if (User.IsInRole("Adminstrator")) {*@
+                @if (User.IsInRole("Administrator"))
+                {
 
-                @if (item.Hidden == false) {
-                    @Html.ActionLink("Hide", "HidePost", new { id = item.ID })
-                } @if (item.Hidden == true) {
-                    @Html.ActionLink("Unhide", "HidePost", new { id = item.ID })
+                    if (item.Hidden == false)
+                    {
+                        @Html.ActionLink("Hide", "HidePost", new { id = item.ID })
+                    }
+                    if (item.Hidden == true)
+                    {
+                        @Html.ActionLink("Show", "HidePost", new { id = item.ID })
+                    }
                 }
 
 

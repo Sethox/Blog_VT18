@@ -100,21 +100,30 @@ namespace Blog_VT18.Controllers {
             db.SaveChanges();
         }
 
-        public void hidePost(BlogPost blogPost) {
-            //var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
-            var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
-            //ny = blogPost;
-            //ny.Category = bp.Category;
-            //ny.From = bp.From;
-            if (ny.Hidden == false) {
-                ny.Hidden = true;
+        public void hidePost(int? id) {
+            var oldPost = db.BlogPosts.Where(x => x.ID == id).Single();
+
+            var newPost = new BlogPost
+            {
+                Title = oldPost.Title,
+                Content = oldPost.Content,
+                Hidden = oldPost.Hidden,
+                Category = oldPost.Category,
+                From = oldPost.From
+
+            };
+
+            if (newPost.Hidden == false)
+            {
+                newPost.Hidden = true;
             }
-            else {
-                ny.Hidden = false;
-            }           
-            //db.BlogPosts.Remove(bp);
-            
-            db.BlogPosts.Add(ny);
+            else
+            {
+                newPost.Hidden = false;
+            }
+
+            db.BlogPosts.Remove(oldPost);
+            db.BlogPosts.Add(newPost);
             db.SaveChanges();
         }
 
