@@ -118,5 +118,11 @@ namespace Blog_VT18.Controllers {
             }
             return View(postList);
         }
+        public ActionResult ViewBlogPost(int? id)
+        {
+            var blogPost = repositoryManager.getBlogPost(id);
+
+            return View(blogPost);
+        }
     }
 }
