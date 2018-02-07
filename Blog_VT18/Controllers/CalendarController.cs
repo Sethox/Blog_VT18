@@ -236,10 +236,5 @@ namespace Blog_VT18.Controllers {
         public bool Checked { get; set; }
         public ApplicationUser User { get; set; } 
     }
-
-
-
-        }
-    }
-
+    
 }
