@@ -18,17 +18,20 @@
 
 
 
+    <tr>
+        <td><div> Pending MEETINGS</div></td>
+    </tr>
 
 
 
-
-
-
-    @foreach (var item in Model.Where(x => x.Invited.Id == ViewBag.Me))
+    @foreach (var item in Model.Where(x => x.Invited.Id == ViewBag.Me & x.Accepted == false))
     {
 
-        using (Html.BeginForm("AllTimeSuggestion", "Calendar", FormMethod.Post, new { item }))
+        using (Html.BeginForm("Save", "Calendar", FormMethod.Post, new { item }))
         {
+
+
+            @Html.HiddenFor(Model => Model.Single(x => x.ID == item.ID).ID, new { ID = item.ID })
             <tr>
                 <td>
                 <td>
@@ -36,17 +39,14 @@
                     :
                     @Html.DisplayFor(x => item.Sender.Name)
                 </td>
-                <td>
-                    @Html.LabelFor(modelItem => item.Invited)
-                    :
-                    @Html.DisplayFor(x => item.Invited.Name)
-                </td>
-
+               
                 <td>
                     <div class="form-group">
+                        
+                     
                         @Html.LabelFor(x => item.Accepted, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(x => item.Accepted, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(Model => Model.Single(x=> x.ID == item.ID).Accepted, new {  Accepted = item.Accepted })
                             @Html.ValidationMessageFor(x => item.Accepted, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -79,6 +79,91 @@
         }
 
     }
+
+
+
+
+    
+    
+    
+    
+    <tr>
+        <td><div> ACCEPTED MEETINGS</div></td>
+    </tr>
+    
+   
+   
+
+    @foreach (var item in Model.Where(x => x.Invited.Id == ViewBag.Me & x.Accepted == true))
+    {
+
+        
+
+        using (Html.BeginForm("Save", "Calendar", FormMethod.Post, new { item }))
+        {
+
+
+            @Html.HiddenFor(Model => Model.Single(x => x.ID == item.ID).ID, new { ID = item.ID })
+            <tr>
+                <td>
+                <td>
+                    @Html.LabelFor(modelItem => item.Sender)
+                    :
+                    @Html.DisplayFor(x => item.Sender.Name)
+                </td>
+
+
+                <td>
+
+
+                </td>
+
+
+                <td>
+
+                    @Html.LabelFor(modelItem => item.Dates)
+                    @foreach (var i in item.Dates)
+                    {
+                        @Html.DisplayFor(x => i.TheDate.Date)
+                    }
+
+
+
+                </td>
+
+
+
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Send answer" class="btn btn-default" />
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </table>

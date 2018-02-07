@@ -166,17 +166,16 @@ namespace Blog_VT18.Controllers {
             return View(suggestionList);
         }
         [HttpPost]
-        public ActionResult AllTimeSuggestion(TimeSuggestion model)
+        public ActionResult Save(TimeSuggestion timeSuggestion)
         {
-            db.TimeSuggestions.Single(x=> x.ID == model.ID).Accepted = model.Accepted;
+
+            db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Accepted = true;
             db.SaveChanges();
 
             var suggestionList = db.TimeSuggestions.Include(x => x.Sender).Include(x => x.Invited).Include(x => x.Dates).ToList();
-            return View(suggestionList);
+            return RedirectToAction("AllTimeSuggestion");
         }
 
 
-
-
-        }
+    }
 }
