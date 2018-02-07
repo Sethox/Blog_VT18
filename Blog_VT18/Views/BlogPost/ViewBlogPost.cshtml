@@ -13,9 +13,11 @@
         @if (Model.File != null)
         {
             <img style=" height: auto;
-                         width: 20%" src="@Url.Action("show", new { id = Model.ID})" />
+                         width: 20%";
+                 src="@Url.Action("show", new { id = Model.ID})" />
         }
     </div>
+    <div>
     <dl class="dl-horizontal" style="margin : 10%, 10%">
         <dd class="h2 text-center" style="text-align : center">
             @Html.DisplayNameFor(model => model.Title)
