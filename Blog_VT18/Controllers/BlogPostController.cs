@@ -7,6 +7,7 @@ using System.Data.Entity;
 using Blog_VT18.Models;
 using Microsoft.AspNet.Identity;
 using System.Net;
+using System.IO;
 
 namespace Blog_VT18.Controllers {
     public class BlogPostController : BaseController {
@@ -124,5 +125,6 @@ namespace Blog_VT18.Controllers {
 
             return View(blogPost);
         }
+
     }
 }
