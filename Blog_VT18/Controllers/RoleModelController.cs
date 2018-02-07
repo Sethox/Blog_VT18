@@ -26,7 +26,7 @@ namespace Blog_VT18.Controllers {
             var remodelLst = new List<RoleModel>();
             foreach (var i in usrLst) {
                 var m = userManager.GetRoles(i.Id).ToList().First();
-                remodelLst.Add(new RoleModel { ID = i.Id, Name = i.UserName, Role = m, ByWhom = manager.usr });
+                remodelLst.Add(new RoleModel { ID = i.Id, Name = i.UserName, Role = m, ByWhom = manager.usr, IsEnabled = i.IsEnabled });
             }
             return View(remodelLst.ToList());
         }
@@ -68,49 +68,15 @@ namespace Blog_VT18.Controllers {
                 return HttpNotFound();
             }
             return View(roleModel);
-        }
-
-        // GET: RoleModel/Create
-        public ActionResult Create() {
-            return View();
-        }
-
-        // POST: RoleModel/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Role")] RoleModel roleModel) {
-            if (ModelState.IsValid) {
-                db.RoleModels.Add(roleModel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(roleModel);
-        }
+        }*/
 
         // GET: RoleModel/Delete/5
-        public ActionResult Delete(int? id) {
-            if (id == null) {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public ActionResult Delete(string id) {
+            if (id == null) { return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RoleModel roleModel = db.RoleModels.Find(id);
-            if (roleModel == null) {
-                return HttpNotFound();
-            }
-            return View(roleModel);
-        }
-
-        // POST: RoleModel/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id) {
-            RoleModel roleModel = db.RoleModels.Find(id);
-            db.RoleModels.Remove(roleModel);
-            db.SaveChanges();
+            manager.changeIsEnabled(id);
             return RedirectToAction("Index");
-        }*/
+        }
 
         protected override void Dispose(bool disposing) {
             if (disposing) {
