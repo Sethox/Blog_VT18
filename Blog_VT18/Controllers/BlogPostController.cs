@@ -75,9 +75,8 @@ namespace Blog_VT18.Controllers {
 
         public ActionResult HidePost(int? Id) {
             BlogPost blogPost = repositoryManager.getBlogPost((int)Id);
-            blogPost.Hidden = true;
-            db.SaveChanges();
-            return View("Index");
+            repositoryManager.hidePost(blogPost);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int? Id) {

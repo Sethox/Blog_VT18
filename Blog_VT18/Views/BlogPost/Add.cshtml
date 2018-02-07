@@ -43,20 +43,26 @@
             </td>
 
             <td>
-                @if (User.IsInRole("Adminstrator")) {
-                    @Html.ActionLink("Hide", "Hide", new { id = item.ID })
-            }
+                @*@if (User.IsInRole("Adminstrator")) {*@
+
+                @if (item.Hidden == false) {
+                    @Html.ActionLink("Hide", "HidePost", new { id = item.ID })
+                } @if (item.Hidden == true) {
+                    @Html.ActionLink("Unhide", "HidePost", new { id = item.ID })
+                }
+
+
             </td>
 
 
             @*@if (User.IsInRole("administrator")) {
-                <td>
-                    @Html.ActionLink("edit", "edit", new { id = item.id }) |
-                    @Html.ActionLink("details", "details", new { id = item.id }) |
-                    @Html.ActionLink("delete", "delete", new { id = item.id })
-                </td>
-            }*@
+                    <td>
+                        @Html.ActionLink("edit", "edit", new { id = item.id }) |
+                        @Html.ActionLink("details", "details", new { id = item.id }) |
+                        @Html.ActionLink("delete", "delete", new { id = item.id })
+                    </td>
+                }*@
         </tr>
     }
 
-            </table>
+</table>

@@ -93,10 +93,31 @@ namespace Blog_VT18.Controllers {
             var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
             var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
             ny = blogPost;
+            ny.Category = bp.Category;
+            ny.From = usr;
             db.BlogPosts.Remove(bp);
             db.BlogPosts.Add(ny);
             db.SaveChanges();
         }
+
+        public void hidePost(BlogPost blogPost) {
+            //var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
+            var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
+            //ny = blogPost;
+            //ny.Category = bp.Category;
+            //ny.From = bp.From;
+            if (ny.Hidden == false) {
+                ny.Hidden = true;
+            }
+            else {
+                ny.Hidden = false;
+            }           
+            //db.BlogPosts.Remove(bp);
+            
+            db.BlogPosts.Add(ny);
+            db.SaveChanges();
+        }
+
             public void deleteBlogPost(int? Id) {
             var bp = db.BlogPosts.Single(x => x.ID == Id);
             db.BlogPosts.Remove(bp);
