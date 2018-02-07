@@ -594,6 +594,7 @@
     <Content Include="Views\RoleModel\Details.cshtml" />
     <Content Include="Views\RoleModel\Edit.cshtml" />
     <Content Include="Views\RoleModel\Index.cshtml" />
+    <Content Include="Views\BlogPost\ViewBlogPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
