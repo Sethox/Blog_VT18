@@ -16,6 +16,7 @@ namespace Blog_VT18.Controllers {
     public class AccountController : Controller {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private RepositoryManager manager = new RepositoryManager();
 
         public AccountController() { }
 
@@ -55,7 +56,11 @@ namespace Blog_VT18.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl) {
             if(!ModelState.IsValid) { return View(model); }
-
+            if(!manager.checkEmail(model.Email)) {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
+            }
+            
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);

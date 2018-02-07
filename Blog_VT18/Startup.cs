@@ -9,6 +9,7 @@ namespace Blog_VT18
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            app.MapSignalR();
         }
     }
 }

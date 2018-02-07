@@ -22,12 +22,15 @@
         </th>
         <th></th>
     </tr>
-    @foreach (var item in ViewBag.PostViewBag)
-    {
+
+
+
+
+    @foreach (var item in ViewBag.PostViewBag) {
         @*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
                    @Html.DisplayNameFor(m => m.Title)
+                  <form typeof="textarea">@item.content</form>
 
-                   <form typeof="textarea">@item.content</form>
             </div>*@
         <tr>
             <td>
@@ -39,6 +42,7 @@
             <td>
                 @item.From.Name
             </td>
+
             <td>
                 @Html.ActionLink("Open post in new window", "ViewBlogPost", new { id = item.ID })
             </td>
@@ -68,6 +72,15 @@
                         @Html.ActionLink("delete", "delete", new { id = item.id })
                     </td>
                 }*@
+        </tr>
+    }
+
+
+         
+            <td>
+                @Html.ActionLink("Open post in new window", "ViewBlogPost", new { id = item.ID })
+            </td>
+
         </tr>
     }
 
