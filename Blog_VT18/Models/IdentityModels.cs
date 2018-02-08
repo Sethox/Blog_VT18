@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Collections;
-
+using System.Web;
 
 namespace Blog_VT18.Models {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -119,5 +119,8 @@ namespace Blog_VT18.Models {
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
         public virtual ApplicationUser From { get; set; }
+        public string Filename { get; set; }
+        public string ContentType { get; set; }
+        public byte[] File { get; set; }
     }
 }

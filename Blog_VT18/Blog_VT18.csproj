@@ -238,6 +238,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\TimeSuggestionViewModel.cs" />
+    <Compile Include="Models\UploadController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -622,9 +623,11 @@
     <Content Include="Views\RoleModel\Edit.cshtml" />
     <Content Include="Views\RoleModel\Index.cshtml" />
     <Content Include="Views\BlogPost\ViewBlogPost.cshtml" />
+    <Content Include="Views\Upload\UploadFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UploadedFiles\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

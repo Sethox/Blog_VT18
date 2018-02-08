@@ -7,6 +7,7 @@ using System.Data.Entity;
 using Blog_VT18.Models;
 using Microsoft.AspNet.Identity;
 using System.Net;
+using System.IO;
 
 namespace Blog_VT18.Controllers {
     public class BlogPostController : BaseController {
@@ -27,8 +28,8 @@ namespace Blog_VT18.Controllers {
         public ActionResult Add(string id) {
             var blogPost = new BlogPost() {
                 Hidden = false,
-                From = repositoryManager.usr
-
+                From = repositoryManager.usr,
+                
             };
 
             var idet = id;
@@ -39,16 +40,39 @@ namespace Blog_VT18.Controllers {
         }
         // Accepts the blogpost whos have its values set in the View and sends it to the repositorie
         [HttpPost]
-        public ActionResult Add(BlogPost blogPost, string id) {
+        public ActionResult Add(BlogPost blogPost, string id, HttpPostedFileBase upload) {
             //ModelState.AddModelError("", "This is a global Message.");
             //ValidateEntry(entry);
             blogPost.From = repositoryManager.usr;
-            if(ModelState.IsValid) {
+            if (upload != null && upload.ContentLength > 0)
+            {
+
+                    blogPost.Filename = upload.FileName;
+                    blogPost.ContentType = upload.ContentType;
+                    using (var reader = new BinaryReader(upload.InputStream))
+                    {
+                        blogPost.File = reader.ReadBytes(upload.ContentLength);
+                    }
+                
+            }
+            if (ModelState.IsValid) {
                 repositoryManager.newBlog(blogPost, id);
                 return RedirectToAction("Index");
             }
             return View(blogPost);
         }
+
+        public ActionResult Show(int? id)
+        {
+            var thePicture = db.BlogPosts.Single(x => x.ID == id);
+            if (thePicture.File is null)
+            {
+                return File("FinnsEj", ".jpg");
+            }
+            return File(thePicture.File, thePicture.ContentType);
+        }
+
+
 
         public ActionResult Edit(int? id) {
             if(id == null) {
@@ -131,5 +155,6 @@ namespace Blog_VT18.Controllers {
 
             return View(blogPost);
         }
+
     }
 }

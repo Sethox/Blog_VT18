@@ -9,6 +9,15 @@
 <div>
     <h4>BlogPost</h4>
     <hr />
+    <div>
+        @if (Model.File != null)
+        {
+            <img style=" height: auto;
+                         width: 20%";
+                 src="@Url.Action("show", new { id = Model.ID})" />
+        }
+    </div>
+    <div>
     <dl class="dl-horizontal" style="margin : 10%, 10%">
         <dd class="h2 text-center" style="text-align : center">
             @Html.DisplayNameFor(model => model.Title)
@@ -19,6 +28,8 @@
               font-size : large">
             @Html.DisplayFor(model => model.Title)
         </dd>
+
+        
 
         <dd class="h3 text-center" style="text-align : center; margin-top : 20px;">
             @Html.DisplayNameFor(model => model.Content)
