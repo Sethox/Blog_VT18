@@ -37,7 +37,8 @@ namespace Blog_VT18.Migrations {
                 var user = new ApplicationUser {
                     Name = "Admin",
                     UserName = "admin@user.com",
-                    Email = "admin@user.com"
+                    Email = "admin@user.com",
+                    IsEnabled = true
                 };
                 var adminUser = userManager.Create(user, "User1!");
                 if(adminUser.Succeeded) { userManager.AddToRole(user.Id, "Administrator"); }

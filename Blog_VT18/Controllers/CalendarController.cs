@@ -11,6 +11,20 @@ using Blog_VT18.Models;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.Collections;
+using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR;
+
+
+namespace Scheduler.SignalR.Sample {
+    [HubName("schedulerHub")]
+
+    public class SchedulerHub : Hub {
+        public void Send(string update) {
+            this.Clients.All.addMessage(update);
+        }
+       }
+    }
+
 
 namespace Blog_VT18.Controllers {
     public class CalendarController : BaseController {
@@ -34,6 +48,7 @@ namespace Blog_VT18.Controllers {
              *      scheduler.Codebase = Url.Content("~/customCodebaseFolder");
              */
             scheduler.InitialDate = new DateTime();
+            scheduler.Extensions.Add(SchedulerExtensions.Extension.LiveUpdates);
             scheduler.LoadData = true;
             scheduler.EnableDataprocessor = true;
             return View(scheduler);
@@ -146,12 +161,55 @@ namespace Blog_VT18.Controllers {
             }
 
 
+        public ActionResult InvitationList()
+        {
+            var users = db.Users.ToList();
+            bool Check = false;
+            var list = new List<InvitationViewModel>();
+
+            foreach (var item in users)
+            {
+                var listobj = new InvitationViewModel { Name = item.Name, User = item, Checked = Check };
+
+                list.Add(listobj);
+            }
+            return View(list);
+
+        }
+
+
+
+  
+  
+  
+  
+  
+  
+            //var timeSuggestion = new TimeSuggestion();
+
+            //var senderId = User.Identity.GetUserId();
+            //var sender = db.Users.Find(senderId);
+
+            //timeSuggestion.Sender = sender;
+            //timeSuggestion.Invited = model.SelectedUsers;
+            //timeSuggestion.Dates = model.DateList;
+
+            //db.TimeSuggestions.Add(timeSuggestion);
+            //db.SaveChanges();
+
+
+           // return View();
+        
+
+
+
         public ActionResult AllTimeSuggestion() {
             
             ViewBag.Me = User.Identity.GetUserId();
             var suggestionList = db.TimeSuggestions.Include(x => x.Sender).Include(x=> x.Invited).Include(x=> x.Dates).Include(x=> x.Meeting).ToList();
 
             return View(suggestionList);
+
         }
         [HttpPost]
         public ActionResult SaveTS(TimeSuggestion timeSuggestion)
@@ -166,5 +224,17 @@ namespace Blog_VT18.Controllers {
         }
 
 
+
+
+        }   
+        }  
+
+    public class InvitationViewModel
+    {
+        public string Name { get; set; }
+        public bool Checked { get; set; }
+        public ApplicationUser User { get; set; } 
+
     }
+    
 }
