@@ -47,7 +47,7 @@
         <td></td>
     </tr>
 
-    @foreach (var item in Model.Where(x => x.Invited.Id == ViewBag.Me & x.Accepted == false))
+    @foreach (var item in Model.Where(x => x.Invited.Id == ViewBag.Me & x.Accepted == false & x.Denied==false))
     {
 
         using (Html.BeginForm("SaveTS", "Calendar", FormMethod.Post, new { item }))
@@ -211,4 +211,14 @@
             </tr>    }
 
     }
+
+
+
+
+
+
+
+
+
+
 </table>

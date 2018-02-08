@@ -212,17 +212,21 @@ namespace Blog_VT18.Controllers {
         public ActionResult SaveTS(TimeSuggestion timeSuggestion)
         {
 
-
+            if (timeSuggestion.Accepted)
+            {
             db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Accepted = true;
+
+            }
+            else
+            {
+                db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Denied = true;
+            }
+            
             db.SaveChanges();
 
             var suggestionList = db.TimeSuggestions.Include(x => x.Sender).Include(x => x.Invited).Include(x => x.Dates).ToList();
             return RedirectToAction("AllTimeSuggestion");
         }
-
-
-
-
     }
 
 
