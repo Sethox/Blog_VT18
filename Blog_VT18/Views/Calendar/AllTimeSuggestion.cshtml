@@ -14,48 +14,201 @@
         <th></th>
     </tr>
 
+    <tr>
+        <td><div> Pending MEETINGS</div></td>
+    </tr>
 
 
-
-
-
-
-
-
-
-
-@foreach (var item in Model.Where(x=>x.Invited.Id == ViewBag.Me))
-{
     <tr>
         <td>
         <td>
-            @Html.LabelFor(modelItem => item.Sender)
-            :
-            @Html.DisplayFor(x => item.Sender.Name)
-        </td>
-        <td>
-            @Html.LabelFor(modelItem => item.Invited)
-            :
-            @Html.DisplayFor(x => item.Invited.Name)
+            @Html.LabelFor(modelItem => Model.First().Sender)
         </td>
 
 
         <td>
-            
-            @Html.LabelFor(modelItem => item.Dates)
-            @foreach (var i in item.Dates)
-            {
-                @Html.DisplayFor(x => i.TheDate.Date)
-            }
-          
-          
+            @Html.LabelFor(modelItem => Model.First().Meeting.text)
+        </td>
 
-     </td>
 
+        <td>
+            @Html.LabelFor(modelItem => Model.First().Meeting.start_date)
+        </td>
+
+        <td>
+            @Html.LabelFor(modelItem => Model.First().Meeting.end_date)
+
+        </td>
+        <td>
+            @Html.LabelFor(model => model.First().Accepted, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        </td>
+
+        <td></td>
     </tr>
 
+    @foreach (var item in Model.Where(x => x.Invited.Id == ViewBag.Me & x.Accepted == false))
+    {
+
+        using (Html.BeginForm("SaveTS", "Calendar", FormMethod.Post, new { item }))
+        {
+
+
+            @Html.HiddenFor(Model => Model.Single(x => x.ID == item.ID).ID, new { ID = item.ID })
+            <tr>
+                <td>
+
+
+
+
+                <td>
+
+                    @Html.DisplayFor(x => item.Sender.Name)
+                </td>
+
+
+                <td>
+
+                    @Html.DisplayFor(x => item.Meeting.text)
+                </td>
+
+
+                <td>
+
+                    @Html.DisplayFor(x => item.Meeting.start_date)
+                </td>
+
+                <td>
+
+                    @Html.DisplayFor(x => item.Meeting.end_date)
+                </td>
+
+
+
+                <td>
+                    <div class="form-group">
+
+
+
+                        <div class="col-md-10">
+                            @Html.EditorFor(Model => Model.Single(x => x.ID == item.ID).Accepted, new { Accepted = item.Accepted })
+                            @Html.ValidationMessageFor(x => item.Accepted, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    @*@Html.LabelFor(modelItem => item.Dates)
+                        @foreach (var i in item.Dates)
+                        {
+                            @Html.DisplayFor(x => i.TheDate.Date)
+                        }*@
+
+
+
+                </td>
+
+
+
+                <td>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Send answer" class="btn btn-default" />
+                        </div>
+                    </div>
+                </td>
+            </tr>    }
 
     }
 
 
+
+
+
+
+
+
+    <tr>
+        <td><div> ACCEPTED MEETINGS</div></td>
+    </tr>
+
+
+    <tr>
+        <td>
+        <td>
+            @Html.LabelFor(modelItem => Model.First().Sender)
+        </td>
+
+
+        <td>
+            @Html.LabelFor(modelItem => Model.First().Meeting.text)
+        </td>
+
+
+        <td>
+            @Html.LabelFor(modelItem => Model.First().Meeting.start_date)
+        </td>
+
+        <td>
+            @Html.LabelFor(modelItem => Model.First().Meeting.end_date)
+
+        </td>
+        <td></td>
+
+
+        <td>
+            @*	@Html.DisplayFor(model => model.First().Dates)*@
+        </td>
+
+
+
+        <td></td>
+    </tr>
+
+
+
+    @foreach (var item in Model.Where(x => x.Invited.Id == ViewBag.Me & x.Accepted == true))
+    {
+
+
+
+        using (Html.BeginForm("SaveTS", "Calendar", FormMethod.Post, new { item }))
+        {
+
+
+            @Html.HiddenFor(Model => Model.Single(x => x.ID == item.ID).ID, new { ID = item.ID })
+            <tr>
+                <td>
+                <td>
+
+                    @Html.DisplayFor(x => item.Sender.Name)
+                </td>
+
+
+                <td>
+
+                    @Html.DisplayFor(x => item.Meeting.text)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(x => item.Meeting.start_date)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(x => item.Meeting.end_date)
+                </td>
+                <td></td>
+                <td>
+                    @foreach (var i in item.Dates)
+                    {
+                        @Html.DisplayFor(x => i.TheDate.Date)
+                    }
+                </td>
+            </tr>    }
+
+    }
 </table>

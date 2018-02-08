@@ -66,20 +66,24 @@ namespace Blog_VT18.Models {
         public virtual ApplicationUser Invited { get; set; }
 
     }
-    public class TimeSuggestion {
+
+    public class TimeSuggestion
+    {
         public int ID { get; set; }
-        public virtual ICollection<Date> Dates{ get; set; }
+        public virtual ICollection<Date> Dates { get; set; }
         public virtual ApplicationUser Sender { get; set; }
-          public virtual ApplicationUser Invited { get; set; }
+        public virtual ApplicationUser Invited { get; set; }
         public virtual Meeting Meeting { get; set; }
+        public bool Accepted { get; set; }
     }
 
-    public class Date {
-       public int Id { get; set; }
+    public class Date
+    {
+        public int Id { get; set; }
         [DisplayName("Date")]
         [DataType(DataType.Date)]
         public DateTime TheDate { get; set; }
-   }
+    }
 
 
     public class Meeting {

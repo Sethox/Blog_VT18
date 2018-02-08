@@ -11,10 +11,12 @@ namespace Blog_VT18.Models
     {
         public int Id { get; set; }
         public List<ApplicationUser> AllUsers { get; set; }
+        public List<Meeting> AllMeetings { get; set; }
         public string SelectedUsers { get; set; }
         [DisplayName("Date")]
         [DataType(DataType.Date)]
-        public List<DateTime> DateList { get; set;}
-        public virtual Meeting Meeting { get; set; }
+        public List<DateTime> DateList { get; set; }
+        public string MeetingID { get; set; }
     }
+
 }
