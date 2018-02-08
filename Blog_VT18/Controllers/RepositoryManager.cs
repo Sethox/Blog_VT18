@@ -10,6 +10,7 @@ using Blog_VT18.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace Blog_VT18.Controllers {
     public class RepositoryManager {
@@ -187,9 +188,48 @@ namespace Blog_VT18.Controllers {
             this.db.SaveChanges();
         }
 
-        public string getRole(string id) {
-            var t = System.Web.Security.Roles.GetRolesForUser(id).First();
-            return t;
+        public void setRole(string id, string newRole) {
+            var userRoleList = db.Roles.SingleOrDefault().Users;
+            var roleList = db.Roles.ToList();
+            foreach (var item in roleList)
+            {
+                var role = userRoleList.SingleOrDefault(x => x.UserId == id);
+                if (item.Id == role.RoleId)
+                {
+                    role.RoleId = newRole;
+                }
+            }
+            db.SaveChanges();
         }
+
+        public string getRole(string id)
+        {
+            var userRoleList = db.Users.Include(x => x.Roles).ToList();
+            string roleId;
+            foreach (var item in userRoleList)
+            {
+                foreach (var role in item.Roles)
+                {
+                    roleId = role.RoleId;
+                }
+            }
+            //var roleList = db.Roles.ToList();
+            //IdentityUserRole role;
+            //var temp = "";
+            //foreach (var item in roleList)
+            //{
+            //    role = userRoleList.);
+            //    foreach (var i in roleList)
+            //    {
+            //        if (i.Id == role.RoleId)
+            //        {
+            //            temp = i.Name;
+            //        }
+            //    }
+            //}
+            return temp;
+        }
+
+
     }
 }

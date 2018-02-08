@@ -38,10 +38,8 @@ namespace Blog_VT18.Controllers {
             }
             var usr = db.Users.Find(id);
             var dl = new List<SelectListItem>();
-            var ix = 0;
             foreach(var i in manager.db.Roles.ToList()) {
-                dl.Add(new SelectListItem { Value = ix.ToString(), Text = i.Name });
-                ix++;
+                dl.Add(new SelectListItem { Value = i.Name, Text = i.Name });
             }
             RoleModel roleModel = new RoleModel { ID = manager.usr.Id, Name = manager.usr.UserName, Role = manager.getRole(id), ByWhom = manager.usr, Roles = dl };
             if (roleModel == null) {
