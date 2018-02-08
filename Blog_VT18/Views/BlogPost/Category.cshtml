@@ -1,12 +1,17 @@
 ﻿@model IEnumerable<Blog_VT18.Models.Categories>
 
 
+
 @{
-    ViewBag.Title = "ListPost";
+    ViewBag.title = "";
 }
 
 <h2>ListPost</h2>
 @*@Html.ActionLink("ADD BLOGPOST", "Add", new { id = Model.ID })*@
+
+
+<h2>@ViewBag.Message</h2>
+
 
 @foreach (var item in Model)
 {
@@ -17,7 +22,7 @@
 
 @foreach (var item in Model.Where(m => m.Category == m.Category))
 {
-    <input type="button" value="Create new category" onclick="location.href='@Url.Action("CreateCategory", "BlogPost", new { id=item.Category })' "/>
+    <input type="button" value="Create new category" onclick="location.href='@Url.Action("CreateCategory", "BlogPost", new { id=item.Category })' " />
     break;
 
 }
