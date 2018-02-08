@@ -6,7 +6,7 @@
 <h4>Skicka mötesförfrågningar</h4>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -19,29 +19,30 @@
         {
             Text = item.Name,
             Value = item.Id.ToString()
-    });
+        });
 
 
-}
+    }
+
+    @*Lägg till mötesskapare.id == ViewBag.Me *@
 
     @Html.DropDownListFor(model => model.SelectedUsers, listItems, "-- Select Status --")
 
 
+    List<SelectListItem> listItems2 = new List<SelectListItem>();
 
+    foreach (var item in Model.AllMeetings)
+    {
 
-
-    <div class="form-group">
-        @Html.LabelFor(x => Model.DateList, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(x => Model.DateList, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(x => Model.DateList, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
+        listItems2.Add(new SelectListItem
+        {
+            Text = item.text,
+            Value = item.ID.ToString()
+        });
+    }
+    @Html.DropDownListFor(model => model.MeetingID, listItems2, "-- Select Status --")
 
     <div class="form-horizontal">
-        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -50,19 +51,9 @@
             </div>
         </div>
     </div>
-    
+
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-
-
-
-
-
-
-
-
-
