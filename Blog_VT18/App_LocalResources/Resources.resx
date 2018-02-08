@@ -117,17 +117,44 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LblAdd" xml:space="preserve">
+    <value>Skapa nytt inlägg</value>
+  </data>
+  <data name="LblCancel" xml:space="preserve">
+    <value>Avsluta</value>
+  </data>
   <data name="LblConfirmPassword" xml:space="preserve">
     <value>Bekräfta lösenord</value>
   </data>
+  <data name="LblContent" xml:space="preserve">
+    <value>Innehåll</value>
+  </data>
+  <data name="LblCreateCategory" xml:space="preserve">
+    <value>Skapa ny kategori</value>
+  </data>
   <data name="LblCreateNewAccount" xml:space="preserve">
-    <value>Skapa en ny användare</value>
+    <value>Skapa ny användare</value>
   </data>
   <data name="LblDay" xml:space="preserve">
     <value>Dag</value>
   </data>
+  <data name="LblEducation" xml:space="preserve">
+    <value>Utbildning</value>
+  </data>
   <data name="LblEmail" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>Från</value>
+  </data>
+  <data name="LblHide" xml:space="preserve">
+    <value>Dölj</value>
+  </data>
+  <data name="LblInformal" xml:space="preserve">
+    <value>Informell</value>
+  </data>
+  <data name="LblListPost" xml:space="preserve">
+    <value>Blogg</value>
   </data>
   <data name="LblMonth" xml:space="preserve">
     <value>Månad</value>
@@ -143,6 +170,15 @@
   </data>
   <data name="LblRegister" xml:space="preserve">
     <value>Registrera</value>
+  </data>
+  <data name="LblResearch" xml:space="preserve">
+    <value>Forskning</value>
+  </data>
+  <data name="LblSave" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="LblShow" xml:space="preserve">
+    <value>Visa</value>
   </data>
   <data name="LblTitle" xml:space="preserve">
     <value>Titel</value>

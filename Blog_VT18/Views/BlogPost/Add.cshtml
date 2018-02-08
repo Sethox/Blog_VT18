@@ -1,9 +1,13 @@
 ﻿@model Blog_VT18.Models.BlogPost
+@using Blog_VT18.App_LocalResources;
+
+
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = Resources.LblAdd;
+    
 }
 
-<h2>Add</h2>
+<h2>@Resources.LblAdd</h2>
 
 
 @Html.Partial("_AddOrChangeBlogPost")
@@ -12,7 +16,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Resources.LblTitle
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Content)
@@ -53,11 +57,11 @@
 
                     if (item.Hidden == false)
                     {
-                        @Html.ActionLink("Hide", "HidePost", new { id = item.ID })
+                        @Html.ActionLink(Resources.LblHide, "HidePost", new { id = item.ID })
                     }
                     if (item.Hidden == true)
                     {
-                        @Html.ActionLink("Show", "HidePost", new { id = item.ID })
+                        @Html.ActionLink(Resources.LblShow, "HidePost", new { id = item.ID })
                     }
                 }
 
