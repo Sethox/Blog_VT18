@@ -62,8 +62,12 @@ namespace Blog_VT18.Controllers {
             {
                 string fyllMig = "";
 
-                var nyList = db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID).Select(x => x.Invited.Name).ToList();
-               
+                var nyList = db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Accepted == false & x.Denied == false).Select(x => x.Invited.Name).ToList();
+                var acceptedList = db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Accepted==true).Select(x => x.Invited.Name).ToList();
+                var deniedList = db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Denied == true).Select(x => x.Invited.Name).ToList();
+
+
+
                 var listan = manager.getInvited(item.ID);
                 if (nyList.Count() <= 0) {
                     nyList.Add("ingen");
@@ -72,10 +76,21 @@ namespace Blog_VT18.Controllers {
                 {
                     fyllMig = fyllMig + "\n" + spot;
                 }
+                fyllMig = fyllMig + "\n \n Accepted";
+                foreach (var spot in acceptedList)
+                {
+                    fyllMig = fyllMig + "\n" + spot;
+                }
+                fyllMig = fyllMig + "\n \n Denied";
+                foreach (var spot in deniedList)
+                {
+                    fyllMig = fyllMig + "\n" + spot;
+                }
+
                 var aEvent = new Meeting
                 {
                     ID = item.ID,
-                    text = item.text + " \nBooked by: " + item.Booker.Name + "\nInvited: " + fyllMig,
+                    text = item.text + " \nBooked by: " + item.Booker.Name + "\nWaiting for response: " + fyllMig,
                     start_date = item.start_date,
                     end_date = item.end_date
                 };
