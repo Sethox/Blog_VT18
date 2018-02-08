@@ -25,6 +25,7 @@ namespace Blog_VT18.Controllers {
         }
         // Creates a new blogpost and puts it through to the view
         public ActionResult Add(string id) {
+
             var blogPost = new BlogPost() {
                 Hidden = false,
                 From = repositoryManager.usr
@@ -45,9 +46,9 @@ namespace Blog_VT18.Controllers {
             blogPost.From = repositoryManager.usr;
             if(ModelState.IsValid) {
                 repositoryManager.newBlog(blogPost, id);
-                return RedirectToAction("Index");
+                return RedirectToAction("Add", "BlogPost", new { id = id });
             }
-            return View(blogPost);
+            return RedirectToAction("Add", "BlogPost", new { id = id });
         }
 
         public ActionResult Edit(int? id) {
@@ -75,8 +76,12 @@ namespace Blog_VT18.Controllers {
 
         
         public ActionResult HidePost(int? Id) {
+            
+            var blogPost = repositoryManager.getBlogPost(Id);
+            var id = blogPost.Category.ID;
             repositoryManager.hidePost(Id);
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Add", "BlogPost", new { id = id });
         }
 
         public ActionResult Delete(int? Id) {
@@ -109,9 +114,9 @@ namespace Blog_VT18.Controllers {
         public ActionResult CreateCategory(Categories category, string id) {
             if(ModelState.IsValid) {
                 repositoryManager.newCategory(category, id);
-                return RedirectToAction("Index");
+                return RedirectToAction("Category", new { id = id });
             }
-            return View("Index");
+            return RedirectToAction("Category", new { id = id });
 
         }
 
