@@ -7,8 +7,9 @@
 
 <h2>Blog</h2>
 
-@foreach (var item in Model)
-{
-    @Html.ActionLink(item.Name+ " ", "Category", "BlogPost", new { id = item.ID }, new { })
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+@foreach(var item in Model) {
+    @Html.ActionLink(item.Name + " ", "Category", "BlogPost", new { id = item.ID }, new { })
 }
 

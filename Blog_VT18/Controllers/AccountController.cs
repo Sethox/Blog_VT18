@@ -42,6 +42,7 @@ namespace Blog_VT18.Controllers {
                 _userManager = value;
             }
         }
+
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl) {
@@ -50,47 +51,39 @@ namespace Blog_VT18.Controllers {
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl) {
-
-            try
-            {
-
-            if(!ModelState.IsValid) { return View(model); }
-            if(!manager.checkEmail(model.Email)) {
-                ModelState.AddModelError("", "Invalid login attempt.");
-                return View(model);
-            }
-            
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch(result) {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
+            try {
+                if(!ModelState.IsValid) { return View(model); }
+                if(!manager.checkEmail(model.Email)) {
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
-            }
-
-
-            }
-            catch (Exception)
-            {
+                }
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, change to shouldLockout: true
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                switch(result) {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                }
+            } catch(Exception) {
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View(model);
             }
-
-
         }
+
         // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe) {
@@ -100,6 +93,7 @@ namespace Blog_VT18.Controllers {
             }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
+
         // POST: /Account/VerifyCode
         [HttpPost]
         [AllowAnonymous]
@@ -125,11 +119,13 @@ namespace Blog_VT18.Controllers {
                     return View(model);
             }
         }
+
         // GET: /Account/Register
         [Authorize(Roles = "Administrator")]
         public ActionResult Register() {
             return View();
         }
+
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -164,6 +160,7 @@ namespace Blog_VT18.Controllers {
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code) {
@@ -171,11 +168,13 @@ namespace Blog_VT18.Controllers {
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
+
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword() {
             return View();
         }
+
         // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
@@ -194,20 +193,22 @@ namespace Blog_VT18.Controllers {
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation() {
             return View();
         }
+
         // GET: /Account/ResetPassword
         [AllowAnonymous]
         public ActionResult ResetPassword(string code) {
             return code == null ? View("Error") : View();
         }
+
         // POST: /Account/ResetPassword
         [HttpPost]
         [AllowAnonymous]
@@ -228,11 +229,13 @@ namespace Blog_VT18.Controllers {
             AddErrors(result);
             return View();
         }
+
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation() {
             return View();
         }
+
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -241,6 +244,7 @@ namespace Blog_VT18.Controllers {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
+
         // GET: /Account/SendCode
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe) {
@@ -252,6 +256,7 @@ namespace Blog_VT18.Controllers {
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
             return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
+
         // POST: /Account/SendCode
         [HttpPost]
         [AllowAnonymous]
@@ -270,9 +275,7 @@ namespace Blog_VT18.Controllers {
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl) {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if(loginInfo == null) {
-                return RedirectToAction("Login");
-            }
+            if(loginInfo == null) { return RedirectToAction("Login"); }
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch(result) {
@@ -290,21 +293,17 @@ namespace Blog_VT18.Controllers {
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
+
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl) {
-            if(User.Identity.IsAuthenticated) {
-                return RedirectToAction("Index", "Manage");
-            }
-
+            if(User.Identity.IsAuthenticated) { return RedirectToAction("Index", "Manage"); }
             if(ModelState.IsValid) {
                 // Get the information about the user from the external login provider
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if(info == null) {
-                    return View("ExternalLoginFailure");
-                }
+                if(info == null) { return View("ExternalLoginFailure"); }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if(result.Succeeded) {
