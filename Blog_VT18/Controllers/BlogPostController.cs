@@ -25,6 +25,7 @@ namespace Blog_VT18.Controllers {
         // Creates a new blogpost and puts it through to the view
         public ActionResult Add(string id) {
             var blogPost = new BlogPost() {
+                Category = repositoryManager.GetCategory(id),
                 Hidden = false,
                 From = repositoryManager.usr
 
@@ -99,10 +100,15 @@ namespace Blog_VT18.Controllers {
 
         }
 
-        public ActionResult CreateCategory() {
+        public ActionResult CreateCategory(int id) {
+            ViewBag.CategoryName = repositoryManager.GetCategoryName(id);
+            
             var category = new Categories() {
-
+                Category = id
+                
             };
+            
+
             return View(category);
         }
 

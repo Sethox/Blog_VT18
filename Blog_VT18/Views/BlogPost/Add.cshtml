@@ -1,9 +1,9 @@
 ﻿@model Blog_VT18.Models.BlogPost
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Add post";
 }
 
-<h2>Add</h2>
+<h2>@Html.DisplayFor(x=> Model.Category.Name)</h2>
 
 
 @Html.Partial("_AddOrChangeBlogPost")
