@@ -25,8 +25,8 @@ namespace Blog_VT18.Controllers {
             var usrLst = manager.usrList();
             var remodelLst = new List<RoleModel>();
             foreach (var i in usrLst) {
-                var m = userManager.GetRoles(i.Id).ToList().First();
-                remodelLst.Add(new RoleModel { ID = i.Id, Name = i.UserName, Role = m, ByWhom = manager.usr, IsEnabled = i.IsEnabled });
+                var r = userManager.GetRoles(i.Id).ToList().First();
+                remodelLst.Add(new RoleModel { ID = i.Id, Name = i.UserName, Role = r, ByWhom = manager.usr, IsEnabled = i.IsEnabled });
             }
             return View(remodelLst.ToList());
         }
@@ -37,7 +37,11 @@ namespace Blog_VT18.Controllers {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var usr = db.Users.Find(id);
-            RoleModel roleModel = new RoleModel { ID = manager.usr.Id, Name = manager.usr.UserName, Role = "Administrator", ByWhom = manager.usr };
+            var dl = new List<SelectListItem>();
+            foreach(var i in manager.db.Roles.ToList()) {
+                dl.Add(new SelectListItem { Value = i.Name, Text = i.Name });
+            }
+            RoleModel roleModel = new RoleModel { ID = manager.usr.Id, Name = manager.usr.UserName, Role = manager.getRole(id), ByWhom = manager.usr, Roles = dl };
             if (roleModel == null) {
                 return HttpNotFound();
             }
@@ -51,8 +55,7 @@ namespace Blog_VT18.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,Role")] RoleModel roleModel) {
             if (ModelState.IsValid) {
-                db.Entry(roleModel).State = EntityState.Modified;
-                db.SaveChanges();
+                manager.UpdateRole(roleModel.ID, roleModel.Role);
                 return RedirectToAction("Index");
             }
             return View(roleModel);
