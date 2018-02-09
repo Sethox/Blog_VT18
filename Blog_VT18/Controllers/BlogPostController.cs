@@ -91,19 +91,6 @@ namespace Blog_VT18.Controllers {
         }
 
         public ActionResult HidePost(int? Id) {
-<<<<<<< HEAD
-          /*
-            BlogPost blogPost = repositoryManager.getBlogPost((int)Id);
-            repositoryManager.hidePost(blogPost);
-            return RedirectToAction("Index");
-            */
-            
-            var blogPost = repositoryManager.getBlogPost(Id);
-            var id = blogPost.Category.ID;
-            repositoryManager.hidePost(blogPost);
-
-            return RedirectToAction("Add", "BlogPost", new { id = id });
-=======
             if(Id != null) {
                 var blogPost = repositoryManager.getBlogPost(Id);
                 var id = blogPost.Category.ID;
@@ -113,7 +100,7 @@ namespace Blog_VT18.Controllers {
                 TempData["Error"] = "Something wrong happened..Try again.";
                 return RedirectToAction("Index");
             }
->>>>>>> 66313f3386db0f16d46652cc58dc1d0b68631ee5
+
         }
 
         public ActionResult Delete(int? Id) {
