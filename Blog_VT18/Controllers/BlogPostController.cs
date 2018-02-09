@@ -68,14 +68,14 @@ namespace Blog_VT18.Controllers {
 
         public ActionResult Download(int id) {
             
-            byte[] Data = db.BlogPosts.Find(id).File;
-            return File(Data, db.BlogPosts.Find(id).ContentType, db.BlogPosts.Find(id).Filename);
+            byte[] Data = this.repositoryManager.db.BlogPosts.Find(id).File;
+            return File(Data, this.repositoryManager.db.BlogPosts.Find(id).ContentType, this.repositoryManager.db.BlogPosts.Find(id).Filename);
         }
 
 
         public ActionResult Show(int? id)
         {
-            var thePicture = db.BlogPosts.Single(x => x.ID == id);
+            var thePicture = this.repositoryManager.db.BlogPosts.Single(x => x.ID == id);
             if (thePicture.File is null)
             {
 

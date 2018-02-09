@@ -144,8 +144,8 @@ namespace Blog_VT18.Controllers {
 
         public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model)
         {
-            ApplicationUser Anv = db.Users.Find(User.Identity.GetUserId());
-            var user = db.Users.Find(User.Identity.GetUserId());
+            ApplicationUser Anv = this.manager.db.Users.Find(User.Identity.GetUserId());
+            var user = this.manager.db.Users.Find(User.Identity.GetUserId());
 
             var timeSuggestion = new TimeSuggestion() { Sender = user };
             timeSuggestion.Meeting = this.manager.db.Meetings.Find(int.Parse(model.MeetingID));
@@ -159,7 +159,7 @@ namespace Blog_VT18.Controllers {
 
         public ActionResult InvitationList()
         {
-            var users = db.Users.ToList();
+            var users = this.manager.db.Users.ToList();
 
             bool Check = false;
             var list = new List<InvitationViewModel>();
