@@ -61,6 +61,15 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string LblAbout {
+            get {
+                return ResourceManager.GetString("LblAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skapa nytt inlägg.
         /// </summary>
         public static string LblAdd {
@@ -70,7 +79,34 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Avsluta.
+        ///   Looks up a localized string similar to Suggestions.
+        /// </summary>
+        public static string LblAllTimeSugges {
+            get {
+                return ResourceManager.GetString("LblAllTimeSugges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blogpost.
+        /// </summary>
+        public static string LblBlogPost {
+            get {
+                return ResourceManager.GetString("LblBlogPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calendar.
+        /// </summary>
+        public static string LblCalendar {
+            get {
+                return ResourceManager.GetString("LblCalendar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string LblCancel {
             get {
@@ -79,7 +115,16 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bekräfta lösenord.
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string LblCategory {
+            get {
+                return ResourceManager.GetString("LblCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm password.
         /// </summary>
         public static string LblConfirmPassword {
             get {
@@ -88,7 +133,16 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Innehåll.
+        ///   Looks up a localized string similar to Contact.
+        /// </summary>
+        public static string LblContact {
+            get {
+                return ResourceManager.GetString("LblContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content.
         /// </summary>
         public static string LblContent {
             get {
@@ -97,7 +151,16 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skapa ny kategori.
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        public static string LblCreate {
+            get {
+                return ResourceManager.GetString("LblCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new category.
         /// </summary>
         public static string LblCreateCategory {
             get {
@@ -106,7 +169,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skapa ny användare.
+        ///   Looks up a localized string similar to Create new user.
         /// </summary>
         public static string LblCreateNewAccount {
             get {
@@ -115,7 +178,25 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dag.
+        ///   Looks up a localized string similar to Create new event.
+        /// </summary>
+        public static string LblCreateNewEvent {
+            get {
+                return ResourceManager.GetString("LblCreateNewEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string LblDate {
+            get {
+                return ResourceManager.GetString("LblDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day.
         /// </summary>
         public static string LblDay {
             get {
@@ -124,7 +205,16 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Utbildning.
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string LblEdit {
+            get {
+                return ResourceManager.GetString("LblEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Education.
         /// </summary>
         public static string LblEducation {
             get {
@@ -142,7 +232,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Från.
+        ///   Looks up a localized string similar to From.
         /// </summary>
         public static string LblFrom {
             get {
@@ -151,7 +241,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dölj.
+        ///   Looks up a localized string similar to Hide.
         /// </summary>
         public static string LblHide {
             get {
@@ -160,7 +250,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Informell.
+        ///   Looks up a localized string similar to Informal.
         /// </summary>
         public static string LblInformal {
             get {
@@ -169,7 +259,25 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blogg.
+        ///   Looks up a localized string similar to Instution Blog.
+        /// </summary>
+        public static string LblInstutionBlog {
+            get {
+                return ResourceManager.GetString("LblInstutionBlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invited.
+        /// </summary>
+        public static string LblInvited {
+            get {
+                return ResourceManager.GetString("LblInvited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blog.
         /// </summary>
         public static string LblListPost {
             get {
@@ -178,7 +286,34 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Månad.
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        public static string LblLogIn {
+            get {
+                return ResourceManager.GetString("LblLogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log off.
+        /// </summary>
+        public static string LblLogOff {
+            get {
+                return ResourceManager.GetString("LblLogOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meeting suggestions.
+        /// </summary>
+        public static string LblMeetingSugges {
+            get {
+                return ResourceManager.GetString("LblMeetingSugges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Month.
         /// </summary>
         public static string LblMonth {
             get {
@@ -187,7 +322,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Namn.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string LblName {
             get {
@@ -196,7 +331,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nytt möte.
+        ///   Looks up a localized string similar to New Event.
         /// </summary>
         public static string LblNewEvent {
             get {
@@ -205,7 +340,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Se inlägg.
+        ///   Looks up a localized string similar to Open blogpost.
         /// </summary>
         public static string LblOpenPost {
             get {
@@ -214,7 +349,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lösenord.
+        ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string LblPassword {
             get {
@@ -223,7 +358,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registrera.
+        ///   Looks up a localized string similar to Register.
         /// </summary>
         public static string LblRegister {
             get {
@@ -232,7 +367,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forskning.
+        ///   Looks up a localized string similar to Research.
         /// </summary>
         public static string LblResearch {
             get {
@@ -241,7 +376,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spara.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string LblSave {
             get {
@@ -250,7 +385,25 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Visa.
+        ///   Looks up a localized string similar to Sender.
+        /// </summary>
+        public static string LblSender {
+            get {
+                return ResourceManager.GetString("LblSender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send event suggestions.
+        /// </summary>
+        public static string LblSendEventSugges {
+            get {
+                return ResourceManager.GetString("LblSendEventSugges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show.
         /// </summary>
         public static string LblShow {
             get {
@@ -259,7 +412,16 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Titel.
+        ///   Looks up a localized string similar to Suggestions.
+        /// </summary>
+        public static string LblSugges {
+            get {
+                return ResourceManager.GetString("LblSugges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string LblTitle {
             get {
@@ -268,7 +430,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Idag.
+        ///   Looks up a localized string similar to Today.
         /// </summary>
         public static string LblToday {
             get {
@@ -277,7 +439,16 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vecka.
+        ///   Looks up a localized string similar to View blogpost.
+        /// </summary>
+        public static string LblViewBlogPost {
+            get {
+                return ResourceManager.GetString("LblViewBlogPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Week.
         /// </summary>
         public static string LblWeek {
             get {

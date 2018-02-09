@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LblAbout" xml:space="preserve">
+    <value>Om oss</value>
+  </data>
   <data name="LblAdd" xml:space="preserve">
     <value>Skapa nytt inlägg</value>
   </data>
+  <data name="LblAllTimeSugges" xml:space="preserve">
+    <value>Mötestider </value>
+  </data>
   <data name="LblBlogPost" xml:space="preserve">
     <value>Blogginlägg</value>
+  </data>
+  <data name="LblCalendar" xml:space="preserve">
+    <value>Kalender</value>
   </data>
   <data name="LblCancel" xml:space="preserve">
     <value>Avsluta</value>
@@ -132,14 +141,26 @@
   <data name="LblConfirmPassword" xml:space="preserve">
     <value>Bekräfta lösenord</value>
   </data>
+  <data name="LblContact" xml:space="preserve">
+    <value>Kontakta oss</value>
+  </data>
   <data name="LblContent" xml:space="preserve">
     <value>Innehåll</value>
+  </data>
+  <data name="LblCreate" xml:space="preserve">
+    <value>Skapa</value>
   </data>
   <data name="LblCreateCategory" xml:space="preserve">
     <value>Skapa ny kategori</value>
   </data>
   <data name="LblCreateNewAccount" xml:space="preserve">
     <value>Skapa ny användare</value>
+  </data>
+  <data name="LblCreateNewEvent" xml:space="preserve">
+    <value>Skapa ny mötestid</value>
+  </data>
+  <data name="LblDate" xml:space="preserve">
+    <value>Datum</value>
   </data>
   <data name="LblDay" xml:space="preserve">
     <value>Dag</value>
@@ -162,8 +183,23 @@
   <data name="LblInformal" xml:space="preserve">
     <value>Informell</value>
   </data>
+  <data name="LblInstutionBlog" xml:space="preserve">
+    <value>Instutions blogg</value>
+  </data>
+  <data name="LblInvited" xml:space="preserve">
+    <value>Inbjudna</value>
+  </data>
   <data name="LblListPost" xml:space="preserve">
     <value>Blogg</value>
+  </data>
+  <data name="LblLogIn" xml:space="preserve">
+    <value>Logga in</value>
+  </data>
+  <data name="LblLogOff" xml:space="preserve">
+    <value>Logga ut</value>
+  </data>
+  <data name="LblMeetingSugges" xml:space="preserve">
+    <value>Mötesförslag</value>
   </data>
   <data name="LblMonth" xml:space="preserve">
     <value>Månad</value>
@@ -186,14 +222,26 @@
   <data name="LblSave" xml:space="preserve">
     <value>Spara</value>
   </data>
+  <data name="LblSender" xml:space="preserve">
+    <value>Avsändare</value>
+  </data>
+  <data name="LblSendEventSugges" xml:space="preserve">
+    <value>Skicka mötesförfrågningar</value>
+  </data>
   <data name="LblShow" xml:space="preserve">
     <value>Visa</value>
+  </data>
+  <data name="LblSugges" xml:space="preserve">
+    <value>Se mötestider</value>
   </data>
   <data name="LblTitle" xml:space="preserve">
     <value>Titel</value>
   </data>
   <data name="LblToday" xml:space="preserve">
     <value>Idag</value>
+  </data>
+  <data name="LblViewBlogPost" xml:space="preserve">
+    <value>Se inlägg</value>
   </data>
   <data name="LblWeek" xml:space="preserve">
     <value>Vecka</value>

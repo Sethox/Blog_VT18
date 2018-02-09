@@ -117,79 +117,136 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LblAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="LblAdd" xml:space="preserve">
     <value>Skapa nytt inlägg</value>
   </data>
+  <data name="LblAllTimeSugges" xml:space="preserve">
+    <value>Suggestions</value>
+  </data>
+  <data name="LblBlogPost" xml:space="preserve">
+    <value>Blogpost</value>
+  </data>
+  <data name="LblCalendar" xml:space="preserve">
+    <value>Calendar</value>
+  </data>
   <data name="LblCancel" xml:space="preserve">
-    <value>Avsluta</value>
+    <value>Cancel</value>
+  </data>
+  <data name="LblCategory" xml:space="preserve">
+    <value>Category</value>
   </data>
   <data name="LblConfirmPassword" xml:space="preserve">
-    <value>Bekräfta lösenord</value>
+    <value>Confirm password</value>
+  </data>
+  <data name="LblContact" xml:space="preserve">
+    <value>Contact</value>
   </data>
   <data name="LblContent" xml:space="preserve">
-    <value>Innehåll</value>
+    <value>Content</value>
+  </data>
+  <data name="LblCreate" xml:space="preserve">
+    <value>Create</value>
   </data>
   <data name="LblCreateCategory" xml:space="preserve">
-    <value>Skapa ny kategori</value>
+    <value>Create new category</value>
   </data>
   <data name="LblCreateNewAccount" xml:space="preserve">
-    <value>Skapa ny användare</value>
+    <value>Create new user</value>
+  </data>
+  <data name="LblCreateNewEvent" xml:space="preserve">
+    <value>Create new event</value>
+  </data>
+  <data name="LblDate" xml:space="preserve">
+    <value>Date</value>
   </data>
   <data name="LblDay" xml:space="preserve">
-    <value>Dag</value>
+    <value>Day</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="LblEducation" xml:space="preserve">
-    <value>Utbildning</value>
+    <value>Education</value>
   </data>
   <data name="LblEmail" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="LblFrom" xml:space="preserve">
-    <value>Från</value>
+    <value>From</value>
   </data>
   <data name="LblHide" xml:space="preserve">
-    <value>Dölj</value>
+    <value>Hide</value>
   </data>
   <data name="LblInformal" xml:space="preserve">
-    <value>Informell</value>
+    <value>Informal</value>
+  </data>
+  <data name="LblInstutionBlog" xml:space="preserve">
+    <value>Instution Blog</value>
+  </data>
+  <data name="LblInvited" xml:space="preserve">
+    <value>Invited</value>
   </data>
   <data name="LblListPost" xml:space="preserve">
-    <value>Blogg</value>
+    <value>Blog</value>
+  </data>
+  <data name="LblLogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="LblLogOff" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="LblMeetingSugges" xml:space="preserve">
+    <value>Meeting suggestions</value>
   </data>
   <data name="LblMonth" xml:space="preserve">
-    <value>Månad</value>
+    <value>Month</value>
   </data>
   <data name="LblName" xml:space="preserve">
-    <value>Namn</value>
+    <value>Name</value>
   </data>
   <data name="LblNewEvent" xml:space="preserve">
-    <value>Nytt möte</value>
+    <value>New Event</value>
   </data>
   <data name="LblOpenPost" xml:space="preserve">
-    <value>Se inlägg</value>
+    <value>Open blogpost</value>
   </data>
   <data name="LblPassword" xml:space="preserve">
-    <value>Lösenord</value>
+    <value>Password</value>
   </data>
   <data name="LblRegister" xml:space="preserve">
-    <value>Registrera</value>
+    <value>Register</value>
   </data>
   <data name="LblResearch" xml:space="preserve">
-    <value>Forskning</value>
+    <value>Research</value>
   </data>
   <data name="LblSave" xml:space="preserve">
-    <value>Spara</value>
+    <value>Save</value>
+  </data>
+  <data name="LblSender" xml:space="preserve">
+    <value>Sender</value>
+  </data>
+  <data name="LblSendEventSugges" xml:space="preserve">
+    <value>Send event suggestions</value>
   </data>
   <data name="LblShow" xml:space="preserve">
-    <value>Visa</value>
+    <value>Show</value>
+  </data>
+  <data name="LblSugges" xml:space="preserve">
+    <value>Suggestions</value>
   </data>
   <data name="LblTitle" xml:space="preserve">
-    <value>Titel</value>
+    <value>Title</value>
   </data>
   <data name="LblToday" xml:space="preserve">
-    <value>Idag</value>
+    <value>Today</value>
+  </data>
+  <data name="LblViewBlogPost" xml:space="preserve">
+    <value>View blogpost</value>
   </data>
   <data name="LblWeek" xml:space="preserve">
-    <value>Vecka</value>
+    <value>Week</value>
   </data>
 </root>
