@@ -6,10 +6,10 @@
     ViewBag.Title = "ListPost";
 }
 
-<h2>@Resources.LblListPost</h2>
+<h2>@Resources.LblList</h2>
 
 @foreach (var item in Model) {
-    @Html.ActionLink(item.Name + " ", Resources.LblCategory, "BlogPost", new { id = item.ID }, new { })
+    @Html.ActionLink(item.Name + " ", "Category", "BlogPost", new { id = item.ID }, new { })
 }
 
 
