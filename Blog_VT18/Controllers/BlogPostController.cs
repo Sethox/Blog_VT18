@@ -44,25 +44,41 @@ namespace Blog_VT18.Controllers {
         public ActionResult Add(BlogPost blogPost, string id, HttpPostedFileBase upload) {
             //ModelState.AddModelError("", "This is a global Message.");
             //ValidateEntry(entry);
-            blogPost.From = repositoryManager.usr;
-            if(upload != null && upload.ContentLength > 0) {
-                blogPost.Filename = upload.FileName;
-                blogPost.ContentType = upload.ContentType;
-                using(var reader = new BinaryReader(upload.InputStream)) {
-                    blogPost.File = reader.ReadBytes(upload.ContentLength);
-                }
-            }
 
-            if(ModelState.IsValid) {
+
+        
+            blogPost.From = repositoryManager.usr;
+
+            if (upload != null && upload.ContentLength > 0)
+            {
+                    blogPost.Filename = upload.FileName;
+                    blogPost.ContentType = upload.ContentType;
+                    using (var reader = new BinaryReader(upload.InputStream))
+                    {
+                        blogPost.File = reader.ReadBytes(upload.ContentLength);
+                    }
+                
+            }
+            if (ModelState.IsValid)
+            {
                 repositoryManager.newBlog(blogPost, id);
-                return RedirectToAction("Add", "BlogPost", new { id = id });
             }
             return RedirectToAction("Add", "BlogPost", new { id = id });
         }
 
-        public ActionResult Show(int? id) {
-            var thePicture = repositoryManager.db.BlogPosts.Single(x => x.ID == id);
-            if(thePicture.File is null) {
+        public ActionResult Download(int id) {
+            
+            byte[] Data = db.BlogPosts.Find(id).File;
+            return File(Data, db.BlogPosts.Find(id).ContentType, db.BlogPosts.Find(id).Filename);
+        }
+
+
+        public ActionResult Show(int? id)
+        {
+            var thePicture = db.BlogPosts.Single(x => x.ID == id);
+            if (thePicture.File is null)
+            {
+
                 return File("FinnsEj", ".jpg");
             }
             return File(thePicture.File, thePicture.ContentType);

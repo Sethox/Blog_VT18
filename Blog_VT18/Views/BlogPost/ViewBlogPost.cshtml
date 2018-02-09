@@ -7,12 +7,21 @@
 
     <hr />
     <div>
-        @if (Model.File != null)
+        @if (Model.File.)
+        {
+
+        }
+
+        @if(Model.File != null && (Model.Filename.EndsWith(".jpg") || Model.Filename.EndsWith(".png") || Model.Filename.EndsWith(".gif") || Model.Filename.EndsWith(".jpeg")))
         {
             <img style=" height: auto;
                          width: 20%" ;
                  src="@Url.Action("show", new { id = Model.ID})" />
         }
+        else if (Model.File != null)
+        {
+            @Html.ActionLink("download file", "Download", new { id = Model.ID})
+            }
     </div>
     <div>
         <dl class="dl-horizontal" style="margin : 10%, 10%">

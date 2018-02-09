@@ -141,10 +141,12 @@ namespace Blog_VT18.Controllers {
         }
 
         [HttpPost]
-        public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model) {
-            ApplicationUser Anv = this.manager.db.Users.Find(User.Identity.GetUserId());
 
-            var user = this.manager.db.Users.Find(User.Identity.GetUserId());
+        public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model)
+        {
+            ApplicationUser Anv = db.Users.Find(User.Identity.GetUserId());
+            var user = db.Users.Find(User.Identity.GetUserId());
+
             var timeSuggestion = new TimeSuggestion() { Sender = user };
             timeSuggestion.Meeting = this.manager.db.Meetings.Find(int.Parse(model.MeetingID));
             timeSuggestion.Sender = user;
@@ -155,8 +157,10 @@ namespace Blog_VT18.Controllers {
             return RedirectToAction("AllTimeSuggestion");
         }
 
-        public ActionResult InvitationList() {
-            var users = this.manager.db.Users.ToList();
+        public ActionResult InvitationList()
+        {
+            var users = db.Users.ToList();
+
             bool Check = false;
             var list = new List<InvitationViewModel>();
 
@@ -168,7 +172,9 @@ namespace Blog_VT18.Controllers {
             return View(list);
         }
 
-        public ActionResult AllTimeSuggestion() {
+        public ActionResult AllTimeSuggestion()
+        {
+
 
             ViewBag.Me = User.Identity.GetUserId();
             var suggestionList = this.manager.db.TimeSuggestions.Include(x => x.Sender).Include(x => x.Invited).Include(x => x.Dates).Include(x => x.Meeting).ToList();
