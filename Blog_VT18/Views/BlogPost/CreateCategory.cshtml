@@ -1,9 +1,9 @@
 ﻿@model Blog_VT18.Models.Categories
 @{
-    ViewBag.Title = "CreateCategory";
+    ViewBag.Title = "Create subcategory";
 }
 
-<h2>CreateCategory</h2>
+<h2>Create subcategory of @ViewBag.CategoryName</h2>
 
 @using (Html.BeginForm())
 {
@@ -18,17 +18,6 @@
 
 
     </div>
-
-
-    <div class="form-group">
-
-        @Html.DisplayFor(m => m.Category)
-        @*@Html.DisplayFor(m => m.Name)*@
-
-    </div>
-
-
-
 
     <div class="col-md-12">
     <div class="pad-top">

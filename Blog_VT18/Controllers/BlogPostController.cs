@@ -18,9 +18,8 @@ namespace Blog_VT18.Controllers {
         public ActionResult Index() {
             //Kom ihåg att inkludera kategorier
             var cat = repositoryManager.MainList();
-
+            ViewBag.Message = "guguug";
             ViewBag.MyViewBag = User.Identity.GetUserId();
-
             //Skickar oss till index och skickar med alla posts
             return View(cat);
         }
@@ -28,6 +27,7 @@ namespace Blog_VT18.Controllers {
         public ActionResult Add(string id) {
 
             var blogPost = new BlogPost() {
+                Category = repositoryManager.GetCategory(id),
                 Hidden = false,
                 From = repositoryManager.usr,
                 
@@ -118,6 +118,8 @@ namespace Blog_VT18.Controllers {
 
         public ActionResult Category(string id) {
             var subCats = repositoryManager.CatList(id);
+            var intId = Int32.Parse(id);
+            ViewBag.Message = repositoryManager.GetCategoryName(intId);
             return View("Category", subCats);
         }
 
@@ -127,10 +129,15 @@ namespace Blog_VT18.Controllers {
 
         }
 
-        public ActionResult CreateCategory() {
+        public ActionResult CreateCategory(int id) {
+            ViewBag.CategoryName = repositoryManager.GetCategoryName(id);
+            
             var category = new Categories() {
-
+                Category = id
+                
             };
+            
+
             return View(category);
         }
 

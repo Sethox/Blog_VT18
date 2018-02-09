@@ -40,6 +40,12 @@ namespace Blog_VT18.Controllers {
             return cat;
         }
 
+        public string GetCategoryName(int id)
+        {
+            var cat = db.Categories.Single(x => x.ID == id).Name;
+            return cat;
+        }
+
         //public List<BlogPost> ListPosts(Categories category)
         //{
         //    var postList = db.BlogPosts.Where(x => x.Category.Equals(category.ID)).ToList();
