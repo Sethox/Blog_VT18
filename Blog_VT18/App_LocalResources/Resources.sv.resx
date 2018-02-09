@@ -120,8 +120,14 @@
   <data name="LblAdd" xml:space="preserve">
     <value>Skapa nytt inlägg</value>
   </data>
+  <data name="LblBlogPost" xml:space="preserve">
+    <value>Blogginlägg</value>
+  </data>
   <data name="LblCancel" xml:space="preserve">
     <value>Avsluta</value>
+  </data>
+  <data name="LblCategory" xml:space="preserve">
+    <value>Kategori</value>
   </data>
   <data name="LblConfirmPassword" xml:space="preserve">
     <value>Bekräfta lösenord</value>
@@ -137,6 +143,9 @@
   </data>
   <data name="LblDay" xml:space="preserve">
     <value>Dag</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Redigera</value>
   </data>
   <data name="LblEducation" xml:space="preserve">
     <value>Utbildning</value>

@@ -205,6 +205,15 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Se inlägg.
+        /// </summary>
+        public static string LblOpenPost {
+            get {
+                return ResourceManager.GetString("LblOpenPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lösenord.
         /// </summary>
         public static string LblPassword {

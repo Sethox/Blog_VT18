@@ -165,6 +165,9 @@
   <data name="LblNewEvent" xml:space="preserve">
     <value>Nytt möte</value>
   </data>
+  <data name="LblOpenPost" xml:space="preserve">
+    <value>Se inlägg</value>
+  </data>
   <data name="LblPassword" xml:space="preserve">
     <value>Lösenord</value>
   </data>

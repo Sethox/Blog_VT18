@@ -1,23 +1,21 @@
 ﻿@model IEnumerable<Blog_VT18.Models.Categories>
-
+@using Blog_VT18.App_LocalResources;
 
 @{
     ViewBag.Title = "ListPost";
 }
 
-<h2>ListPost</h2>
+<h2>@Resources.LblListPost</h2>
 @*@Html.ActionLink("ADD BLOGPOST", "Add", new { id = Model.ID })*@
 
-@foreach (var item in Model)
-{
+@foreach (var item in Model) {
 
     @Html.ActionLink(item.Name + " ", "Add", "BlogPost", new { id = item.ID }, new { })
 
 }
 
-@foreach (var item in Model.Where(m => m.Category == m.Category))
-{
-    <input type="button" value="Create new category" onclick="location.href='@Url.Action("CreateCategory", "BlogPost", new { id=item.Category })' "/>
+@foreach (var item in Model.Where(m => m.Category == m.Category)) {
+    <input type="button" value= @Resources.LblCreateCategory onclick="location.href='@Url.Action("CreateCategory", "BlogPost", new { id=item.Category })' " />
     break;
 
 }
