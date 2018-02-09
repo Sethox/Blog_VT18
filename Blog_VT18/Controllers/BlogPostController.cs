@@ -110,7 +110,7 @@ namespace Blog_VT18.Controllers {
             
             var blogPost = repositoryManager.getBlogPost(Id);
             var id = blogPost.Category.ID;
-            repositoryManager.hidePost(Id);
+            repositoryManager.hidePost(blogPost);
 
             return RedirectToAction("Add", "BlogPost", new { id = id });
         }
