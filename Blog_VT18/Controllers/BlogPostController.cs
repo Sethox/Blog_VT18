@@ -47,7 +47,6 @@ namespace Blog_VT18.Controllers {
             blogPost.From = repositoryManager.usr;
             if (upload != null && upload.ContentLength > 0)
             {
-
                     blogPost.Filename = upload.FileName;
                     blogPost.ContentType = upload.ContentType;
                     using (var reader = new BinaryReader(upload.InputStream))
