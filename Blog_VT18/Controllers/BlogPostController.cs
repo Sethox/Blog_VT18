@@ -16,6 +16,9 @@ namespace Blog_VT18.Controllers {
         public BlogPostController() { repositoryManager = new RepositoryManager(); }
         // Index sidan läser in en lista av befintliga blogposts
         public ActionResult Index() {
+            if(TempData["Error"] != null) {
+                ModelState.AddModelError("", TempData["Error"].ToString());
+            }
             //Kom ihåg att inkludera kategorier
             var cat = repositoryManager.MainList();
             ViewBag.Message = "guguug";
@@ -29,13 +32,10 @@ namespace Blog_VT18.Controllers {
             var blogPost = new BlogPost() {
                 Category = repositoryManager.GetCategory(id),
                 Hidden = false,
-                From = repositoryManager.usr,
-                
+                From = repositoryManager.usr
             };
-
             var idet = id;
-            var posts = db.BlogPosts.OrderByDescending(x => x.ID).Where(x => x.Category.ID.ToString() == id).Include(Z => Z.From).ToList();
-
+            var posts = repositoryManager.db.BlogPosts.OrderByDescending(x => x.ID).Where(x => x.Category.ID.ToString() == id).Include(Z => Z.From).ToList();
             ViewBag.PostViewBag = posts;
             return View(blogPost);
         }
@@ -45,63 +45,53 @@ namespace Blog_VT18.Controllers {
             //ModelState.AddModelError("", "This is a global Message.");
             //ValidateEntry(entry);
             blogPost.From = repositoryManager.usr;
-
-            if (upload != null && upload.ContentLength > 0)
-            {
-
-                    blogPost.Filename = upload.FileName;
-                    blogPost.ContentType = upload.ContentType;
-                    using (var reader = new BinaryReader(upload.InputStream))
-                    {
-                        blogPost.File = reader.ReadBytes(upload.ContentLength);
-                    }
-                
+            if(upload != null && upload.ContentLength > 0) {
+                blogPost.Filename = upload.FileName;
+                blogPost.ContentType = upload.ContentType;
+                using(var reader = new BinaryReader(upload.InputStream)) {
+                    blogPost.File = reader.ReadBytes(upload.ContentLength);
+                }
             }
 
-            if (ModelState.IsValid) {
+            if(ModelState.IsValid) {
                 repositoryManager.newBlog(blogPost, id);
                 return RedirectToAction("Add", "BlogPost", new { id = id });
             }
             return RedirectToAction("Add", "BlogPost", new { id = id });
         }
 
-        public ActionResult Show(int? id)
-        {
-            var thePicture = db.BlogPosts.Single(x => x.ID == id);
-            if (thePicture.File is null)
-            {
+        public ActionResult Show(int? id) {
+            var thePicture = repositoryManager.db.BlogPosts.Single(x => x.ID == id);
+            if(thePicture.File is null) {
                 return File("FinnsEj", ".jpg");
             }
             return File(thePicture.File, thePicture.ContentType);
         }
 
-
-
         public ActionResult Edit(int? id) {
-            if (id == null) {
+            if(id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             // TODO - Add a getBlogPost method
             BlogPost blogPost = repositoryManager.getBlogPost((int)id);
-            if (blogPost == null) {
+            if(blogPost == null) {
                 return HttpNotFound();
             }
-
             return View(blogPost);
         }
 
         [HttpPost]
         public ActionResult Edit(BlogPost blogPost) {
             //TODO - create a changeBlog method in repository
-            if (ModelState.IsValid) {
+            if(ModelState.IsValid) {
                 repositoryManager.changeBlogPost(blogPost);
                 return RedirectToAction("Index");
             }
             return View(blogPost);
         }
 
- 
         public ActionResult HidePost(int? Id) {
+<<<<<<< HEAD
           /*
             BlogPost blogPost = repositoryManager.getBlogPost((int)Id);
             repositoryManager.hidePost(blogPost);
@@ -113,6 +103,17 @@ namespace Blog_VT18.Controllers {
             repositoryManager.hidePost(blogPost);
 
             return RedirectToAction("Add", "BlogPost", new { id = id });
+=======
+            if(Id != null) {
+                var blogPost = repositoryManager.getBlogPost(Id);
+                var id = blogPost.Category.ID;
+                repositoryManager.hidePost(blogPost);
+                return RedirectToAction("Add", "BlogPost", new { id = id });
+            } else {
+                TempData["Error"] = "Something wrong happened..Try again.";
+                return RedirectToAction("Index");
+            }
+>>>>>>> 66313f3386db0f16d46652cc58dc1d0b68631ee5
         }
 
         public ActionResult Delete(int? Id) {
@@ -133,18 +134,13 @@ namespace Blog_VT18.Controllers {
         public List<Categories> subCategories(string id) {
             var subCats = repositoryManager.CatList(id);
             return subCats;
-
         }
 
         public ActionResult CreateCategory(int id) {
             ViewBag.CategoryName = repositoryManager.GetCategoryName(id);
-            
             var category = new Categories() {
                 Category = id
-                
             };
-            
-
             return View(category);
         }
 
@@ -155,25 +151,21 @@ namespace Blog_VT18.Controllers {
                 return RedirectToAction("Category", new { id = id });
             }
             return RedirectToAction("Category", new { id = id });
-
         }
 
         public ActionResult ListPost(IEnumerable<Categories> categories) {
             var postList = new List<BlogPost>();
             for(int i = 0; i < categories.Count(); i++) {
-                var post = db.BlogPosts.Where(x => x.Category == categories);
+                var post = this.repositoryManager.db.BlogPosts.Where(x => x.Category == categories);
                 foreach(BlogPost item in post) {
                     postList.Add(item);
                 }
             }
             return View(postList);
         }
-        public ActionResult ViewBlogPost(int? id)
-        {
+        public ActionResult ViewBlogPost(int? id) {
             var blogPost = repositoryManager.getBlogPost(id);
-
             return View(blogPost);
         }
-
     }
 }
