@@ -50,6 +50,7 @@ namespace Blog_VT18.Models {
        // public DbSet<Date> Dates { get; set; }
         //public DbSet<Meeting> CalendarEvents { get; set; }
         public DbSet<InvitedToMeetings> InvitedToMeetings { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 
     public class Categories {
@@ -128,5 +129,13 @@ namespace Blog_VT18.Models {
         public string Filename { get; set; }
         public string ContentType { get; set; }
         public byte[] File { get; set; }
+    }
+
+    public class Notification
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Text { get; set; }
+        public ApplicationUser To { get; set; }
     }
 }
