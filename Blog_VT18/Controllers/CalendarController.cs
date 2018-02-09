@@ -65,9 +65,6 @@ namespace Blog_VT18.Controllers {
                 var nyList = db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Accepted == false & x.Denied == false).Select(x => x.Invited.Name).ToList();
                 var acceptedList = db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Accepted==true).Select(x => x.Invited.Name).ToList();
                 var deniedList = db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Denied == true).Select(x => x.Invited.Name).ToList();
-
-
-
                 var listan = manager.getInvited(item.ID);
                 if (nyList.Count() <= 0) {
                     nyList.Add("ingen");
@@ -168,10 +165,7 @@ namespace Blog_VT18.Controllers {
             db.SaveChanges();
             return RedirectToAction("AllTimeSuggestion");
         }
-
-
-
-
+        
         public ActionResult InvitationList()
         {
             var users = db.Users.ToList();
@@ -187,32 +181,6 @@ namespace Blog_VT18.Controllers {
             return View(list);
 
         }
-
-
-
-
-
-
-
-
-
-        //var timeSuggestion = new TimeSuggestion();
-
-        //var senderId = User.Identity.GetUserId();
-        //var sender = db.Users.Find(senderId);
-
-        //timeSuggestion.Sender = sender;
-        //timeSuggestion.Invited = model.SelectedUsers;
-        //timeSuggestion.Dates = model.DateList;
-
-        //db.TimeSuggestions.Add(timeSuggestion);
-        //db.SaveChanges();
-
-
-        // return View();
-
-
-
 
         public ActionResult AllTimeSuggestion()
         {
@@ -243,16 +211,11 @@ namespace Blog_VT18.Controllers {
             return RedirectToAction("AllTimeSuggestion");
         }
     }
-
-
-
-
-
+    
 public class InvitationViewModel
     {
         public string Name { get; set; }
         public bool Checked { get; set; }
         public ApplicationUser User { get; set; } 
-    }
-    
+    }   
 }
