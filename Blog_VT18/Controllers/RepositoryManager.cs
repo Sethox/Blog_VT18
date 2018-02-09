@@ -53,6 +53,7 @@ namespace Blog_VT18.Controllers {
         /// Updates the user currently logged in.
         /// </summary>
         /// <param name="modifyUsr">The model to update in database.</param>
+        
         public void setCurrentUser(ApplicationUser modifyUsr) {
             this.usr.Name = modifyUsr.Name;
             this.usr.UserName = modifyUsr.UserName;
@@ -100,9 +101,9 @@ namespace Blog_VT18.Controllers {
             Categories category = db.Categories.Single(x => x.ID.ToString().Equals(id));
             Create.Category = category;
             // Creates new blog, updates database
-            BlogPost newPost = new BlogPost(Create);
+            //BlogPost newPost = new BlogPost(Create);
             //En blogpost läggs till i vår context
-            db.BlogPosts.Add(newPost);
+            db.BlogPosts.Add(Create);
             //Sparar ändringar i databasen
             db.SaveChanges();
         }
@@ -110,6 +111,7 @@ namespace Blog_VT18.Controllers {
             BlogPost blogPost = db.BlogPosts.Single(x => x.ID == Id);
             return blogPost;
         }
+
         public void changeBlogPost(BlogPost blogPost) {
             var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
             var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();

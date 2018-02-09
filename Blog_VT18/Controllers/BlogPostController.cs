@@ -7,6 +7,7 @@ using System.Data.Entity;
 using Blog_VT18.Models;
 using Microsoft.AspNet.Identity;
 using System.Net;
+using System.IO;
 
 namespace Blog_VT18.Controllers {
     public class BlogPostController : BaseController {
@@ -24,11 +25,12 @@ namespace Blog_VT18.Controllers {
         }
         // Creates a new blogpost and puts it through to the view
         public ActionResult Add(string id) {
+
             var blogPost = new BlogPost() {
                 Category = repositoryManager.GetCategory(id),
                 Hidden = false,
-                From = repositoryManager.usr
-
+                From = repositoryManager.usr,
+                
             };
 
             var idet = id;
@@ -39,16 +41,39 @@ namespace Blog_VT18.Controllers {
         }
         // Accepts the blogpost whos have its values set in the View and sends it to the repositorie
         [HttpPost]
-        public ActionResult Add(BlogPost blogPost, string id) {
+        public ActionResult Add(BlogPost blogPost, string id, HttpPostedFileBase upload) {
             //ModelState.AddModelError("", "This is a global Message.");
             //ValidateEntry(entry);
             blogPost.From = repositoryManager.usr;
-            if(ModelState.IsValid) {
-                repositoryManager.newBlog(blogPost, id);
-                return RedirectToAction("Index");
+            if (upload != null && upload.ContentLength > 0)
+            {
+
+                    blogPost.Filename = upload.FileName;
+                    blogPost.ContentType = upload.ContentType;
+                    using (var reader = new BinaryReader(upload.InputStream))
+                    {
+                        blogPost.File = reader.ReadBytes(upload.ContentLength);
+                    }
+                
             }
-            return View(blogPost);
+            if (ModelState.IsValid) {
+                repositoryManager.newBlog(blogPost, id);
+                return RedirectToAction("Add", "BlogPost", new { id = id });
+            }
+            return RedirectToAction("Add", "BlogPost", new { id = id });
         }
+
+        public ActionResult Show(int? id)
+        {
+            var thePicture = db.BlogPosts.Single(x => x.ID == id);
+            if (thePicture.File is null)
+            {
+                return File("FinnsEj", ".jpg");
+            }
+            return File(thePicture.File, thePicture.ContentType);
+        }
+
+
 
         public ActionResult Edit(int? id) {
             if(id == null) {
@@ -75,8 +100,12 @@ namespace Blog_VT18.Controllers {
 
         
         public ActionResult HidePost(int? Id) {
+            
+            var blogPost = repositoryManager.getBlogPost(Id);
+            var id = blogPost.Category.ID;
             repositoryManager.hidePost(Id);
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Add", "BlogPost", new { id = id });
         }
 
         public ActionResult Delete(int? Id) {
@@ -116,9 +145,9 @@ namespace Blog_VT18.Controllers {
         public ActionResult CreateCategory(Categories category, string id) {
             if(ModelState.IsValid) {
                 repositoryManager.newCategory(category, id);
-                return RedirectToAction("Index");
+                return RedirectToAction("Category", new { id = id });
             }
-            return View("Index");
+            return RedirectToAction("Category", new { id = id });
 
         }
 
@@ -138,5 +167,6 @@ namespace Blog_VT18.Controllers {
 
             return View(blogPost);
         }
+
     }
 }

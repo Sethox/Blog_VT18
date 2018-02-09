@@ -60,15 +60,37 @@ namespace Blog_VT18.Controllers {
 
             foreach (var item in calendar)
             {
+                string fyllMig = "";
+
+                var nyList = db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Accepted == false & x.Denied == false).Select(x => x.Invited.Name).ToList();
+                var acceptedList = db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Accepted==true).Select(x => x.Invited.Name).ToList();
+                var deniedList = db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Denied == true).Select(x => x.Invited.Name).ToList();
+
+
 
                 var listan = manager.getInvited(item.ID);
-                if (listan=="") {
-                    listan = "None invited";
+                if (nyList.Count() <= 0) {
+                    nyList.Add("ingen");
                 }
+                foreach (var spot in nyList)
+                {
+                    fyllMig = fyllMig + "\n" + spot;
+                }
+                fyllMig = fyllMig + "\n \n Accepted";
+                foreach (var spot in acceptedList)
+                {
+                    fyllMig = fyllMig + "\n" + spot;
+                }
+                fyllMig = fyllMig + "\n \n Denied";
+                foreach (var spot in deniedList)
+                {
+                    fyllMig = fyllMig + "\n" + spot;
+                }
+
                 var aEvent = new Meeting
                 {
                     ID = item.ID,
-                    text = item.text + " \nBooked by: " + item.Booker.Name + "\nInvited: " + listan,
+                    text = item.text + " \nBooked by: " + item.Booker.Name + "\nWaiting for response: " + fyllMig,
                     start_date = item.start_date,
                     end_date = item.end_date
                 };
@@ -106,78 +128,49 @@ namespace Blog_VT18.Controllers {
             }
             return (ContentResult)new AjaxSaveResponse(action);
         }
-        public ActionResult SendTimeSuggestion() {
-            TimeSuggestion Suggestion = new TimeSuggestion();
 
+        public ActionResult SendTimeSuggestion()
+        {
+            TimeSuggestion Suggestion = new TimeSuggestion();
+            ViewBag.Me = User.Identity.GetUserId();
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
             var list = new List<ApplicationUser> { user };
             Suggestion.Invited = user;
             var invitedList = user;
 
-            //   Date ettDatum = new Date();
-            //    ettDatum.TheDate = System.DateTime.Now;
-            //    ettDatum.Id = 1;
 
-            var listItems = new List<ApplicationUser> {
-    };
+            var listItems = new List<ApplicationUser>
+            {
+            };
             foreach (var item in db.Users)
             {
                 listItems.Add(item);
             }
-          // COMMENT - "selectedUsers" WAS = invitedList before merge
             var model = new TimeSuggestionViewModel { AllUsers = db.Users.ToList(), SelectedUsers = null };
 
-          //  model.DateList.Add(ettDatum);
+
+            model.AllMeetings = db.Meetings.ToList();
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model) {
+        public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model)
+        {
             ApplicationUser Anv = db.Users.Find(User.Identity.GetUserId());
 
-           //List<ApplicationUser> aa = new List<ApplicationUser>();
-           // aa.Add(Anv);
-         
-            //model.SelectedUsers = aa;
-             var user = db.Users.Find(User.Identity.GetUserId());
+            var user = db.Users.Find(User.Identity.GetUserId());
             var timeSuggestion = new TimeSuggestion() { Sender = user };
-
+            timeSuggestion.Meeting = db.Meetings.Find(int.Parse(model.MeetingID));
             timeSuggestion.Sender = user;
             List<ApplicationUser> invi = new List<ApplicationUser>() { };
-            //foreach (var item in model.SelectedUsers)
-            //{
-            //    invi.Add(db.Users.Single(x=> x.Id == item));
-            //}
             timeSuggestion.Invited = db.Users.Single(x => x.Id == model.SelectedUsers);
-
-            foreach (var item in model.DateList.Where(x=> x.Date != null))
-            {           Date ettDatum = new Date();
-                        ettDatum.TheDate = item.Date;
-                        var list = new List<Date>() { ettDatum };
-                        timeSuggestion.Dates = list;
-                 
-            }
-
-            
-
-  // COMMENT - THIS WAS MASTER'S before merge
-       //   List<ApplicationUser> aa = new List<ApplicationUser>();
-       //   aa.Add(Anv);
-            // var aaa = aa.ToList();
-       //   model.SelectedUsers = aa;
-       //   var user = db.Users.Find(User.Identity.GetUserId());
-       //   var timeSuggestion = new TimeSuggestion() { Invited = model.SelectedUsers, Sender = user };
-
             db.TimeSuggestions.Add(timeSuggestion);
             db.SaveChanges();
+            return RedirectToAction("AllTimeSuggestion");
+        }
 
 
 
-
-
-
-            return RedirectToAction("AllTimeSuggestion");  
-            }
 
         public ActionResult InvitationList()
         {
@@ -197,40 +190,65 @@ namespace Blog_VT18.Controllers {
 
 
 
-  
-  
-  
-  
-  
-  
-            //var timeSuggestion = new TimeSuggestion();
-
-            //var senderId = User.Identity.GetUserId();
-            //var sender = db.Users.Find(senderId);
-
-            //timeSuggestion.Sender = sender;
-            //timeSuggestion.Invited = model.SelectedUsers;
-            //timeSuggestion.Dates = model.DateList;
-
-            //db.TimeSuggestions.Add(timeSuggestion);
-            //db.SaveChanges();
 
 
-           // return View();
-        
 
 
-        public ActionResult AllTimeSuggestion() {
+
+
+        //var timeSuggestion = new TimeSuggestion();
+
+        //var senderId = User.Identity.GetUserId();
+        //var sender = db.Users.Find(senderId);
+
+        //timeSuggestion.Sender = sender;
+        //timeSuggestion.Invited = model.SelectedUsers;
+        //timeSuggestion.Dates = model.DateList;
+
+        //db.TimeSuggestions.Add(timeSuggestion);
+        //db.SaveChanges();
+
+
+        // return View();
+
+
+
+
+        public ActionResult AllTimeSuggestion()
+        {
 
             ViewBag.Me = User.Identity.GetUserId();
-            var suggestionList = db.TimeSuggestions.Include(x => x.Sender).Include(x=> x.Invited).Include(x=> x.Dates).ToList();
+            var suggestionList = db.TimeSuggestions.Include(x => x.Sender).Include(x => x.Invited).Include(x => x.Dates).Include(x => x.Meeting).ToList();
 
             return View(suggestionList);
 
-        }   
-        }  
+        }
+        [HttpPost]
+        public ActionResult SaveTS(TimeSuggestion timeSuggestion)
+        {
 
-    public class InvitationViewModel
+            if (timeSuggestion.Accepted)
+            {
+            db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Accepted = true;
+
+            }
+            else
+            {
+                db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Denied = true;
+            }
+            
+            db.SaveChanges();
+
+            var suggestionList = db.TimeSuggestions.Include(x => x.Sender).Include(x => x.Invited).Include(x => x.Dates).ToList();
+            return RedirectToAction("AllTimeSuggestion");
+        }
+    }
+
+
+
+
+
+public class InvitationViewModel
     {
         public string Name { get; set; }
         public bool Checked { get; set; }
