@@ -12,12 +12,13 @@ namespace Blog_VT18.Controllers
 {
     public class NotificationsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //private ApplicationDbContext db = new ApplicationDbContext();
+        private RepositoryManager manager = new RepositoryManager();
 
         // GET: Notifications
         public ActionResult Index()
         {
-            return View(db.Notifications.ToList());
+            return View(manager.db.Notifications.ToList());
         }
 
         // GET: Notifications/Details/5
@@ -27,7 +28,7 @@ namespace Blog_VT18.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
+            Notification notification = manager.db.Notifications.Find(id);
             if (notification == null)
             {
                 return HttpNotFound();
@@ -43,7 +44,7 @@ namespace Blog_VT18.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Notification notification = db.Notifications.Find(id);
+            Notification notification = manager.db.Notifications.Find(id);
             if (notification == null)
             {
                 return HttpNotFound();
@@ -56,9 +57,9 @@ namespace Blog_VT18.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Notification notification = db.Notifications.Find(id);
-            db.Notifications.Remove(notification);
-            db.SaveChanges();
+            Notification notification = manager.db.Notifications.Find(id);
+            manager.db.Notifications.Remove(notification);
+            manager.db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -66,7 +67,7 @@ namespace Blog_VT18.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                manager.db.Dispose();
             }
             base.Dispose(disposing);
         }
