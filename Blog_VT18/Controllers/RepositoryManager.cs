@@ -8,7 +8,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Blog_VT18.Models;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
@@ -175,13 +174,16 @@ namespace Blog_VT18.Controllers {
             UserManager<ApplicationUser> _userManager = new UserManager<ApplicationUser>(
         new UserStore<ApplicationUser>(this.db));
             var user = _userManager.FindById(id);
-            foreach(var role in user.Roles) {
-                if(role.UserId == id) {
-                    _userManager.RemoveFromRole(id, role.RoleId);
-                    _userManager.AddToRole(user.Id, _role);
+            //string aL = _userManager.GetRoles(id).ToList().First().ToString();
+            try {
+                foreach(var role in user.Roles) {
+                    if(role.UserId == id) {
+                        _userManager.RemoveFromRole(id, Convert.ToString(_userManager.GetRoles(id).ToList().First().ToString()));
+                        _userManager.AddToRole(user.Id, _role);
+                    }
                 }
-            }
-            this.db.SaveChanges();
+                this.db.SaveChanges();
+            } catch(Exception) { }
         }
         /*
         public void setRole(string id, string newRole) {
