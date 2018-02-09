@@ -16,6 +16,7 @@ namespace Blog_VT18.Models {
     public class ApplicationUser : IdentityUser {
         public string Name { set; get; }
         public bool IsEnabled { set; get; } = true;
+        public string Title { set; get; }
 
         public virtual ICollection<TimeSuggestion> TimeSuggestions { get; set; } 
 

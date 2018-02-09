@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 Blog_VT18/Migrations/Configuration.cs
+Blog_VT18/Controllers/BlogPostController.cs
