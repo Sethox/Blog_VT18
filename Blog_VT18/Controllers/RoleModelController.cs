@@ -14,7 +14,7 @@ using Microsoft.AspNet.Identity.Owin;
 namespace Blog_VT18.Controllers {
     [Authorize(Roles = "Administrator")]
     public class RoleModelController : Controller {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //private ApplicationDbContext db = new ApplicationDbContext();
         private RepositoryManager manager;
 
         public RoleModelController() { this.manager = new RepositoryManager(); }
@@ -36,7 +36,7 @@ namespace Blog_VT18.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var usr = db.Users.Find(id);
+            var usr = this.manager.db.Users.Find(id);
             var dl = new List<SelectListItem>();
             foreach(var i in manager.db.Roles.ToList()) {
                 dl.Add(new SelectListItem { Value = i.Name, Text = i.Name });
@@ -83,7 +83,7 @@ namespace Blog_VT18.Controllers {
 
         protected override void Dispose(bool disposing) {
             if (disposing) {
-                db.Dispose();
+                this.manager.db.Dispose();
             }
             base.Dispose(disposing);
         }
