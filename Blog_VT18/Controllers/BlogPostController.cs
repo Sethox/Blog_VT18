@@ -44,6 +44,9 @@ namespace Blog_VT18.Controllers {
         public ActionResult Add(BlogPost blogPost, string id, HttpPostedFileBase upload) {
             //ModelState.AddModelError("", "This is a global Message.");
             //ValidateEntry(entry);
+
+
+        
             blogPost.From = repositoryManager.usr;
             if (upload != null && upload.ContentLength > 0)
             {
@@ -55,12 +58,21 @@ namespace Blog_VT18.Controllers {
                     }
                 
             }
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 repositoryManager.newBlog(blogPost, id);
-                return RedirectToAction("Add", "BlogPost", new { id = id });
             }
             return RedirectToAction("Add", "BlogPost", new { id = id });
         }
+
+
+
+        public ActionResult Download(int id) {
+            
+            byte[] Data = db.BlogPosts.Find(id).File;
+            return File(Data, db.BlogPosts.Find(id).ContentType, db.BlogPosts.Find(id).Filename);
+        }
+
 
         public ActionResult Show(int? id)
         {

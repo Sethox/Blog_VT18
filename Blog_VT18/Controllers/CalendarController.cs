@@ -157,7 +157,6 @@ namespace Blog_VT18.Controllers {
         public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model)
         {
             ApplicationUser Anv = db.Users.Find(User.Identity.GetUserId());
-
             var user = db.Users.Find(User.Identity.GetUserId());
             var timeSuggestion = new TimeSuggestion() { Sender = user };
             timeSuggestion.Meeting = db.Meetings.Find(int.Parse(model.MeetingID));
@@ -168,10 +167,6 @@ namespace Blog_VT18.Controllers {
             db.SaveChanges();
             return RedirectToAction("AllTimeSuggestion");
         }
-
-
-
-
         public ActionResult InvitationList()
         {
             var users = db.Users.ToList();
@@ -187,33 +182,6 @@ namespace Blog_VT18.Controllers {
             return View(list);
 
         }
-
-
-
-
-
-
-
-
-
-        //var timeSuggestion = new TimeSuggestion();
-
-        //var senderId = User.Identity.GetUserId();
-        //var sender = db.Users.Find(senderId);
-
-        //timeSuggestion.Sender = sender;
-        //timeSuggestion.Invited = model.SelectedUsers;
-        //timeSuggestion.Dates = model.DateList;
-
-        //db.TimeSuggestions.Add(timeSuggestion);
-        //db.SaveChanges();
-
-
-        // return View();
-
-
-
-
         public ActionResult AllTimeSuggestion()
         {
 
