@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Collections;
-
+using System.Web;
 
 namespace Blog_VT18.Models {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -67,20 +67,25 @@ namespace Blog_VT18.Models {
         public virtual ApplicationUser Invited { get; set; }
 
     }
-    public class TimeSuggestion {
+
+    public class TimeSuggestion
+    {
         public int ID { get; set; }
-        public virtual ICollection<Date> Dates{ get; set; }
+        public virtual ICollection<Date> Dates { get; set; }
         public virtual ApplicationUser Sender { get; set; }
-          public virtual ApplicationUser Invited { get; set; }
+        public virtual ApplicationUser Invited { get; set; }
         public virtual Meeting Meeting { get; set; }
+        public bool Accepted { get; set; }
+        public bool Denied { get; set; }
     }
 
-    public class Date {
-       public int Id { get; set; }
+    public class Date
+    {
+        public int Id { get; set; }
         [DisplayName("Date")]
         [DataType(DataType.Date)]
         public DateTime TheDate { get; set; }
-   }
+    }
 
 
     public class Meeting {
@@ -120,5 +125,8 @@ namespace Blog_VT18.Models {
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
         public virtual ApplicationUser From { get; set; }
+        public string Filename { get; set; }
+        public string ContentType { get; set; }
+        public byte[] File { get; set; }
     }
 }

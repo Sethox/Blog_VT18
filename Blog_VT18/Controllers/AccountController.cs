@@ -55,6 +55,10 @@ namespace Blog_VT18.Controllers {
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl) {
+
+            try
+            {
+
             if(!ModelState.IsValid) { return View(model); }
             if(!manager.checkEmail(model.Email)) {
                 ModelState.AddModelError("", "Invalid login attempt.");
@@ -76,6 +80,16 @@ namespace Blog_VT18.Controllers {
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+
+
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
+            }
+
+
         }
         // GET: /Account/VerifyCode
         [AllowAnonymous]

@@ -12,6 +12,9 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Role)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.IsEnabled)
         </th>
         <th></th>
@@ -22,12 +25,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
+        <th>
+            @Html.DisplayFor(modelItem => item.Role)
+        </th>
         <td>
             @Html.DisplayFor(modelItem => item.IsEnabled)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
             @Html.ActionLink("Change Status", "Delete", new { id = item.ID })
         </td>
     </tr>

@@ -26,53 +26,57 @@
 
 
 
-    @foreach (var item in ViewBag.PostViewBag) {
-        @*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
-                   @Html.DisplayNameFor(m => m.Title)
-                  <form typeof="textarea">@item.content</form>
+    @foreach (var item in ViewBag.PostViewBag)
+    {
+        if (User.IsInRole("User") && item.Hidden == false)
+        {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.Content
+                </td>
+                <td>
+                    @item.From.Name
+                </td>
 
-            </div>*@
-        <tr>
-            <td>
-                @item.Title
-            </td>
-            <td>
-                @item.Content
-            </td>
-            <td>
-                @item.From.Name
-            </td>
+                <td>
+                    @Html.ActionLink("Open post in new window", "ViewBlogPost", new { id = item.ID })
+                </td>
+            </tr>
+        }
+        if (User.IsInRole("Administrator"))
+        {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    @item.Content
+                </td>
+                <td>
+                    @item.From.Name
+                </td>
 
-            <td>
-                @Html.ActionLink("Open post in new window", "ViewBlogPost", new { id = item.ID })
-            </td>
+                <td>
+                    @Html.ActionLink("Open post in new window", "ViewBlogPost", new { id = item.ID })
+                </td>
 
-            <td>
-                @if (User.IsInRole("Administrator"))
-                {
+                <td>
 
-                    if (item.Hidden == false)
+                    @if (item.Hidden == false)
                     {
-                        @Html.ActionLink("Hide", "HidePost", new { id = item.ID })
+                    @Html.ActionLink("Hide", "HidePost", new { id = item.ID })
                     }
-                    if (item.Hidden == true)
+                    @if (item.Hidden == true)
                     {
-                        @Html.ActionLink("Show", "HidePost", new { id = item.ID })
+                    @Html.ActionLink("Show", "HidePost", new { id = item.ID })
                     }
-                }
 
-
-            </td>
-
-
-            @*@if (User.IsInRole("administrator")) {
-                    <td>
-                        @Html.ActionLink("edit", "edit", new { id = item.id }) |
-                        @Html.ActionLink("details", "details", new { id = item.id }) |
-                        @Html.ActionLink("delete", "delete", new { id = item.id })
-                    </td>
-                }*@
-        </tr>
+                </td>
+            </tr>
+        }
     }
 
 </table>

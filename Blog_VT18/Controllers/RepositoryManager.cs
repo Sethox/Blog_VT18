@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Blog_VT18.Models;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace Blog_VT18.Controllers {
     public class RepositoryManager {
@@ -48,6 +50,7 @@ namespace Blog_VT18.Controllers {
         /// Updates the user currently logged in.
         /// </summary>
         /// <param name="modifyUsr">The model to update in database.</param>
+        
         public void setCurrentUser(ApplicationUser modifyUsr) {
             this.usr.Name = modifyUsr.Name;
             this.usr.UserName = modifyUsr.UserName;
@@ -95,9 +98,9 @@ namespace Blog_VT18.Controllers {
             Categories category = db.Categories.Single(x => x.ID.ToString().Equals(id));
             Create.Category = category;
             // Creates new blog, updates database
-            BlogPost newPost = new BlogPost(Create);
+            //BlogPost newPost = new BlogPost(Create);
             //En blogpost läggs till i vår context
-            db.BlogPosts.Add(newPost);
+            db.BlogPosts.Add(Create);
             //Sparar ändringar i databasen
             db.SaveChanges();
         }
@@ -105,7 +108,8 @@ namespace Blog_VT18.Controllers {
             BlogPost blogPost = db.BlogPosts.Single(x => x.ID == Id);
             return blogPost;
         }
-            public void changeBlogPost(BlogPost blogPost) {
+
+        public void changeBlogPost(BlogPost blogPost) {
             var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
             var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
             ny = blogPost;
@@ -182,6 +186,85 @@ namespace Blog_VT18.Controllers {
 
             public List<ApplicationUser> usrList() {
             return db.Users.ToList();
+        }
+
+        public List<string> GetAllRoles() {
+            var roles = db.Roles.ToList();
+            var roleList = new List<string>();
+            foreach(var item in roles) {
+                roleList.Add(item.Name);
+            }
+            return roleList;
+        }
+
+        /// <summary>
+        /// Update the role for a specific user.
+        /// </summary>
+        /// <param name="id">Get the user from it's Id.</param>
+        /// <param name="_role">The role it's going to change.</param>
+        public void UpdateRole(string id, string _role) {
+            UserManager<ApplicationUser> _userManager = new UserManager<ApplicationUser>(
+        new UserStore<ApplicationUser>(this.db));
+            var user = _userManager.FindById(id);
+            //string aL = _userManager.GetRoles(id).ToList().First().ToString();
+            try {
+                foreach(var role in user.Roles) {
+                    if(role.UserId == id) {
+                        _userManager.RemoveFromRole(id, Convert.ToString(_userManager.GetRoles(id).ToList().First().ToString()));
+                        _userManager.AddToRole(user.Id, _role);
+                    }
+                }
+                this.db.SaveChanges();
+            } catch(Exception) { }
+        }
+        /*
+        public void setRole(string id, string newRole) {
+            var userRoleList = db.Roles.SingleOrDefault().Users;
+            var role = userRoleList.SingleOrDefault(x => x.UserId == id);
+            var roleList = db.Roles.ToList();
+            var nR = db.Roles.Where(x => x.Name == newRole);
+            foreach(var item in roleList) {
+                if(item.Id == role.RoleId) {
+
+                    userRoleList.Clear();
+                    userRoleList.Add(new IdentityUserRole { UserId = id, RoleId = nR.First().Id });
+                    //role.RoleId = newRole;
+                }
+            }
+            db.SaveChanges();
+        }*/
+
+        public string getRole(string id) {
+            var userRoleList = db.Users.Include(x => x.Roles).ToList();
+            string roleId = "";
+            foreach(var item in userRoleList) {
+                if(item.Id == id)
+                    foreach(var role in item.Roles) {
+                        roleId = role.RoleId;
+                    }
+            }
+            var roleList = db.Roles.ToList();
+            var temp = "";
+            foreach(var item in roleList) {
+                if(roleId == item.Id)
+                    temp = item.Name;
+            }
+
+            //var roleList = db.Roles.ToList();
+            //IdentityUserRole role;
+            //var temp = "";
+            //foreach (var item in roleList)
+            //{
+            //    role = userRoleList.);
+            //    foreach (var i in roleList)
+            //    {
+            //        if (i.Id == role.RoleId)
+            //        {
+            //            temp = i.Name;
+            //        }
+            //    }
+            //}
+            return temp;
         }
     }
 }
