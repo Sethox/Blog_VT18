@@ -36,6 +36,7 @@ namespace Blog_VT18.Migrations {
                 }
                 var user = new ApplicationUser {
                     Name = "Admin",
+                    Title = "Admin",
                     UserName = "admin@user.com",
                     Email = "admin@user.com",
                     IsEnabled = true
