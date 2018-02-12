@@ -556,6 +556,15 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View all users.
+        /// </summary>
+        public static string LblUserLst {
+            get {
+                return ResourceManager.GetString("LblUserLst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View blogpost.
         /// </summary>
         public static string LblViewBlogPost {

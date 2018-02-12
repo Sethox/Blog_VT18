@@ -285,4 +285,7 @@
   <data name="LblRememberMe" xml:space="preserve">
     <value>Kom ihåg mig</value>
   </data>
+  <data name="LblUserLst" xml:space="preserve">
+    <value>Visa Användare</value>
+  </data>
 </root>

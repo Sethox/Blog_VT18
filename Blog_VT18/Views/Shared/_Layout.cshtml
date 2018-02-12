@@ -27,23 +27,24 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @if (User.IsInRole("Administrator")) {
-                        <li>@Html.ActionLink(Resources.LblCalendar, "Index", "Calendar")</li>
-                        <li>@Html.ActionLink(Resources.LblMeetingSugges, "SendTimeSuggestion", "Calendar")</li>
-                        <li>@Html.ActionLink(Resources.LblSugges, "AllTimeSuggestion", "Calendar")</li>
-                        <li>@Html.ActionLink(Resources.LblAbout, "About", "Home")</li>
-                        <li>@Html.ActionLink(Resources.LblContact, "Contact", "Home")</li>
-                        <li>@Html.ActionLink(Resources.LblBlogPost, "Index", "BlogPost")</li>
+                    @if(User.IsInRole("Administrator")) {
+                <li>@Html.ActionLink(Resources.LblCalendar, "Index", "Calendar")</li>
+                <li>@Html.ActionLink(Resources.LblMeetingSugges, "SendTimeSuggestion", "Calendar")</li>
+                <li>@Html.ActionLink(Resources.LblSugges, "AllTimeSuggestion", "Calendar")</li>
+                <li>@Html.ActionLink(Resources.LblAbout, "About", "Home")</li>
+                <li>@Html.ActionLink(Resources.LblContact, "Contact", "Home")</li>
+                <li>@Html.ActionLink(Resources.LblBlogPost, "Index", "BlogPost")</li>
+                <li>@Html.ActionLink(Resources.LblUserLst, "Index", "RoleModel")</li>
 
-                    } else if (User.IsInRole("User")) {
-                        <li>@Html.ActionLink(Resources.LblCalendar, "Index", "Calendar")</li>
-                        <li>@Html.ActionLink(Resources.LblMeetingSugges, "SendTimeSuggestion", "Calendar")</li>
-                        <li>@Html.ActionLink(Resources.LblSugges, "AllTimeSuggestion", "Calendar")</li>
-                        <li>@Html.ActionLink(Resources.LblAbout, "About", "Home")</li>
-                        <li>@Html.ActionLink(Resources.LblContact, "Contact", "Home")</li>
-                        <li>@Html.ActionLink(Resources.LblBlogPost, "Index", "BlogPost")</li>
+    } else if(User.IsInRole("User")) {
+                <li>@Html.ActionLink(Resources.LblCalendar, "Index", "Calendar")</li>
+                <li>@Html.ActionLink(Resources.LblMeetingSugges, "SendTimeSuggestion", "Calendar")</li>
+                <li>@Html.ActionLink(Resources.LblSugges, "AllTimeSuggestion", "Calendar")</li>
+                <li>@Html.ActionLink(Resources.LblAbout, "About", "Home")</li>
+                <li>@Html.ActionLink(Resources.LblContact, "Contact", "Home")</li>
+                <li>@Html.ActionLink(Resources.LblBlogPost, "Index", "BlogPost")</li>
 
-                    }
+}
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
