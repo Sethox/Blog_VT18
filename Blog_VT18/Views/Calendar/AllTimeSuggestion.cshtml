@@ -6,9 +6,6 @@
 
 <h2>AllTimeSuggestion</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th></th>
@@ -96,6 +93,8 @@
     </tr>
     @foreach (var item in Model.Where(x => x.Invited.Id == ViewBag.Me & x.Accepted == true))
     {
+
+
         using (Html.BeginForm("SaveTS", "Calendar", FormMethod.Post, new { item }))
         {
             @Html.HiddenFor(Model => Model.Single(x => x.ID == item.ID).ID, new { ID = item.ID })
@@ -120,7 +119,9 @@
                         @Html.DisplayFor(x => i.TheDate.Date)
                     }
                 </td>
-            </tr>}
+            </tr>
+
+        }
     }
 
     <tr>
@@ -128,8 +129,6 @@
     </tr>
     <tr>
         <td>
-        <td>
-            @Html.LabelFor(modelItem => Model.First().Invited)
         </td>
         <td>
             @Html.LabelFor(modelItem => Model.First().Meeting.text)
@@ -146,38 +145,44 @@
         <td></td>
         <td></td>
     </tr>
+
+    @{List<string> allMötesId = new List<string>(); }
+
+
     @foreach (var item in Model.Where(x => x.Sender.Id == ViewBag.Me))
     {
-       
 
-        using (Html.BeginForm("SaveTS", "Calendar", FormMethod.Post, new { item }))
+
+        if (!allMötesId.Contains(item.Meeting.ID.ToString()))
         {
-            @Html.HiddenFor(Model => Model.Single(x => x.ID == item.ID).ID, new { ID = item.ID })
-    <tr>
-        <td>
-        @*<td>
-            @Html.DisplayFor(x => item.Invited.Name)
-        </td>*@
-        <td>
-            @Html.ActionLink(item.Meeting.text, "MeetingInfo", new { id = item.Meeting.ID}, null)
-        </td>
-        <td>
-            @Html.DisplayFor(x => item.Meeting.start_date)
-        </td>
-        <td>
-            @Html.DisplayFor(x => item.Meeting.end_date)
-        </td>
-        <td>
-            @Html.DisplayFor(x => item.Meeting.ID)
-            
-        </td>
-        <td></td>
-        <td>
-            @foreach (var i in item.Dates)
-        {
-            @Html.DisplayFor(x => i.TheDate.Date)
-    }
-        </td>
-    </tr>}
+            allMötesId.Add(item.Meeting.ID.ToString());
+
+            using (Html.BeginForm("SaveTS", "Calendar", FormMethod.Post, new { item }))
+            {
+                @Html.HiddenFor(Model => Model.Single(x => x.ID == item.ID).ID, new { ID = item.ID })
+                <tr>
+                    <td>
+                    <td>
+                        @Html.ActionLink(item.Meeting.text, "MeetingInfo", new { id = item.Meeting.ID }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.Meeting.start_date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.Meeting.end_date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => item.Meeting.ID)
+
+                    </td>
+                    <td></td>
+                    <td>
+                        @foreach (var i in item.Dates)
+                        {
+                            @Html.DisplayFor(x => i.TheDate.Date)
+                        }
+                    </td>
+                </tr>}
+        }
     }
 </table>
