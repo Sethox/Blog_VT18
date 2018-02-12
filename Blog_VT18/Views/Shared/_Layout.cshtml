@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -25,19 +26,21 @@
                 <ul class="nav navbar-nav">
 
                     @if (User.IsInRole("Administrator"))
-                    {
-                        <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
-                        <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
-                        <li>@Html.ActionLink("BlogPosts", "Index", "BlogPost")</li>
-                        <li>@Html.ActionLink("Changes", "Index", "RoleModel")</li>
+    {
+                <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
+                <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
+                <li>@Html.ActionLink("Send meeting suggestions", "SendTimeSuggestion", "Calendar")</li>
+                <li>@Html.ActionLink("BlogPosts", "Index", "BlogPost")</li>
+                <li>@Html.ActionLink("Changes", "Index", "RoleModel")</li>
 
-                    }
-                    else if (User.IsInRole("User"))
-                    {
-                        <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
-                        <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
-                        <li>@Html.ActionLink("BlogPosts", "Index", "BlogPost")</li>
-                    }
+}
+else if (User.IsInRole("User"))
+{
+                <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
+                <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
+                <li>@Html.ActionLink("Send meeting suggestions", "SendTimeSuggestion", "Calendar")</li>
+                <li>@Html.ActionLink("BlogPosts", "Index", "BlogPost")</li>
+}
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

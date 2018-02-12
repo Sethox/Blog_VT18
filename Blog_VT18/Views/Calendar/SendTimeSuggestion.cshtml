@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "SendTimeSuggestion";
 }
+<h2>
+    @ViewBag.Message
+</h2>
 <h4>Skicka mötesförfrågningar</h4>
 
 
@@ -26,7 +29,7 @@
 
     @*Lägg till mötesskapare.id == ViewBag.Me *@
 
-    @Html.DropDownListFor(model => model.SelectedUsers, listItems, "-- Select Status --")
+    @Html.DropDownListFor(model => model.SelectedUsers, listItems, "-- Select person --")
 
 
     List<SelectListItem> listItems2 = new List<SelectListItem>();
@@ -40,7 +43,8 @@
             Value = item.ID.ToString()
         });
     }
-    @Html.DropDownListFor(model => model.MeetingID, listItems2, "-- Select Status --")
+    
+    @Html.DropDownListFor(model => model.MeetingID, listItems2, "-- Select date --")
 
     <div class="form-horizontal">
         <hr />

@@ -1,0 +1,40 @@
+﻿@model Blog_VT18.Models.TimeSuggestion
+
+@{
+    ViewBag.Title = "MeetingInfo";
+}
+
+<h2>MeetingInfo</h2>
+
+<div>
+    <h4>TimeSuggestion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Invited.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Invited.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Accepted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Accepted)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Denied)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Denied)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -47,6 +47,12 @@ namespace Blog_VT18.Controllers {
             return cat;
         }
 
+        public TimeSuggestion getInfo(int id)
+        {
+            var time = db.TimeSuggestions.Single(x => x.ID == id);
+            return time;
+        }
+
         //public List<BlogPost> ListPosts(Categories category)
         //{
         //    var postList = db.BlogPosts.Where(x => x.Category.Equals(category.ID)).ToList();
