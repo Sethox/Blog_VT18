@@ -150,11 +150,11 @@
   <data name="LblCreate" xml:space="preserve">
     <value>Create</value>
   </data>
-  <data name="LblCreateCategory" xml:space="preserve">
+  <data name="BtnCreateCategory" xml:space="preserve">
     <value>Create new category</value>
   </data>
   <data name="LblCreateNewAccount" xml:space="preserve">
-    <value>Create new user</value>
+    <value>Create new account</value>
   </data>
   <data name="LblCreateNewEvent" xml:space="preserve">
     <value>Create new event</value>
@@ -188,9 +188,6 @@
   </data>
   <data name="LblInvited" xml:space="preserve">
     <value>Invited</value>
-  </data>
-  <data name="LblListPost" xml:space="preserve">
-    <value>Blog</value>
   </data>
   <data name="LblLogIn" xml:space="preserve">
     <value>Log in</value>
@@ -248,5 +245,41 @@
   </data>
   <data name="LblWeek" xml:space="preserve">
     <value>Week</value>
+  </data>
+  <data name="BtnRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="BtnSendAnswer" xml:space="preserve">
+    <value>Send Answer</value>
+  </data>
+  <data name="LblAccepted" xml:space="preserve">
+    <value>Accepted</value>
+  </data>
+  <data name="LblAcceptedMeetings" xml:space="preserve">
+    <value>Accepted meetings</value>
+  </data>
+  <data name="LblBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="LblEndDate" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="LblInfo" xml:space="preserve">
+    <value>You can find important information about system development here.</value>
+  </data>
+  <data name="LblInternalBlog" xml:space="preserve">
+    <value>Internal blog</value>
+  </data>
+  <data name="LblLearnMore" xml:space="preserve">
+    <value>Learn more about oru</value>
+  </data>
+  <data name="LblMeetingText" xml:space="preserve">
+    <value>Meeting text</value>
+  </data>
+  <data name="LblPendingMeetings" xml:space="preserve">
+    <value>Pending meetings</value>
+  </data>
+  <data name="LblStartDate" xml:space="preserve">
+    <value>Start date</value>
   </data>
 </root>

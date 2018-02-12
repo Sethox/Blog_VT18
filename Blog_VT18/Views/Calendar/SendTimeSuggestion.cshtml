@@ -7,12 +7,9 @@
 <h4>@Resources.LblSendEventSugges</h4>
 
 
-<<<<<<< HEAD
-@using (Html.BeginForm())
-{
-=======
+
 @using (Html.BeginForm()) {
->>>>>>> CustomizeLanguage
+
     @Html.AntiForgeryToken()
 
     List<SelectListItem> listItems = new List<SelectListItem>();
@@ -24,14 +21,9 @@
             Value = item.Id.ToString()
         });
 
-
     }
-<<<<<<< HEAD
-=======
-
     @Html.DropDownListFor(model => model.SelectedUsers, listItems, "-- Select Status --")
 
->>>>>>> CustomizeLanguage
 
     @*Lägg till mötesskapare.id == ViewBag.Me *@
 
@@ -52,10 +44,7 @@
     @Html.DropDownListFor(model => model.MeetingID, listItems2, "-- Select Status --")
 
     <div class="form-horizontal">
-<<<<<<< HEAD
-=======
 
->>>>>>> CustomizeLanguage
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

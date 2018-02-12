@@ -61,11 +61,56 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new category.
+        /// </summary>
+        public static string BtnCreateCategory {
+            get {
+                return ResourceManager.GetString("BtnCreateCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string BtnRegister {
+            get {
+                return ResourceManager.GetString("BtnRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Answer.
+        /// </summary>
+        public static string BtnSendAnswer {
+            get {
+                return ResourceManager.GetString("BtnSendAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string LblAbout {
             get {
                 return ResourceManager.GetString("LblAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accepted.
+        /// </summary>
+        public static string LblAccepted {
+            get {
+                return ResourceManager.GetString("LblAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accepted meetings.
+        /// </summary>
+        public static string LblAcceptedMeetings {
+            get {
+                return ResourceManager.GetString("LblAcceptedMeetings", resourceCulture);
             }
         }
         
@@ -84,6 +129,15 @@ namespace Blog_VT18.App_LocalResources {
         public static string LblAllTimeSugges {
             get {
                 return ResourceManager.GetString("LblAllTimeSugges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blog.
+        /// </summary>
+        public static string LblBlog {
+            get {
+                return ResourceManager.GetString("LblBlog", resourceCulture);
             }
         }
         
@@ -160,16 +214,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create new category.
-        /// </summary>
-        public static string LblCreateCategory {
-            get {
-                return ResourceManager.GetString("LblCreateCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create new user.
+        ///   Looks up a localized string similar to Create new account.
         /// </summary>
         public static string LblCreateNewAccount {
             get {
@@ -232,6 +277,15 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End date.
+        /// </summary>
+        public static string LblEndDate {
+            get {
+                return ResourceManager.GetString("LblEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         public static string LblFrom {
@@ -246,6 +300,15 @@ namespace Blog_VT18.App_LocalResources {
         public static string LblHide {
             get {
                 return ResourceManager.GetString("LblHide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can find important information about system development here..
+        /// </summary>
+        public static string LblInfo {
+            get {
+                return ResourceManager.GetString("LblInfo", resourceCulture);
             }
         }
         
@@ -268,6 +331,15 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Internal blog.
+        /// </summary>
+        public static string LblInternalBlog {
+            get {
+                return ResourceManager.GetString("LblInternalBlog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invited.
         /// </summary>
         public static string LblInvited {
@@ -277,11 +349,11 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Blog.
+        ///   Looks up a localized string similar to Learn more about oru.
         /// </summary>
-        public static string LblListPost {
+        public static string LblLearnMore {
             get {
-                return ResourceManager.GetString("LblListPost", resourceCulture);
+                return ResourceManager.GetString("LblLearnMore", resourceCulture);
             }
         }
         
@@ -309,6 +381,15 @@ namespace Blog_VT18.App_LocalResources {
         public static string LblMeetingSugges {
             get {
                 return ResourceManager.GetString("LblMeetingSugges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meeting text.
+        /// </summary>
+        public static string LblMeetingText {
+            get {
+                return ResourceManager.GetString("LblMeetingText", resourceCulture);
             }
         }
         
@@ -354,6 +435,15 @@ namespace Blog_VT18.App_LocalResources {
         public static string LblPassword {
             get {
                 return ResourceManager.GetString("LblPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending meetings.
+        /// </summary>
+        public static string LblPendingMeetings {
+            get {
+                return ResourceManager.GetString("LblPendingMeetings", resourceCulture);
             }
         }
         
@@ -408,6 +498,15 @@ namespace Blog_VT18.App_LocalResources {
         public static string LblShow {
             get {
                 return ResourceManager.GetString("LblShow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start date.
+        /// </summary>
+        public static string LblStartDate {
+            get {
+                return ResourceManager.GetString("LblStartDate", resourceCulture);
             }
         }
         

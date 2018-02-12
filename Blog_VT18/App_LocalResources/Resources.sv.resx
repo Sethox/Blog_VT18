@@ -150,7 +150,7 @@
   <data name="LblCreate" xml:space="preserve">
     <value>Skapa</value>
   </data>
-  <data name="LblCreateCategory" xml:space="preserve">
+  <data name="BtnCreateCategory" xml:space="preserve">
     <value>Skapa ny kategori</value>
   </data>
   <data name="LblCreateNewAccount" xml:space="preserve">
@@ -188,9 +188,6 @@
   </data>
   <data name="LblInvited" xml:space="preserve">
     <value>Inbjudna</value>
-  </data>
-  <data name="LblListPost" xml:space="preserve">
-    <value>Blogg</value>
   </data>
   <data name="LblLogIn" xml:space="preserve">
     <value>Logga in</value>
@@ -245,5 +242,41 @@
   </data>
   <data name="LblWeek" xml:space="preserve">
     <value>Vecka</value>
+  </data>
+  <data name="BtnRegister" xml:space="preserve">
+    <value>Registrera</value>
+  </data>
+  <data name="BtnSendAnswer" xml:space="preserve">
+    <value>Skicka</value>
+  </data>
+  <data name="LblAccepted" xml:space="preserve">
+    <value>Acceptera</value>
+  </data>
+  <data name="LblAcceptedMeetings" xml:space="preserve">
+    <value>Planerade möten</value>
+  </data>
+  <data name="LblBlog" xml:space="preserve">
+    <value>Blogg</value>
+  </data>
+  <data name="LblEndDate" xml:space="preserve">
+    <value>Slutdatum</value>
+  </data>
+  <data name="LblInfo" xml:space="preserve">
+    <value>Här finns all information du behöver inom systemutveckling.</value>
+  </data>
+  <data name="LblInternalBlog" xml:space="preserve">
+    <value>Interna bloggen</value>
+  </data>
+  <data name="LblLearnMore" xml:space="preserve">
+    <value>Mer om oru</value>
+  </data>
+  <data name="LblMeetingText" xml:space="preserve">
+    <value>Mötesnamn</value>
+  </data>
+  <data name="LblPendingMeetings" xml:space="preserve">
+    <value>Pendingmöten</value>
+  </data>
+  <data name="LblStartDate" xml:space="preserve">
+    <value>Startdatum</value>
   </data>
 </root>
