@@ -26,6 +26,7 @@ namespace Scheduler.SignalR.Sample {
 
 
 namespace Blog_VT18.Controllers {
+    [System.Web.Mvc.Authorize(Roles = "Administrator,User")]
     public class CalendarController : BaseController {
         public RepositoryManager manager { get; set; }
         public CalendarController() { manager = new RepositoryManager(); }
@@ -109,7 +110,7 @@ namespace Blog_VT18.Controllers {
                         //do delete
                         break;
                     default:// "update"
-                        //do update
+                            //do update
                         break;
                 }
             } catch {

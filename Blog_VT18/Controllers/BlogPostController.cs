@@ -40,21 +40,34 @@ namespace Blog_VT18.Controllers {
         }
         // Accepts the blogpost whos have its values set in the View and sends it to the repositorie
         [HttpPost]
+
         public ActionResult Add(BlogPost blogPost, string id, HttpPostedFileBase upload) {
             //ModelState.AddModelError("", "This is a global Message.");
             //ValidateEntry(entry);
             blogPost.Category = repositoryManager.GetCategory(id);
+
             blogPost.From = repositoryManager.usr;
-            if (upload != null && upload.ContentLength > 0){
-                    blogPost.Filename = upload.FileName;
-                    blogPost.ContentType = upload.ContentType;
-                    using (var reader = new BinaryReader(upload.InputStream)){
-                        blogPost.File = reader.ReadBytes(upload.ContentLength);
-                    }
-                
-            }
-            if (ModelState.IsValid){
-                repositoryManager.newBlog(blogPost, id);
+
+            if (ModelState.IsValid)
+            {
+                if (upload == null)
+                {
+                    repositoryManager.newBlog(blogPost, id);
+                }
+                else if (upload != null && upload.ContentLength < 25000000)
+                {
+                        blogPost.Filename = upload.FileName;
+                        blogPost.ContentType = upload.ContentType;
+                        using (var reader = new BinaryReader(upload.InputStream))
+                        {
+                            blogPost.File = reader.ReadBytes(upload.ContentLength);
+                        }
+                        repositoryManager.newBlog(blogPost, id);
+                }
+                else if (upload.ContentLength > 25000000)
+                {
+                    ModelState.AddModelError("", "Too large");
+                }
             }
             return RedirectToAction("Add", "BlogPost", new { id = id });
         }
@@ -82,7 +95,7 @@ namespace Blog_VT18.Controllers {
         [HttpPost]
         public ActionResult Edit(BlogPost blogPost, string id, HttpPostedFileBase upload) {
             //TODO - create a changeBlog method in repository
-            if (upload != null && upload.ContentLength > 0)
+            if (upload != null && upload.ContentLength > 0 && upload.ContentLength < 25000000)
             {
                 blogPost.Filename = upload.FileName;
                 blogPost.ContentType = upload.ContentType;
