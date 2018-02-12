@@ -18,9 +18,7 @@ namespace Scheduler.SignalR.Sample {
     [HubName("schedulerHub")]
 
     public class SchedulerHub : Hub {
-        public void Send(string update) {
-            this.Clients.All.addMessage(update);
-        }
+        public void Send(string update) { this.Clients.All.addMessage(update); }
        }
     }
 
