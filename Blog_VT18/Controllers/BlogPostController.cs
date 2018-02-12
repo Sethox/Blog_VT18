@@ -10,6 +10,8 @@ using System.Net;
 using System.IO;
 
 namespace Blog_VT18.Controllers {
+
+    [System.Web.Mvc.Authorize(Roles = "Administrator,User")]
     public class BlogPostController : BaseController {
         private RepositoryManager repositoryManager;
 
@@ -38,9 +40,9 @@ namespace Blog_VT18.Controllers {
             ViewBag.PostViewBag = posts;
             return View(blogPost);
         }
+
         // Accepts the blogpost whos have its values set in the View and sends it to the repositorie
         [HttpPost]
-
         public ActionResult Add(BlogPost blogPost, string id, HttpPostedFileBase upload) {
             //ModelState.AddModelError("", "This is a global Message.");
             //ValidateEntry(entry);
