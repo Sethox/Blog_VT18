@@ -50,6 +50,7 @@ namespace Blog_VT18.Models {
        // public DbSet<Date> Dates { get; set; }
         //public DbSet<Meeting> CalendarEvents { get; set; }
         public DbSet<InvitedToMeetings> InvitedToMeetings { get; set; }
+        public DbSet<theFile> Files { get; set; }
     }
 
     public class Categories {
@@ -127,8 +128,16 @@ namespace Blog_VT18.Models {
         public bool Hidden { get; set; } = false;
         public virtual Categories Category { get; set; }
         public virtual ApplicationUser From { get; set; }
+        public ICollection<theFile> Files { get; set; }
+    }
+
+    public class theFile {
+
+        public int Id { get; set; }
         public string Filename { get; set; }
         public string ContentType { get; set; }
         public byte[] File { get; set; }
+
+
     }
 }

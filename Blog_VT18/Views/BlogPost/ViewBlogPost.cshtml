@@ -15,7 +15,7 @@
                          width: 20%" ;
                  src="@Url.Action("show", new { id = Model.ID})" />
         }
-        else if (Model.File != null)
+        else if (Model.Files != null)
         {
             @Html.ActionLink("download file", "Download", new { id = Model.ID})
             }

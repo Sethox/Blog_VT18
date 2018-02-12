@@ -56,12 +56,19 @@ namespace Blog_VT18.Controllers {
                 }
                 else if (upload != null && upload.ContentLength < 25000000)
                 {
-                        blogPost.Filename = upload.FileName;
-                        blogPost.ContentType = upload.ContentType;
+                    theFile filen = new theFile();
+                        filen.Filename = upload.FileName;
+                        filen.ContentType = upload.ContentType;
                         using (var reader = new BinaryReader(upload.InputStream))
                         {
-                            blogPost.File = reader.ReadBytes(upload.ContentLength);
+                            filen.File = reader.ReadBytes(upload.ContentLength);
                         }
+                        
+                    repositoryManager.db.Files.Add(filen);
+                    repositoryManager.db.SaveChanges();
+                    ICollection<theFile> aa = new List<theFile>();
+                    aa.Add(filen);
+                    blogPost.Files = aa;
                         repositoryManager.newBlog(blogPost, id);
                 }
                 else if (upload.ContentLength > 25000000)
@@ -73,15 +80,15 @@ namespace Blog_VT18.Controllers {
         }
 
         public ActionResult Download(int id) {
-            byte[] Data = this.repositoryManager.db.BlogPosts.Find(id).File;
-            return File(Data, this.repositoryManager.db.BlogPosts.Find(id).ContentType, this.repositoryManager.db.BlogPosts.Find(id).Filename);
+            byte[] Data = this.repositoryManager.db.Files.Find(id).File;
+            return File(Data, this.repositoryManager.db.Files.Find(id).ContentType, this.repositoryManager.db.Files.Find(id).Filename);
         }
 
         public ActionResult Show(int? id){
-            var thePicture = this.repositoryManager.db.BlogPosts.Single(x => x.ID == id);
-            if (thePicture.File is null)
+            var thePicture = this.repositoryManager.db.BlogPosts.Include(x => x.Files).Single(x => x.ID == id);
+            if (thePicture.Files is null)
                 return File("FinnsEj", ".jpg");
-            return File(thePicture.File, thePicture.ContentType);
+            return File(thePicture.Files.First().File, thePicture.Files.First().ContentType);
         }
 
         public ActionResult Edit(int? id) {
@@ -97,12 +104,14 @@ namespace Blog_VT18.Controllers {
             //TODO - create a changeBlog method in repository
             if (upload != null && upload.ContentLength > 0 && upload.ContentLength < 25000000)
             {
-                blogPost.Filename = upload.FileName;
-                blogPost.ContentType = upload.ContentType;
+                theFile filen = new theFile();
+                filen.Filename = upload.FileName;
+                filen.ContentType = upload.ContentType;
                 using (var reader = new BinaryReader(upload.InputStream))
                 {
-                    blogPost.File = reader.ReadBytes(upload.ContentLength);
+                    filen.File = reader.ReadBytes(upload.ContentLength);
                 }
+
 
             }
 
@@ -171,7 +180,9 @@ namespace Blog_VT18.Controllers {
         }
         public ActionResult ViewBlogPost(int? id) {
             var blogPost = repositoryManager.getBlogPost(id);
-            return View(blogPost);
+            BlogPost Blog = new BlogPost();
+            Blog = repositoryManager.db.BlogPosts.Include(x=>x.Files).Single(x=> x.ID == id);
+            return View(Blog);
         }
     }
 }
