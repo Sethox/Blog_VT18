@@ -14,7 +14,6 @@ using System.Collections;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNet.SignalR;
 
-
 namespace Scheduler.SignalR.Sample {
     [HubName("schedulerHub")]
 
@@ -27,6 +26,7 @@ namespace Scheduler.SignalR.Sample {
 
 
 namespace Blog_VT18.Controllers {
+    [System.Web.Mvc.Authorize(Roles = "Administrator,User")]
     public class CalendarController : BaseController {
         public RepositoryManager manager { get; set; }
         public CalendarController() { manager = new RepositoryManager(); }
@@ -60,7 +60,6 @@ namespace Blog_VT18.Controllers {
 
             foreach(var item in calendar) {
                 string fyllMig = "";
-
                 var nyList = this.manager.db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Accepted == false & x.Denied == false).Select(x => x.Invited.Name).ToList();
                 var acceptedList = this.manager.db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Accepted == true).Select(x => x.Invited.Name).ToList();
                 var deniedList = this.manager.db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Denied == true).Select(x => x.Invited.Name).ToList();
@@ -79,7 +78,6 @@ namespace Blog_VT18.Controllers {
                 foreach(var spot in deniedList) {
                     fyllMig = fyllMig + "\n" + spot;
                 }
-
                 var aEvent = new Meeting {
                     ID = item.ID,
                     text = item.text + " \nBooked by: " + item.Booker.Name + "\nWaiting for response: " + fyllMig,
@@ -87,13 +85,13 @@ namespace Blog_VT18.Controllers {
                     end_date = item.end_date
                 };
                 List.Add(aEvent);
-
             }
             var data = new SchedulerAjaxData(
                 List
                 );
             return (ContentResult)data;
         }
+
         public ContentResult Save(int? id, FormCollection actionValues) {
             var calendar = manager.getEventTimes();
             var action = new DataAction(actionValues);
@@ -112,7 +110,7 @@ namespace Blog_VT18.Controllers {
                         //do delete
                         break;
                     default:// "update"
-                        //do update
+                            //do update
                         break;
                 }
             } catch {
@@ -128,25 +126,20 @@ namespace Blog_VT18.Controllers {
             var list = new List<ApplicationUser> { user };
             Suggestion.Invited = user;
             var invitedList = user;
-
             var listItems = new List<ApplicationUser> {
             };
             foreach(var item in this.manager.db.Users) {
                 listItems.Add(item);
             }
             var model = new TimeSuggestionViewModel { AllUsers = this.manager.db.Users.ToList(), SelectedUsers = null };
-
             model.AllMeetings = this.manager.db.Meetings.ToList();
             return View(model);
         }
 
         [HttpPost]
-
-        public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model)
-        {
+        public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model) {
             ApplicationUser Anv = this.manager.db.Users.Find(User.Identity.GetUserId());
-            var user = this.manager.db.Users.Find(User.Identity.GetUserId());
-
+            var user = this.manager.db.Users.Find(User.Identity.GetUserId   ());
             var timeSuggestion = new TimeSuggestion() { Sender = user };
             timeSuggestion.Meeting = this.manager.db.Meetings.Find(int.Parse(model.MeetingID));
             timeSuggestion.Sender = user;
@@ -157,40 +150,28 @@ namespace Blog_VT18.Controllers {
             return RedirectToAction("AllTimeSuggestion");
         }
 
-        public ActionResult InvitationList()
-        {
+        public ActionResult InvitationList(){
             var users = this.manager.db.Users.ToList();
-
             bool Check = false;
             var list = new List<InvitationViewModel>();
-
             foreach(var item in users) {
                 var listobj = new InvitationViewModel { Name = item.Name, User = item, Checked = Check };
-
                 list.Add(listobj);
             }
             return View(list);
         }
 
-        public ActionResult AllTimeSuggestion()
-        {
-
-
+        public ActionResult AllTimeSuggestion(){
             ViewBag.Me = User.Identity.GetUserId();
             var suggestionList = this.manager.db.TimeSuggestions.Include(x => x.Sender).Include(x => x.Invited).Include(x => x.Dates).Include(x => x.Meeting).ToList();
-
             return View(suggestionList);
-
         }
+
         [HttpPost]
         public ActionResult SaveTS(TimeSuggestion timeSuggestion) {
-            if(timeSuggestion.Accepted) {
-                this.manager.db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Accepted = true;
-            } else {
-                this.manager.db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Denied = true;
-            }
+            if(timeSuggestion.Accepted) this.manager.db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Accepted = true;
+            else this.manager.db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Denied = true;
             this.manager.db.SaveChanges();
-
             var suggestionList = this.manager.db.TimeSuggestions.Include(x => x.Sender).Include(x => x.Invited).Include(x => x.Dates).ToList();
             return RedirectToAction("AllTimeSuggestion");
         }

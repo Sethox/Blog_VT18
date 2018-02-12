@@ -186,12 +186,6 @@ namespace Blog_VT18.Controllers {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
                 }
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
             // If we got this far, something failed, redisplay form
             return View(model);
@@ -262,13 +256,9 @@ namespace Blog_VT18.Controllers {
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendCode(SendCodeViewModel model) {
-            if(!ModelState.IsValid) {
-                return View();
-            }
+            if(!ModelState.IsValid) return View();
             // Generate the token and send it
-            if(!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider)) {
-                return View("Error");
-            }
+            if(!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider)) return View("Error");
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
         // GET: /Account/ExternalLoginCallback
@@ -299,7 +289,7 @@ namespace Blog_VT18.Controllers {
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl) {
-            if(User.Identity.IsAuthenticated) { return RedirectToAction("Index", "Manage"); }
+            if(User.Identity.IsAuthenticated) return RedirectToAction("Index", "Manage");
             if(ModelState.IsValid) {
                 // Get the information about the user from the external login provider
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
@@ -351,21 +341,16 @@ namespace Blog_VT18.Controllers {
         private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager {
-            get {
-                return HttpContext.GetOwinContext().Authentication;
-            }
+            get { return HttpContext.GetOwinContext().Authentication; }
         }
 
         private void AddErrors(IdentityResult result) {
-            foreach(var error in result.Errors) {
+            foreach(var error in result.Errors)
                 ModelState.AddModelError("", error);
-            }
         }
 
         private ActionResult RedirectToLocal(string returnUrl) {
-            if(Url.IsLocalUrl(returnUrl)) {
-                return Redirect(returnUrl);
-            }
+            if(Url.IsLocalUrl(returnUrl)) return Redirect(returnUrl);
             return RedirectToAction("Index", "Home");
         }
 

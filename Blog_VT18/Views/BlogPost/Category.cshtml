@@ -15,6 +15,7 @@
 
     @Html.ActionLink(item.Name + " ", "Add", "BlogPost", new { id = item.ID }, new { })
 
+
 }
 
 @foreach (var item in Model.Where(m => m.Category == m.Category))
@@ -24,5 +25,5 @@
 @*@foreach (var item in Model.Where(m => m.Category == m.Category)) {
     <input type="button" value= @Resources.BtnCreateCategory onclick="location.href='@Url.Action("CreateCategory", "BlogPost", new { id=item.Category })' " />*@
     break;
-
+    @Html.ValidationMessageFor(m => item.Name)
 }

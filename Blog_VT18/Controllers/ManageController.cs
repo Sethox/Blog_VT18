@@ -24,21 +24,14 @@ namespace Blog_VT18.Controllers {
         }
 
         public ApplicationSignInManager SignInManager {
-            get {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            get { return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set {
-                _signInManager = value;
-            }
+            private set { _signInManager = value; }
         }
 
         public ApplicationUserManager UserManager {
-            get {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set {
-                _userManager = value;
-            }
+            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
         }
 
         // GET: /Manage/Index
@@ -63,9 +56,7 @@ namespace Blog_VT18.Controllers {
         }
 
         // GET: /Manage/EditProfile
-        public ActionResult EditProfile() {
-            return View(repositoryManager.usr);
-        }
+        public ActionResult EditProfile() { return View(repositoryManager.usr); }
 
         // POST: /Manage/EditProfile
         public ActionResult EditProfile(ApplicationUser model) {
@@ -86,9 +77,7 @@ namespace Blog_VT18.Controllers {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
                 message = ManageMessageId.RemoveLoginSuccess;
-            } else {
-                message = ManageMessageId.Error;
-            }
+            } else { message = ManageMessageId.Error; }
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
@@ -101,9 +90,7 @@ namespace Blog_VT18.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model) {
-            if(!ModelState.IsValid) {
-                return View(model);
-            }
+            if(!ModelState.IsValid) return View(model);
             // Generate the token and send it
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
             if(UserManager.SmsService != null) {
@@ -166,46 +153,42 @@ namespace Blog_VT18.Controllers {
             ModelState.AddModelError("", "Failed to verify phone");
             return View(model);
         }
+
         // POST: /Manage/RemovePhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePhoneNumber() {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
-            if(!result.Succeeded) {
-                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
-            }
+            if(!result.Succeeded) return RedirectToAction("Index", new { Message = ManageMessageId.Error });
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if(user != null) {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
+            if(user != null) await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword() {
             return View();
         }
+
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model) {
-            if(!ModelState.IsValid) {
-                return View(model);
-            }
+            if(!ModelState.IsValid) return View(model);
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if(result.Succeeded) {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if(user != null) {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
+                if(user != null) await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
             AddErrors(result);
             return View(model);
         }
+
         // GET: /Manage/SetPassword
         public ActionResult SetPassword() {
             return View();
         }
+
         // POST: /Manage/SetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -224,6 +207,7 @@ namespace Blog_VT18.Controllers {
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message) {
             ViewBag.StatusMessage =
@@ -231,9 +215,7 @@ namespace Blog_VT18.Controllers {
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if(user == null) {
-                return View("Error");
-            }
+            if(user == null) return View("Error");
             var userLogins = await UserManager.GetLoginsAsync(User.Identity.GetUserId());
             var otherLogins = AuthenticationManager.GetExternalAuthenticationTypes().Where(auth => userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)).ToList();
             ViewBag.ShowRemoveButton = user.PasswordHash != null || userLogins.Count > 1;
@@ -252,9 +234,7 @@ namespace Blog_VT18.Controllers {
         // GET: /Manage/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback() {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
-            if(loginInfo == null) {
-                return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
-            }
+            if(loginInfo == null) return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
@@ -271,30 +251,23 @@ namespace Blog_VT18.Controllers {
         private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager {
-            get {
-                return HttpContext.GetOwinContext().Authentication;
-            }
+            get { return HttpContext.GetOwinContext().Authentication; }
         }
 
         private void AddErrors(IdentityResult result) {
-            foreach(var error in result.Errors) {
+            foreach(var error in result.Errors)
                 ModelState.AddModelError("", error);
-            }
         }
 
         private bool HasPassword() {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            if(user != null) {
-                return user.PasswordHash != null;
-            }
+            if(user != null) return user.PasswordHash != null;
             return false;
         }
 
         private bool HasPhoneNumber() {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            if(user != null) {
-                return user.PhoneNumber != null;
-            }
+            if(user != null) return user.PhoneNumber != null;
             return false;
         }
 
@@ -307,7 +280,6 @@ namespace Blog_VT18.Controllers {
             RemovePhoneSuccess,
             Error
         }
-
         #endregion
     }
 }
