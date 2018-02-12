@@ -47,9 +47,9 @@ namespace Blog_VT18.Controllers {
             return cat;
         }
 
-        public TimeSuggestion getInfo(int id)
+        public List<TimeSuggestion> getInfo(int id)
         {
-            var time = db.TimeSuggestions.Single(x => x.ID == id);
+            var time = db.TimeSuggestions.Where(x => x.Meeting.ID == id).ToList();
             return time;
         }
 

@@ -1,4 +1,4 @@
-﻿@model Blog_VT18.Models.TimeSuggestion
+﻿@model IEnumerable<Blog_VT18.Models.TimeSuggestion>
 
 @{
     ViewBag.Title = "MeetingInfo";
@@ -10,11 +10,15 @@
     <h4>TimeSuggestion</h4>
     <hr />
     <dl class="dl-horizontal">
+        @foreach (var item in Model)
+        {
         <dt>
+
             @Html.DisplayNameFor(model => model.Invited.Name)
         </dt>
+
         <dd>
-            @Html.DisplayFor(model => model.Invited.Name)
+            @Html.DisplayFor(model => item.Invited.Name)
         </dd>
 
         <dt>
@@ -22,19 +26,19 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Accepted)
+            @Html.DisplayFor(model => item.Accepted)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Denied)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Denied)
+            @Html.DisplayFor(model => item.Denied)
         </dd>
-
+        }
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>
