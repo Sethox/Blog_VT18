@@ -282,4 +282,10 @@
   <data name="LblStartDate" xml:space="preserve">
     <value>Start date</value>
   </data>
+  <data name="BtnLogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="LblRememberMe" xml:space="preserve">
+    <value>Remember me</value>
+  </data>
 </root>
