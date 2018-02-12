@@ -12,8 +12,11 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
 namespace Blog_VT18.Controllers {
+    // A void class that is used to contact the database so the controllers does not contact the database/context directly
     public class RepositoryManager {
+        // General ApplicationContext for all controllers
         public ApplicationDbContext db { private set; get; }
+        // Variable for current user (logged in user)
         public ApplicationUser usr {
             get {
                 var userID = HttpContext.Current.User.Identity.GetUserId();
@@ -24,14 +27,13 @@ namespace Blog_VT18.Controllers {
 
         public RepositoryManager() { this.db = new ApplicationDbContext(); }
 
+        // Brings all catagories into a list
         public List<Categories> CatList(string id) {
-            var cat = db.Categories.Where(x => x.Category.ToString() == id).ToList();
-            return cat;
-            }
+            return db.Categories.Where(x => x.Category.ToString() == id).ToList();
+        }
 
         public List<Categories> MainList() {
-            var cat = db.Categories.Where(x => x.Category == null).ToList();
-            return cat;
+            return db.Categories.Where(x => x.Category == null).ToList();
         }
 
         public Categories GetCategory(string id)
