@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="LblAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="LblAdd" xml:space="preserve">
+    <value>Create new blogpost</value>
+  </data>
+  <data name="LblAllTimeSugges" xml:space="preserve">
+    <value>Suggestions</value>
+  </data>
+  <data name="LblBlogPost" xml:space="preserve">
+    <value>Blogpost</value>
+  </data>
+  <data name="LblCalendar" xml:space="preserve">
+    <value>Calendar</value>
+  </data>
+  <data name="LblCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="LblCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="LblConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="LblContact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="LblContent" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="LblCreate" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="BtnCreateCategory" xml:space="preserve">
+    <value>Create new category</value>
+  </data>
+  <data name="LblCreateNewAccount" xml:space="preserve">
+    <value>Create new account</value>
+  </data>
+  <data name="LblCreateNewEvent" xml:space="preserve">
+    <value>Create new event</value>
+  </data>
+  <data name="LblDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="LblDay" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="LblEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="LblEducation" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="LblEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="LblFrom" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="LblHide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="LblInformal" xml:space="preserve">
+    <value>Informal</value>
+  </data>
+  <data name="LblInstutionBlog" xml:space="preserve">
+    <value>Instution Blog</value>
+  </data>
+  <data name="LblInvited" xml:space="preserve">
+    <value>Invited</value>
+  </data>
+  <data name="LblLogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="LblLogOff" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="LblMeetingSugges" xml:space="preserve">
+    <value>Meeting suggestions</value>
+  </data>
+  <data name="LblMonth" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="LblName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="LblNewEvent" xml:space="preserve">
+    <value>New Event</value>
+  </data>
+  <data name="LblOpenPost" xml:space="preserve">
+    <value>Open blogpost</value>
+  </data>
+  <data name="LblPassword" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="LblRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="LblResearch" xml:space="preserve">
+    <value>Research</value>
+  </data>
+  <data name="LblSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="LblSender" xml:space="preserve">
+    <value>Sender</value>
+  </data>
+  <data name="LblSendEventSugges" xml:space="preserve">
+    <value>Send event suggestions</value>
+  </data>
+  <data name="LblShow" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="LblSugges" xml:space="preserve">
+    <value>Suggestions</value>
+  </data>
+  <data name="LblTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="LblToday" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="LblViewBlogPost" xml:space="preserve">
+    <value>View blogpost</value>
+  </data>
+  <data name="LblWeek" xml:space="preserve">
+    <value>Week</value>
+  </data>
+  <data name="BtnRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="BtnSendAnswer" xml:space="preserve">
+    <value>Send Answer</value>
+  </data>
+  <data name="LblAccepted" xml:space="preserve">
+    <value>Accepted</value>
+  </data>
+  <data name="LblAcceptedMeetings" xml:space="preserve">
+    <value>Accepted meetings</value>
+  </data>
+  <data name="LblBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="LblEndDate" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="LblInfo" xml:space="preserve">
+    <value>You can find important information about system development here.</value>
+  </data>
+  <data name="LblInternalBlog" xml:space="preserve">
+    <value>Internal blog</value>
+  </data>
+  <data name="LblLearnMore" xml:space="preserve">
+    <value>Learn more about oru</value>
+  </data>
+  <data name="LblMeetingText" xml:space="preserve">
+    <value>Meeting text</value>
+  </data>
+  <data name="LblPendingMeetings" xml:space="preserve">
+    <value>Pending meetings</value>
+  </data>
+  <data name="LblStartDate" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+</root>
