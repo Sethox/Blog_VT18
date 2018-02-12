@@ -137,7 +137,7 @@ namespace Blog_VT18.Controllers {
         }
 
         [HttpPost]
-        public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model){
+        public ActionResult SendTimeSuggestion(TimeSuggestionViewModel model) {
             ApplicationUser Anv = this.manager.db.Users.Find(User.Identity.GetUserId());
             var user = this.manager.db.Users.Find(User.Identity.GetUserId   ());
             var timeSuggestion = new TimeSuggestion() { Sender = user };
@@ -169,11 +169,8 @@ namespace Blog_VT18.Controllers {
 
         [HttpPost]
         public ActionResult SaveTS(TimeSuggestion timeSuggestion) {
-            if(timeSuggestion.Accepted) {
-                this.manager.db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Accepted = true;
-            } else {
-                this.manager.db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Denied = true;
-            }
+            if(timeSuggestion.Accepted) this.manager.db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Accepted = true;
+            else this.manager.db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Denied = true;
             this.manager.db.SaveChanges();
             var suggestionList = this.manager.db.TimeSuggestions.Include(x => x.Sender).Include(x => x.Invited).Include(x => x.Dates).ToList();
             return RedirectToAction("AllTimeSuggestion");
