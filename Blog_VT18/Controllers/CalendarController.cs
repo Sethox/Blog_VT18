@@ -42,24 +42,24 @@ namespace Blog_VT18.Controllers {
             List<Meeting> List = new List<Meeting>();
             List<InvitedToMeetings> UserList = new List<InvitedToMeetings>();
 
-            foreach(var item in calendar) {
+            foreach (var item in calendar) {
                 string fyllMig = "";
                 var nyList = this.manager.db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Accepted == false & x.Denied == false).Select(x => x.Invited.Name).ToList();
                 var acceptedList = this.manager.db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Accepted == true).Select(x => x.Invited.Name).ToList();
                 var deniedList = this.manager.db.TimeSuggestions.Where(x => x.Meeting.ID == item.ID & x.Denied == true).Select(x => x.Invited.Name).ToList();
                 var listan = manager.getInvited(item.ID);
-                if(nyList.Count() <= 0) {
+                if (nyList.Count() <= 0) {
                     nyList.Add("ingen");
                 }
-                foreach(var spot in nyList) {
+                foreach (var spot in nyList) {
                     fyllMig = fyllMig + "\n" + spot;
                 }
                 fyllMig = fyllMig + "\n \n Accepted";
-                foreach(var spot in acceptedList) {
+                foreach (var spot in acceptedList) {
                     fyllMig = fyllMig + "\n" + spot;
                 }
                 fyllMig = fyllMig + "\n \n Denied";
-                foreach(var spot in deniedList) {
+                foreach (var spot in deniedList) {
                     fyllMig = fyllMig + "\n" + spot;
                 }
                 var aEvent = new Meeting {
@@ -79,7 +79,7 @@ namespace Blog_VT18.Controllers {
             var action = new DataAction(actionValues);
             try {
                 var changedEvent = (Meeting)DHXEventsHelper.Bind(typeof(Meeting), actionValues);
-                switch(action.Type) {
+                switch (action.Type) {
                     case DataActionTypes.Insert:
                         manager.setEventTime(changedEvent);
                         break;
@@ -102,8 +102,11 @@ namespace Blog_VT18.Controllers {
             var list = new List<ApplicationUser> { user };
             Suggestion.Invited = user;
             var invitedList = user;
-            var listItems = new List<ApplicationUser>();
-            foreach(var item in this.manager.db.Users) listItems.Add(item);
+            var listItems = new List<ApplicationUser> {
+            };
+            foreach (var item in this.manager.db.Users) {
+                listItems.Add(item);
+            }
             var model = new TimeSuggestionViewModel { AllUsers = this.manager.db.Users.ToList(), SelectedUsers = null };
             model.AllMeetings = this.manager.db.Meetings.ToList();
             return View(model);
@@ -115,13 +118,23 @@ namespace Blog_VT18.Controllers {
             ApplicationUser Anv = this.manager.db.Users.Find(User.Identity.GetUserId());
             var user = this.manager.db.Users.Find(User.Identity.GetUserId());
             var timeSuggestion = new TimeSuggestion() { Sender = user };
-            timeSuggestion.Meeting = this.manager.db.Meetings.Find(int.Parse(model.MeetingID));
-            timeSuggestion.Sender = user;
-            List<ApplicationUser> invi = new List<ApplicationUser>();
-            timeSuggestion.Invited = this.manager.db.Users.Single(x => x.Id == model.SelectedUsers);
-            this.manager.db.TimeSuggestions.Add(timeSuggestion);
-            this.manager.db.SaveChanges();
-            return RedirectToAction("AllTimeSuggestion");
+
+            if (model.MeetingID != null)
+
+            {
+                timeSuggestion.Meeting = this.manager.db.Meetings.Find(int.Parse(model.MeetingID));
+                timeSuggestion.Sender = user;
+                List<ApplicationUser> invi = new List<ApplicationUser>() { };
+                timeSuggestion.Invited = this.manager.db.Users.Single(x => x.Id == model.SelectedUsers);
+                this.manager.db.TimeSuggestions.Add(timeSuggestion);
+
+                this.manager.db.SaveChanges();
+                return RedirectToAction("AllTimeSuggestion");
+            }
+            else {
+                ViewBag.Message = "Please choose a meeting";
+                return RedirectToAction("SendTimeSuggestion");
+            }
         }
 
         // Creates a Invitation list and presents it
@@ -129,7 +142,8 @@ namespace Blog_VT18.Controllers {
             var users = this.manager.db.Users.ToList();
             bool Check = false;
             var list = new List<InvitationViewModel>();
-            foreach(var item in users) {
+            foreach (var item in users) {
+
                 var listobj = new InvitationViewModel { Name = item.Name, User = item, Checked = Check };
                 list.Add(listobj);
             }
@@ -146,11 +160,17 @@ namespace Blog_VT18.Controllers {
         // Saves the specific time suggestion (in to the database)
         [HttpPost]
         public ActionResult SaveTS(TimeSuggestion timeSuggestion) {
-            if(timeSuggestion.Accepted) this.manager.db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Accepted = true;
+            if (timeSuggestion.Accepted)this.manager.db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Accepted = true;
             else this.manager.db.TimeSuggestions.Single(x => x.ID == timeSuggestion.ID).Denied = true;
             this.manager.db.SaveChanges();
             var suggestionList = this.manager.db.TimeSuggestions.Include(x => x.Sender).Include(x => x.Invited).Include(x => x.Dates).ToList();
             return RedirectToAction("AllTimeSuggestion");
+        }
+
+
+        public ActionResult MeetingInfo(int id){
+            var info = manager.getInfo(id);
+            return View(info);
         }
     }
 

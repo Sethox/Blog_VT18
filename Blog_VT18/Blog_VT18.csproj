@@ -635,6 +635,7 @@
     <Content Include="Views\RoleModel\Index.cshtml" />
     <Content Include="Views\BlogPost\ViewBlogPost.cshtml" />
     <Content Include="Views\Upload\UploadFile.cshtml" />
+    <Content Include="Views\Calendar\MeetingInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
