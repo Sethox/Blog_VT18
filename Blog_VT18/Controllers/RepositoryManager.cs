@@ -208,7 +208,6 @@ namespace Blog_VT18.Controllers {
             UserManager<ApplicationUser> _userManager = new UserManager<ApplicationUser>(
         new UserStore<ApplicationUser>(this.db));
             var user = _userManager.FindById(id);
-            //string aL = _userManager.GetRoles(id).ToList().First().ToString();
             try {
                 foreach(var role in user.Roles) {
                     if(role.UserId == id) {
@@ -219,53 +218,20 @@ namespace Blog_VT18.Controllers {
                 this.db.SaveChanges();
             } catch(Exception) { }
         }
-        /*
-        public void setRole(string id, string newRole) {
-            var userRoleList = db.Roles.SingleOrDefault().Users;
-            var role = userRoleList.SingleOrDefault(x => x.UserId == id);
-            var roleList = db.Roles.ToList();
-            var nR = db.Roles.Where(x => x.Name == newRole);
-            foreach(var item in roleList) {
-                if(item.Id == role.RoleId) {
-
-                    userRoleList.Clear();
-                    userRoleList.Add(new IdentityUserRole { UserId = id, RoleId = nR.First().Id });
-                    //role.RoleId = newRole;
-                }
-            }
-            db.SaveChanges();
-        }*/
 
         public string getRole(string id) {
             var userRoleList = db.Users.Include(x => x.Roles).ToList();
             string roleId = "";
             foreach(var item in userRoleList) {
                 if(item.Id == id)
-                    foreach(var role in item.Roles) {
+                    foreach(var role in item.Roles)
                         roleId = role.RoleId;
-                    }
             }
             var roleList = db.Roles.ToList();
             var temp = "";
-            foreach(var item in roleList) {
+            foreach(var item in roleList)
                 if(roleId == item.Id)
                     temp = item.Name;
-            }
-
-            //var roleList = db.Roles.ToList();
-            //IdentityUserRole role;
-            //var temp = "";
-            //foreach (var item in roleList)
-            //{
-            //    role = userRoleList.);
-            //    foreach (var i in roleList)
-            //    {
-            //        if (i.Id == role.RoleId)
-            //        {
-            //            temp = i.Name;
-            //        }
-            //    }
-            //}
             return temp;
         }
     }
