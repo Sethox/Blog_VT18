@@ -1,32 +1,38 @@
 ﻿@model Blog_VT18.Models.TimeSuggestionViewModel
+@using Blog_VT18.App_LocalResources;
 
 @{
     ViewBag.Title = "SendTimeSuggestion";
 }
+
+<h2>
+    @ViewBag.Message
+</h2>
+
 <h4>Skicka mötesförfrågningar</h4>
 
 
-@using (Html.BeginForm())
-{
+
+@using (Html.BeginForm()) {
+
     @Html.AntiForgeryToken()
 
     List<SelectListItem> listItems = new List<SelectListItem>();
 
-    foreach (var item in Model.AllUsers)
-    {
+    foreach (var item in Model.AllUsers) {
 
-        listItems.Add(new SelectListItem
-        {
+        listItems.Add(new SelectListItem {
             Text = item.Name,
             Value = item.Id.ToString()
         });
 
-
     }
+    @Html.DropDownListFor(model => model.SelectedUsers, listItems, "-- Select Status --")
+
 
     @*Lägg till mötesskapare.id == ViewBag.Me *@
 
-    @Html.DropDownListFor(model => model.SelectedUsers, listItems, "-- Select Status --")
+    @Html.DropDownListFor(model => model.SelectedUsers, listItems, "-- Select person --")
 
 
     List<SelectListItem> listItems2 = new List<SelectListItem>();
@@ -40,14 +46,16 @@
             Value = item.ID.ToString()
         });
     }
-    @Html.DropDownListFor(model => model.MeetingID, listItems2, "-- Select Status --")
+    
+    @Html.DropDownListFor(model => model.MeetingID, listItems2, "-- Select date --")
 
     <div class="form-horizontal">
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value=@Resources.LblCreate class="btn btn-default" />
             </div>
         </div>
     </div>

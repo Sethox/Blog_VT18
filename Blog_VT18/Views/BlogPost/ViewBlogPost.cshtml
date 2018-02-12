@@ -1,10 +1,12 @@
 ﻿@model Blog_VT18.Models.BlogPost
+@using Blog_VT18.App_LocalResources;
 
 @{
     ViewBag.Title = "Blogpost";
 }
 <h2>Blogpost</h2>
 
+<<<<<<< HEAD
     <hr />
     <div>
 
@@ -37,3 +39,47 @@
         }
         @Html.ActionLink("Back to Start", "Index")
     </p>
+=======
+<h2>@Resources.LblBlogPost</h2>
+
+<div>
+    <h4>BlogPost</h4>
+    <hr />
+    <dl class="dl-horizontal" style="margin : 10%, 10%">
+        <dd class="h2 text-center" style="text-align : center">
+            @Html.DisplayNameFor(model => model.Title)
+        </dd>
+
+        <dd style="text-align : center; margin-top : 20px;
+              font-style : italic;
+              font-size : large">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dd class="h3 text-center" style="text-align : center; margin-top : 20px;">
+            @Html.DisplayNameFor(model => model.Content)
+        </dd>
+
+        <dd class="text-center" style="margin-top : 20px">
+            @Html.DisplayTextFor(model => model.Content)
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    @if (User.Identity.Name == Model.From.Email) {
+
+        @Html.ActionLink(Resources.LblEdit, "edit", new { id = Model.ID })
+        @*@Html.ActionLink("details", "details", new { id = item.id }) |
+            @Html.ActionLink("delete", "delete", new { id = item.id })*@
+
+
+    }
+
+    @Html.ActionLink("Back to Start", "Index")
+
+
+</p>
+>>>>>>> CustomizeLanguage

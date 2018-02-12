@@ -1,9 +1,13 @@
 @model IEnumerable<Blog_VT18.Models.Categories>
+@using Blog_VT18.App_LocalResources;
 
 
 @{
     ViewBag.Title = "Blog";
 }
+
+
+<h2>@Resources.LblBlog</h2>
 
 
 <div class="container text-center">
@@ -31,5 +35,56 @@
         </div>
        
 
-       
-    </div>
+
+@*<h2>@Resources.LblListPost</h2>
+
+@foreach (var item in Model) {
+    @Html.ActionLink(item.Name + " ", "Category", "BlogPost", new { id = item.ID }, new { })
+}*@
+
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.From)
+        </th>
+        <th></th>
+    </tr>*@
+
+@*@foreach (var item in Model)
+    {*@
+@*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
+           @Html.DisplayNameFor(m => m.Title)
+
+           <form typeof="textarea">@item.Content</form>
+    </div>*@
+@*<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Content)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.From.Name)
+
+    </td>*@
+@*@if (User.IsInRole("Administrator"))
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                }
+            </tr>
+        }
+
+    </table>*@
+

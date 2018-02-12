@@ -216,6 +216,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_LocalResources\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="App_LocalResources\Resources.sv.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.sv.resx</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -612,13 +622,13 @@
     <Content Include="Views\BlogPost\Index.cshtml" />
     <Content Include="Views\BlogPost\ListPost.cshtml" />
     <Content Include="Views\Calendar\Index.cshtml" />
-    <Content Include="Views\BlogPost\Add.cshtml" />
+    <EmbeddedResource Include="Views\BlogPost\Add.cshtml" />
     <Content Include="Views\BlogPost\_AddOrChangeBlogPost.cshtml" />
     <Content Include="Views\BlogPost\Edit.cshtml" />
     <Content Include="Views\BlogPost\Category.cshtml" />
     <Content Include="Views\BlogPost\CreateCategory.cshtml" />
-    <Content Include="Views\Calendar\SendTimeSuggestion.cshtml" />
-    <Content Include="Views\Calendar\AllTimeSuggestion.cshtml" />
+    <EmbeddedResource Include="Views\Calendar\SendTimeSuggestion.cshtml" />
+    <EmbeddedResource Include="Views\Calendar\AllTimeSuggestion.cshtml" />
     <Content Include="Views\RoleModel\Create.cshtml" />
     <Content Include="Views\RoleModel\Delete.cshtml" />
     <Content Include="Views\RoleModel\Details.cshtml" />
@@ -626,6 +636,7 @@
     <Content Include="Views\RoleModel\Index.cshtml" />
     <Content Include="Views\BlogPost\ViewBlogPost.cshtml" />
     <Content Include="Views\Upload\UploadFile.cshtml" />
+    <Content Include="Views\Calendar\MeetingInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -646,6 +657,18 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App_LocalResources\Resources.sv.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.sv.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App_LocalResources\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
