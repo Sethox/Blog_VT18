@@ -1,7 +1,12 @@
 ﻿@model Blog_VT18.Models.BlogPost
+@using Blog_VT18.App_LocalResources;
+
 @{
     ViewBag.Title = "Edit";
 }
+
+
+<h2>@Resources.LblEdit</h2>
 
 
 @using (Html.BeginForm("Edit", "BlogPost", new { id = Model.ID}, FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -46,7 +51,7 @@
 
     </div>
 
-    <input type="file" value="File" name="Upload" accept="image/x-png,image/gif,image/jpeg" />
+    <input type="file" value="File" name="Upload" />
     @Html.ValidationMessageFor(m => m.Content)
 
 

@@ -12,12 +12,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace Blog_VT18.Controllers {
+
+    // Only administators can access this feature
     [Authorize(Roles = "Administrator")]
     public class RoleModelController : Controller {
         private RepositoryManager manager;
         public RoleModelController() { manager = new RepositoryManager(); }
 
         // GET: RoleModel
+        // Checkes if the database has some data and presents it if something exists
         public ActionResult Index() {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(manager.db));
             var userList = manager.usrList();
@@ -30,6 +33,7 @@ namespace Blog_VT18.Controllers {
         }
 
         // GET: RoleModel/Edit/5
+        // Modify and continues to Post
         public ActionResult Edit(string id) {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -42,6 +46,7 @@ namespace Blog_VT18.Controllers {
         }
 
         // POST: RoleModel/Edit/5
+        // Confirms and updates the database
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,Role")] RoleModel roleModel) {
@@ -60,6 +65,7 @@ namespace Blog_VT18.Controllers {
             return RedirectToAction("Index");
         }
 
+        // Disposes the context and the this.manager.db's dispose
         protected override void Dispose(bool disposing) {
             if (disposing) manager.db.Dispose();
             base.Dispose(disposing);

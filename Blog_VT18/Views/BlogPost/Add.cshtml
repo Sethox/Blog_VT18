@@ -1,9 +1,20 @@
 ﻿@model Blog_VT18.Models.BlogPost
+@using Blog_VT18.App_LocalResources;
+
+
 @{
+<<<<<<< HEAD
     ViewBag.Title = "Add post";
 }
 
 <h2>@Html.DisplayFor(x=> Model.Category.Name)</h2>
+=======
+    ViewBag.Title = Resources.LblAdd;
+    
+}
+
+<h2>@Resources.LblAdd</h2>
+>>>>>>> CustomizeLanguage
 
 
 @Html.Partial("_AddOrChangeBlogPost")
@@ -12,13 +23,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Resources.LblTitle
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Content)
+            @Resources.LblContent
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.From)
+            @Resources.LblFrom
         </th>
         <th></th>
     </tr>
@@ -26,6 +37,7 @@
 
 
 
+<<<<<<< HEAD
     @foreach (var item in ViewBag.PostViewBag)
     {
         if (User.IsInRole("User") && item.Hidden == false)
@@ -68,10 +80,44 @@
                     @if (item.Hidden == false)
                     {
                     @Html.ActionLink("Hide", "HidePost", new { id = item.ID })
+=======
+    @foreach (var item in ViewBag.PostViewBag) {
+        @*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
+                   @Html.DisplayNameFor(m => m.Title)
+                  <form typeof="textarea">@item.content</form>
+
+            </div>*@
+        <tr>
+            <td>
+                @item.Title
+            </td>
+            <td>
+                @item.Content
+            </td>
+            <td>
+                @item.From.Name
+            </td>
+
+            <td>
+                @Html.ActionLink(Resources.LblViewBlogPost, "ViewBlogPost", new { id = item.ID })
+            </td>
+
+            <td>
+                @if (User.IsInRole("Administrator"))
+                {
+
+                    if (item.Hidden == false)
+                    {
+                        @Html.ActionLink(Resources.LblHide, "HidePost", new { id = item.ID })
+>>>>>>> CustomizeLanguage
                     }
                     @if (item.Hidden == true)
                     {
+<<<<<<< HEAD
                     @Html.ActionLink("Show", "HidePost", new { id = item.ID })
+=======
+                        @Html.ActionLink(Resources.LblShow, "HidePost", new { id = item.ID })
+>>>>>>> CustomizeLanguage
                     }
 
                 </td>
