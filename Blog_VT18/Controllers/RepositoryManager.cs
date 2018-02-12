@@ -101,6 +101,7 @@ namespace Blog_VT18.Controllers {
 
         public void newBlog(BlogPost Create, string id) {
             //Kom ihåg att lägga in kategorier
+
             Categories category = db.Categories.Single(x => x.ID.ToString().Equals(id));
             Create.Category = category;
             // Creates new blog, updates database

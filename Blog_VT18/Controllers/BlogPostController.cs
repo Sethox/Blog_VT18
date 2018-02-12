@@ -29,7 +29,7 @@ namespace Blog_VT18.Controllers {
         public ActionResult Add(string id) {
 
             var blogPost = new BlogPost() {
-                Category = repositoryManager.GetCategory(id),
+                //Category = repositoryManager.GetCategory(id),
                 Hidden = false,
                 From = repositoryManager.usr
             };
@@ -43,6 +43,7 @@ namespace Blog_VT18.Controllers {
         public ActionResult Add(BlogPost blogPost, string id, HttpPostedFileBase upload) {
             //ModelState.AddModelError("", "This is a global Message.");
             //ValidateEntry(entry);
+            blogPost.Category = repositoryManager.GetCategory(id);
             blogPost.From = repositoryManager.usr;
             if (upload != null && upload.ContentLength > 0){
                     blogPost.Filename = upload.FileName;
@@ -79,11 +80,11 @@ namespace Blog_VT18.Controllers {
         }
 
         [HttpPost]
-        public ActionResult Edit(BlogPost blogPost) {
+        public ActionResult Edit(BlogPost blogPost, string id) {
             //TODO - create a changeBlog method in repository
             if(ModelState.IsValid) {
                 repositoryManager.changeBlogPost(blogPost);
-                return RedirectToAction("Index");
+                return RedirectToAction("Add", "BlogPost" , new { id = blogPost.Category.ID });
             }
             return View(blogPost);
         }
