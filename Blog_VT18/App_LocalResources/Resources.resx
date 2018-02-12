@@ -121,7 +121,7 @@
     <value>About</value>
   </data>
   <data name="LblAdd" xml:space="preserve">
-    <value>Skapa nytt inlägg</value>
+    <value>Create new blogpost</value>
   </data>
   <data name="LblAllTimeSugges" xml:space="preserve">
     <value>Suggestions</value>

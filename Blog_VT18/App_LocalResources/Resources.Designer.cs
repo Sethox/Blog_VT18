@@ -70,7 +70,7 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skapa nytt inlägg.
+        ///   Looks up a localized string similar to Create new blogpost.
         /// </summary>
         public static string LblAdd {
             get {
