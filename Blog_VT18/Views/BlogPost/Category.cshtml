@@ -6,18 +6,18 @@
 
 <h2>@ViewBag.Message</h2>
 
+        @foreach (var item in Model)
+        {
+           
+                @Html.ActionLink(item.Name + " ", "Add", "BlogPost", new { id = item.ID }, new { })
+      
+         
+        }
 
-@foreach (var item in Model)
-{
-
-    @Html.ActionLink(item.Name + " ", "Add", "BlogPost", new { id = item.ID }, new { })
-
-
-}
-
-@foreach (var item in Model.Where(m => m.Category == m.Category))
-{
-    <input type="button" value="Create new category" onclick="location.href='@Url.Action("CreateCategory", "BlogPost", new { id=item.Category })' " />
-    break;
-    @Html.ValidationMessageFor(m => item.Name)
-}
+        @foreach (var item in Model.Where(m => m.Category == m.Category))
+        {
+            <input type="button" value="Create new category" onclick="location.href='@Url.Action("CreateCategory", "BlogPost", new { id=item.Category })' " />
+            break;
+            @Html.ValidationMessageFor(m => item.Name)
+        }
+   
