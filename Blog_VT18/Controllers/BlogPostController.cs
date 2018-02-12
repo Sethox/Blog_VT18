@@ -80,9 +80,20 @@ namespace Blog_VT18.Controllers {
         }
 
         [HttpPost]
-        public ActionResult Edit(BlogPost blogPost, string id) {
+        public ActionResult Edit(BlogPost blogPost, string id, HttpPostedFileBase upload) {
             //TODO - create a changeBlog method in repository
-            if(ModelState.IsValid) {
+            if (upload != null && upload.ContentLength > 0)
+            {
+                blogPost.Filename = upload.FileName;
+                blogPost.ContentType = upload.ContentType;
+                using (var reader = new BinaryReader(upload.InputStream))
+                {
+                    blogPost.File = reader.ReadBytes(upload.ContentLength);
+                }
+
+            }
+
+            if (ModelState.IsValid) {
                 repositoryManager.changeBlogPost(blogPost);
                 return RedirectToAction("Add", "BlogPost" , new { id = blogPost.Category.ID });
             }
