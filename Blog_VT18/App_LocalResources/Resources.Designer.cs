@@ -70,6 +70,15 @@ namespace Blog_VT18.App_LocalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log in.
+        /// </summary>
+        public static string BtnLogIn {
+            get {
+                return ResourceManager.GetString("BtnLogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register.
         /// </summary>
         public static string BtnRegister {
@@ -453,6 +462,15 @@ namespace Blog_VT18.App_LocalResources {
         public static string LblRegister {
             get {
                 return ResourceManager.GetString("LblRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember me.
+        /// </summary>
+        public static string LblRememberMe {
+            get {
+                return ResourceManager.GetString("LblRememberMe", resourceCulture);
             }
         }
         
