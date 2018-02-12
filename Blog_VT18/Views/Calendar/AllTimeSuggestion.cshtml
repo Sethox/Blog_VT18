@@ -1,18 +1,21 @@
 ﻿@model IEnumerable<Blog_VT18.Models.TimeSuggestion>
+@using Blog_VT18.App_LocalResources;
+
 
 @{
     ViewBag.Title = "AllTimeSuggestion";
 }
 
-<h2>AllTimeSuggestion</h2>
+<h2>@Resources.LblAllTimeSugges</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(Resources.LblCreateNewEvent, "Create")
 </p>
 <table class="table">
     <tr>
         <th></th>
     </tr>
+<<<<<<< HEAD
     <tr>
         <td><div> Pending MEETINGS</div></td>
     </tr>
@@ -35,6 +38,40 @@
         </td>
         <td></td>
     </tr>
+=======
+
+
+    @foreach (var item in Model.Where(x => x.Invited.Id == ViewBag.Me)) {
+        <tr>
+            <td>
+            <td>
+                @*@Html.LabelFor(modelItem => item.Sender)*@
+                @Resources.LblSender
+                :
+                @Html.DisplayFor(x => item.Sender.Name)
+            </td>
+            <td>
+                @*@Html.LabelFor(modelItem => item.Invited)*@
+                @Resources.LblInvited
+                :
+                @Html.DisplayFor(x => item.Invited.Name)
+            </td>
+
+
+            <td>
+
+                @*@Html.LabelFor(modelItem => item.Dates)*@
+                @Resources.LblDate
+                @foreach (var i in item.Dates) {
+                    @Html.DisplayFor(x => i.TheDate.Date)
+                }
+
+
+
+            </td>
+
+        </tr>
+>>>>>>> CustomizeLanguage
 
     @foreach (var item in Model.Where(x => x.Invited.Id == ViewBag.Me & x.Accepted == false & x.Denied == false))
     {
