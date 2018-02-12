@@ -18,7 +18,7 @@ namespace Blog_VT18.Models {
         public bool IsEnabled { set; get; } = true;
         public string Title { set; get; }
 
-        public virtual ICollection<TimeSuggestion> TimeSuggestions { get; set; } 
+        public virtual ICollection<TimeSuggestion> TimeSuggestions { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager) {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -27,8 +27,7 @@ namespace Blog_VT18.Models {
             return userIdentity;
         }
 
-        internal ApplicationUser ToList()
-        {
+        internal ApplicationUser ToList() {
             throw new NotImplementedException();
         }
     }
@@ -46,14 +45,16 @@ namespace Blog_VT18.Models {
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<Categories> Categories { get; set; }
-        public DbSet<TimeSuggestion> TimeSuggestions { get; set; } 
-       // public DbSet<Date> Dates { get; set; }
+        public DbSet<TimeSuggestion> TimeSuggestions { get; set; }
+        // public DbSet<Date> Dates { get; set; }
         //public DbSet<Meeting> CalendarEvents { get; set; }
         public DbSet<InvitedToMeetings> InvitedToMeetings { get; set; }
     }
 
     public class Categories {
         public int ID { get; set; }
+        [Required(ErrorMessage = "This field is required")]
+        [StringLength(20, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 20 characters")]
         public string Name { get; set; }
         public int? Category { get; set; }
         public virtual List<BlogPost> BlogPosts { get; set; }
@@ -68,8 +69,7 @@ namespace Blog_VT18.Models {
 
     }
 
-    public class TimeSuggestion
-    {
+    public class TimeSuggestion {
         public int ID { get; set; }
         public virtual ICollection<Date> Dates { get; set; }
         public virtual ApplicationUser Sender { get; set; }
@@ -79,8 +79,7 @@ namespace Blog_VT18.Models {
         public bool Denied { get; set; }
     }
 
-    public class Date
-    {
+    public class Date {
         public int Id { get; set; }
         [DisplayName("Date")]
         [DataType(DataType.Date)]

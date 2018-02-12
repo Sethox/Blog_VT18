@@ -1,10 +1,11 @@
-﻿@{
+﻿@using Blog_VT18.App_LocalResources;
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
-    <h1>Internal blog</h1>
-    <p class="lead">You can find important information about system development here.</p>
-    <p><a href="https://oru.se" class="btn btn-primary btn-lg">Learn more about oru &raquo;</a></p>
+    <h1>@Resources.LblInternalBlog</h1>
+    <p class="lead">@Resources.LblInfo</p>
+    <p><a href="https://oru.se" class="btn btn-primary btn-lg">@Resources.LblLearnMore &raquo;</a></p>
 </div>
 

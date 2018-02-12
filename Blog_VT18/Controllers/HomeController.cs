@@ -9,7 +9,7 @@ namespace Blog_VT18.Controllers {
         public ActionResult Index() {
             return View();
         }
-        public ActionResult About() {
+        public ActionResult About() { 
             ViewBag.Message = "Your application description page.";
             return View();
         }

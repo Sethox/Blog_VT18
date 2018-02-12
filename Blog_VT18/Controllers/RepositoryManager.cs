@@ -12,8 +12,11 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
 namespace Blog_VT18.Controllers {
+    // A void class that is used to contact the database so the controllers does not contact the database/context directly
     public class RepositoryManager {
+        // General ApplicationContext for all controllers
         public ApplicationDbContext db { private set; get; }
+        // Variable for current user (logged in user)
         public ApplicationUser usr {
             get {
                 var userID = HttpContext.Current.User.Identity.GetUserId();
@@ -24,14 +27,13 @@ namespace Blog_VT18.Controllers {
 
         public RepositoryManager() { this.db = new ApplicationDbContext(); }
 
+        // Brings all catagories into a list
         public List<Categories> CatList(string id) {
-            var cat = db.Categories.Where(x => x.Category.ToString() == id).ToList();
-            return cat;
-            }
+            return db.Categories.Where(x => x.Category.ToString() == id).ToList();
+        }
 
         public List<Categories> MainList() {
-            var cat = db.Categories.Where(x => x.Category == null).ToList();
-            return cat;
+            return db.Categories.Where(x => x.Category == null).ToList();
         }
 
         public Categories GetCategory(string id)
@@ -107,6 +109,7 @@ namespace Blog_VT18.Controllers {
 
         public void newBlog(BlogPost Create, string id) {
             //Kom ihåg att lägga in kategorier
+
             Categories category = db.Categories.Single(x => x.ID.ToString().Equals(id));
             Create.Category = category;
             // Creates new blog, updates database
@@ -132,31 +135,27 @@ namespace Blog_VT18.Controllers {
             db.SaveChanges();
         }
 
-        public void hidePost(BlogPost blogPost) {
+        public void hidePost(BlogPost blogPost)
+        {
             var vP = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
             var hP = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
             hP = blogPost;
             hP.Category = vP.Category;
             hP.From = usr;
 
-            //var bp = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
-            //var ny = db.BlogPosts.Where(x => x.ID == blogPost.ID).Single();
-            //ny = blogPost;
-            //ny.Category = bp.Category;
-            //ny.From = bp.From;
-
-            if (hP.Hidden == false) {
+            if (hP.Hidden == false)
+            {
                 hP.Hidden = true;
             }
-            else {
+            else
+            {
                 hP.Hidden = false;
-            }           
-            db.BlogPosts.Remove(vP);          
-            db.BlogPosts.Add(hP);
+            }
+
             db.SaveChanges();
         }
 
-            public void deleteBlogPost(int? Id) {
+        public void deleteBlogPost(int? Id) {
             var bp = db.BlogPosts.Single(x => x.ID == Id);
             db.BlogPosts.Remove(bp);
             db.SaveChanges();
@@ -182,30 +181,40 @@ namespace Blog_VT18.Controllers {
                 return db.Meetings.ToList();
                 return new List<Meeting>();
         }
-        // Saves Specific calender event
-            public void setEventTime(Meeting Event_Date) {
-            Event_Date.Booker = usr;
-            db.Meetings.Add(Event_Date);
-            db.SaveChanges();
+
+        public bool checkIfMeetingExists(Meeting Met) {
+            /*if(db.Meetings.ToList().Count() > 0)
+                return db.Meetings.ToList();
+            return new List<Meeting>();*/
+            var meetings = db.Meetings.Where(x => x.Booker.UserName == Met.Booker.UserName && x.start_date.Date == Met.start_date.Date && x.end_date.Date == Met.end_date.Date).ToList();
+            if(meetings != null) return true;
+            else return false;
         }
 
-            public string getInvited(int Id) {
+        // Saves Specific calender event
+        public void setEventTime(Meeting Event_Date) {
+            if(checkIfMeetingExists(Event_Date)) {
+                Event_Date.Booker = usr;
+                db.Meetings.Add(Event_Date);
+                db.SaveChanges();
+            }
+        }
+
+        public string getInvited(int Id) {
             var invited = db.InvitedToMeetings.Where(x => x.MeetingID == Id).Select(x => x.Invited).ToList();
             string z = "";
             foreach(var item in invited) z = z + "\n" + item.Name;
             return z;
         }
 
-            public List<ApplicationUser> usrList() {
+        public List<ApplicationUser> usrList() {
             return db.Users.ToList();
         }
 
         public List<string> GetAllRoles() {
             var roles = db.Roles.ToList();
             var roleList = new List<string>();
-            foreach(var item in roles) {
-                roleList.Add(item.Name);
-            }
+            foreach(var item in roles) roleList.Add(item.Name);
             return roleList;
         }
 
@@ -218,7 +227,6 @@ namespace Blog_VT18.Controllers {
             UserManager<ApplicationUser> _userManager = new UserManager<ApplicationUser>(
         new UserStore<ApplicationUser>(this.db));
             var user = _userManager.FindById(id);
-            //string aL = _userManager.GetRoles(id).ToList().First().ToString();
             try {
                 foreach(var role in user.Roles) {
                     if(role.UserId == id) {
@@ -229,53 +237,20 @@ namespace Blog_VT18.Controllers {
                 this.db.SaveChanges();
             } catch(Exception) { }
         }
-        /*
-        public void setRole(string id, string newRole) {
-            var userRoleList = db.Roles.SingleOrDefault().Users;
-            var role = userRoleList.SingleOrDefault(x => x.UserId == id);
-            var roleList = db.Roles.ToList();
-            var nR = db.Roles.Where(x => x.Name == newRole);
-            foreach(var item in roleList) {
-                if(item.Id == role.RoleId) {
-
-                    userRoleList.Clear();
-                    userRoleList.Add(new IdentityUserRole { UserId = id, RoleId = nR.First().Id });
-                    //role.RoleId = newRole;
-                }
-            }
-            db.SaveChanges();
-        }*/
 
         public string getRole(string id) {
             var userRoleList = db.Users.Include(x => x.Roles).ToList();
             string roleId = "";
             foreach(var item in userRoleList) {
                 if(item.Id == id)
-                    foreach(var role in item.Roles) {
+                    foreach(var role in item.Roles)
                         roleId = role.RoleId;
-                    }
             }
             var roleList = db.Roles.ToList();
             var temp = "";
-            foreach(var item in roleList) {
+            foreach(var item in roleList)
                 if(roleId == item.Id)
                     temp = item.Name;
-            }
-
-            //var roleList = db.Roles.ToList();
-            //IdentityUserRole role;
-            //var temp = "";
-            //foreach (var item in roleList)
-            //{
-            //    role = userRoleList.);
-            //    foreach (var i in roleList)
-            //    {
-            //        if (i.Id == role.RoleId)
-            //        {
-            //            temp = i.Name;
-            //        }
-            //    }
-            //}
             return temp;
         }
     }
