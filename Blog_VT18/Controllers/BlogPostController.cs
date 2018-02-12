@@ -51,14 +51,8 @@ namespace Blog_VT18.Controllers {
                 {
                     repositoryManager.newBlog(blogPost, id);
                 }
-                else if (upload != null || upload.ContentLength > 0)
+                else if (upload != null && upload.ContentLength < 25000)
                 {
-                    if (upload.ContentLength > 25000000)
-                    {
-                        ModelState.AddModelError("", "Too large");
-                    }
-                    else
-                    {
                         blogPost.Filename = upload.FileName;
                         blogPost.ContentType = upload.ContentType;
                         using (var reader = new BinaryReader(upload.InputStream))
@@ -66,8 +60,12 @@ namespace Blog_VT18.Controllers {
                             blogPost.File = reader.ReadBytes(upload.ContentLength);
                         }
                         repositoryManager.newBlog(blogPost, id);
-                    }
+                    
 
+                }
+                else if (upload.ContentLength > 25000)
+                {
+                    ModelState.AddModelError("", "Too large");
                 }
 
             }
