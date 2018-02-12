@@ -172,30 +172,40 @@ namespace Blog_VT18.Controllers {
                 return db.Meetings.ToList();
                 return new List<Meeting>();
         }
-        // Saves Specific calender event
-            public void setEventTime(Meeting Event_Date) {
-            Event_Date.Booker = usr;
-            db.Meetings.Add(Event_Date);
-            db.SaveChanges();
+
+        public bool checkIfMeetingExists(Meeting Met) {
+            /*if(db.Meetings.ToList().Count() > 0)
+                return db.Meetings.ToList();
+            return new List<Meeting>();*/
+            var meetings = db.Meetings.Where(x => x.Booker.UserName == Met.Booker.UserName && x.start_date.Date == Met.start_date.Date && x.end_date.Date == Met.end_date.Date).ToList();
+            if(meetings != null) return true;
+            else return false;
         }
 
-            public string getInvited(int Id) {
+        // Saves Specific calender event
+        public void setEventTime(Meeting Event_Date) {
+            if(checkIfMeetingExists(Event_Date)) {
+                Event_Date.Booker = usr;
+                db.Meetings.Add(Event_Date);
+                db.SaveChanges();
+            }
+        }
+
+        public string getInvited(int Id) {
             var invited = db.InvitedToMeetings.Where(x => x.MeetingID == Id).Select(x => x.Invited).ToList();
             string z = "";
             foreach(var item in invited) z = z + "\n" + item.Name;
             return z;
         }
 
-            public List<ApplicationUser> usrList() {
+        public List<ApplicationUser> usrList() {
             return db.Users.ToList();
         }
 
         public List<string> GetAllRoles() {
             var roles = db.Roles.ToList();
             var roleList = new List<string>();
-            foreach(var item in roles) {
-                roleList.Add(item.Name);
-            }
+            foreach(var item in roles) roleList.Add(item.Name);
             return roleList;
         }
 
