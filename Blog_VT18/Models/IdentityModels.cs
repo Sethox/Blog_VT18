@@ -54,6 +54,8 @@ namespace Blog_VT18.Models {
 
     public class Categories {
         public int ID { get; set; }
+        [Required(ErrorMessage = "This field is required")]
+        [StringLength(20, MinimumLength = 1, ErrorMessage = "Blogpost should contain between 1 and 20 characters")]
         public string Name { get; set; }
         public int? Category { get; set; }
         public virtual List<BlogPost> BlogPosts { get; set; }
