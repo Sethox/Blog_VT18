@@ -21,7 +21,7 @@
 
 @foreach (var item in Model.Where(m => m.Category == m.Category))
 {
-    <input type="button" value=@Resources.BtnCreateCategory onclick="location.href='@Url.Action("CreateCategory", "BlogPost", new { id=item.Category })' " />
+    <input type="button" value="@Resources.BtnCreateCategory" onclick="location.href='@Url.Action("CreateCategory", "BlogPost", new { id=item.Category })' " />
 
 @*@foreach (var item in Model.Where(m => m.Category == m.Category)) {
     <input type="button" value= @Resources.BtnCreateCategory onclick="location.href='@Url.Action("CreateCategory", "BlogPost", new { id=item.Category })' " />*@
