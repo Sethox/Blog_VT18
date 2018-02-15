@@ -197,12 +197,11 @@ namespace Blog_VT18.Controllers
         // Saves meeting
         public void setEventTime(Meeting meeting)
         {
-            if (checkIfMeetingExists(meeting))
-            {
+           
                 meeting.Booker = usr;
                 db.Meetings.Add(meeting);
                 db.SaveChanges();
-            }
+            
         }
 
         public string getInvited(int Id)

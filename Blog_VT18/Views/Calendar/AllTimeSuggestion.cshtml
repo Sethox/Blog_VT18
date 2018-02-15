@@ -42,16 +42,16 @@
             <tr>
                 <td>
                 <td>
-                    <b>Sender</b>
+                   @Html.DisplayFor(x => item.Sender.Name)
                 </td>
                 <td>
-                    <b> Meeting name</b>
+                    @Html.DisplayFor(x => item.Meeting.text)
                 </td>
                 <td>
-                    <b> Start time</b>
+                    @Html.DisplayFor(x => item.Meeting.start_date)
                 </td>
                 <td>
-                    <b>End time</b>
+                    @Html.DisplayFor(x => item.Meeting.end_date)
                 </td>
                 <td>
                     <div class="form-group">
