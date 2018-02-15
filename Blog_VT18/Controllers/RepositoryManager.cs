@@ -163,22 +163,21 @@ namespace Blog_VT18.Controllers {
                 return db.Meetings.ToList();
             return new List<Meeting>();
         }
-
+        /*
         public bool checkIfMeetingExists(Meeting meeting) {
             var meetings = db.Meetings.Where(x => x.Booker.UserName == meeting.Booker.UserName && x.start_date.Date == meeting.start_date.Date && x.end_date.Date == meeting.end_date.Date).ToList();
             if(meetings != null)
                 return true;
-            else
+            if(meeting == null)
                 return false;
-        }
+            return false;
+        }*/
 
         // Saves meeting
         public void setEventTime(Meeting meeting) {
-            if(checkIfMeetingExists(meeting)) {
-                meeting.Booker = usr;
-                db.Meetings.Add(meeting);
-                db.SaveChanges();
-            }
+            meeting.Booker = usr;
+            db.Meetings.Add(meeting);
+            db.SaveChanges();
         }
 
         public string getInvited(int Id) {

@@ -119,9 +119,7 @@ namespace Blog_VT18.Controllers {
             var user = this.manager.db.Users.Find(User.Identity.GetUserId());
             var timeSuggestion = new TimeSuggestion() { Sender = user };
 
-            if (model.MeetingID != null)
-
-            {
+            if (model.MeetingID != null){
                 timeSuggestion.Meeting = this.manager.db.Meetings.Find(int.Parse(model.MeetingID));
                 timeSuggestion.Sender = user;
                 List<ApplicationUser> invi = new List<ApplicationUser>() { };

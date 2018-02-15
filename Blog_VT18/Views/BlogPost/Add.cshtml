@@ -3,18 +3,10 @@
 
 
 @{
-<<<<<<< HEAD
-    ViewBag.Title = "Add post";
-}
-
-<h2>@Html.DisplayFor(x=> Model.Category.Name)</h2>
-=======
     ViewBag.Title = Resources.LblAdd;
-    
 }
 
 <h2>@Resources.LblAdd</h2>
->>>>>>> CustomizeLanguage
 
 
 @Html.Partial("_AddOrChangeBlogPost")
@@ -34,59 +26,7 @@
         <th></th>
     </tr>
 
-
-
-
-<<<<<<< HEAD
-    @foreach (var item in ViewBag.PostViewBag)
-    {
-        if (User.IsInRole("User") && item.Hidden == false)
-        {
-            <tr>
-                <td>
-                    @item.Title
-                </td>
-                <td>
-                    @item.Content
-                </td>
-                <td>
-                    @item.From.Name
-                </td>
-
-                <td>
-                    @Html.ActionLink("Open post in new window", "ViewBlogPost", new { id = item.ID })
-                </td>
-            </tr>
-        }
-        if (User.IsInRole("Administrator"))
-        {
-            <tr>
-                <td>
-                    @item.Title
-                </td>
-                <td>
-                    @item.Content
-                </td>
-                <td>
-                    @item.From.Name
-                </td>
-
-                <td>
-                    @Html.ActionLink("Open post in new window", "ViewBlogPost", new { id = item.ID })
-                </td>
-
-                <td>
-
-                    @if (item.Hidden == false)
-                    {
-                    @Html.ActionLink("Hide", "HidePost", new { id = item.ID })
-=======
-    @foreach (var item in ViewBag.PostViewBag) {
-        @*<div class="text-success" style="border:solid; margin:auto 20px; padding: 40px">
-                   @Html.DisplayNameFor(m => m.Title)
-                  <form typeof="textarea">@item.content</form>
-
-            </div>*@
+    @foreach(var item in ViewBag.PostViewBag) {
         <tr>
             <td>
                 @item.Title
@@ -97,32 +37,22 @@
             <td>
                 @item.From.Name
             </td>
-
             <td>
                 @Html.ActionLink(Resources.LblViewBlogPost, "ViewBlogPost", new { id = item.ID })
             </td>
-
             <td>
-                @if (User.IsInRole("Administrator"))
-                {
+                @{
+                    if(User.IsInRole("Administrator")) {
 
-                    if (item.Hidden == false)
-                    {
-                        @Html.ActionLink(Resources.LblHide, "HidePost", new { id = item.ID })
->>>>>>> CustomizeLanguage
+                        if(item.Hidden == false) {
+                            @Html.ActionLink(Resources.LblHide, "HidePost", new { id = item.ID })
+                        }
+                        if(item.Hidden == true) {
+                            @Html.ActionLink(Resources.LblShow, "HidePost", new { id = item.ID })
+                        }
                     }
-                    @if (item.Hidden == true)
-                    {
-<<<<<<< HEAD
-                    @Html.ActionLink("Show", "HidePost", new { id = item.ID })
-=======
-                        @Html.ActionLink(Resources.LblShow, "HidePost", new { id = item.ID })
->>>>>>> CustomizeLanguage
-                    }
-
+                 }
                 </td>
             </tr>
         }
-    }
-
 </table>
