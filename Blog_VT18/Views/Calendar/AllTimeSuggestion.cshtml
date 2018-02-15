@@ -31,6 +31,9 @@
         <td>
             @Html.LabelFor(model => model.First().Accepted, htmlAttributes: new { @class = "control-label col-md-2" })
         </td>
+        <td>
+            @Html.LabelFor(model => model.First().Denied, htmlAttributes: new { @class = "control-label col-md-2" })
+        </td>
         <td></td>
     </tr>
 
@@ -58,9 +61,18 @@
                         <div class="col-md-10">
                             @Html.EditorFor(Model => Model.Single(x => x.ID == item.ID).Accepted, new { Accepted = item.Accepted })
                             @Html.ValidationMessageFor(x => item.Accepted, "", new { @class = "text-danger" })
+
+
                         </div>
-                    </div>
-                </td>
+                        
+                        </div>
+</td>
+    <td><div class="form-group">
+    <div class="col-md-10">
+        @Html.EditorFor(Model => Model.Single(x => x.ID == item.ID).Denied, new { Denied = item.Denied })
+        @Html.ValidationMessageFor(x => item.Denied, "", new { @class = "text-danger" })
+    </div>
+</div></td>
                 <td></td>
                 <td>
                     <div class="form-group">
