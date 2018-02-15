@@ -91,6 +91,7 @@ namespace Blog_VT18.Models {
     public class Meeting {
         public Meeting() { }
         public int ID { get; set; }
+        
         public string text { set; get; }
         public DateTime start_date { set; get; }
         public DateTime end_date { set; get; }

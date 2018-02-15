@@ -4,31 +4,29 @@
     ViewBag.Title = "AllTimeSuggestion";
 }
 
-<h2>AllTimeSuggestion</h2>
+<h2>Meeting suggestions</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th></th>
     </tr>
     <tr>
-        <td><div> Pending MEETINGS</div></td>
+        <td><div> PENDING MEETINGS</div></td>
     </tr>
     <tr>
         <td>
         <td>
-            @Html.LabelFor(modelItem => Model.First().Sender)
+            <b>Sender</b>
         </td>
         <td>
-            @Html.LabelFor(modelItem => Model.First().Meeting.text)
+            <b> Meeting name</b>
         </td>
         <td>
-            @Html.LabelFor(modelItem => Model.First().Meeting.start_date)
+            <b> Start time</b>
         </td>
         <td>
-            @Html.LabelFor(modelItem => Model.First().Meeting.end_date)
+            <b>End time</b>
         </td>
         <td>
             @Html.LabelFor(model => model.First().Accepted, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -44,16 +42,16 @@
             <tr>
                 <td>
                 <td>
-                    @Html.DisplayFor(x => item.Sender.Name)
+                    <b>Sender</b>
                 </td>
                 <td>
-                    @Html.DisplayFor(x => item.Meeting.text)
+                    <b> Meeting name</b>
                 </td>
                 <td>
-                    @Html.DisplayFor(x => item.Meeting.start_date)
+                    <b> Start time</b>
                 </td>
                 <td>
-                    @Html.DisplayFor(x => item.Meeting.end_date)
+                    <b>End time</b>
                 </td>
                 <td>
                     <div class="form-group">
@@ -75,21 +73,21 @@
 
     }
     <tr>
-        <td><div> ACCEPTED MEETINGS</div></td>
+        <td><div> MY OWN ACCEPTED MEETINGS</div></td>
     </tr>
     <tr>
         <td>
         <td>
-            @Html.LabelFor(modelItem => Model.First().Sender)
+            <b>Sender</b>
         </td>
         <td>
-            @Html.LabelFor(modelItem => Model.First().Meeting.text)
+            <b> Meeting name</b>
         </td>
         <td>
-            @Html.LabelFor(modelItem => Model.First().Meeting.start_date)
+            <b> Start time</b>
         </td>
         <td>
-            @Html.LabelFor(modelItem => Model.First().Meeting.end_date)
+            <b>End time</b>
         </td>
         <td></td>
         <td></td>
@@ -132,16 +130,16 @@
             @Html.LabelFor(modelItem => Model.First().Invited)
         </td>*@
         <td>
-            @Html.LabelFor(modelItem => Model.First().Meeting.text)
+            <b> Meeting name</b>
         </td>
         <td>
-            @Html.LabelFor(modelItem => Model.First().Meeting.start_date)
+            <b> Start time</b>
         </td>
         <td>
-            @Html.LabelFor(modelItem => Model.First().Meeting.end_date)
+            <b>End time</b>
         </td>
         <td>
-            @Html.LabelFor(modelItem => Model.First().Meeting.ID)
+            <b>Meeting ID</b>
         </td>
         <td></td>
         <td></td>

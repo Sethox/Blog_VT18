@@ -5,11 +5,30 @@
     ViewBag.Title = "Blog";
 }
 
-<h2>Blog</h2>
 
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-@foreach(var item in Model) {
-    @Html.ActionLink(item.Name + " ", "Category", "BlogPost", new { id = item.ID }, new { })
-}
 
+<div class="container text-center">
+
+    <div class="row">
+        <h3>Blog</h3><br>
+    </div>
+    <div class="row">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4">
+                <div class="well">
+                    @Html.ActionLink(item.Name + " ", "Category", "BlogPost", new { id = item.ID }, new { @style = "font-weight: Normal; font-size: 150%; color: black " })
+                </div>
+            </div>
+        }
+
+    </div>
+</div>@*<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />*@
+<div class="container text-center">
+    <div class=" row">
+
+    </div>
+</div>
