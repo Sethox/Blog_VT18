@@ -28,8 +28,8 @@
                     @if (User.IsInRole("Administrator"))
     {
                 <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
-                <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
                 <li>@Html.ActionLink("Send meeting suggestions", "SendTimeSuggestion", "Calendar")</li>
+                <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
                 <li>@Html.ActionLink("BlogPosts", "Index", "BlogPost")</li>
                 <li>@Html.ActionLink("Changes", "Index", "RoleModel")</li>
 
@@ -37,8 +37,8 @@
 else if (User.IsInRole("User"))
 {
                 <li>@Html.ActionLink("Calendar", "Index", "Calendar")</li>
-                <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
                 <li>@Html.ActionLink("Send meeting suggestions", "SendTimeSuggestion", "Calendar")</li>
+                <li>@Html.ActionLink("Suggestions", "AllTimeSuggestion", "Calendar")</li>
                 <li>@Html.ActionLink("BlogPosts", "Index", "BlogPost")</li>
 }
                 </ul>
